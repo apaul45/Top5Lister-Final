@@ -19,6 +19,7 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
+import { Link } from 'react-router-dom'
 export default function NavBar(){
     const { auth } = useContext(AuthContext);
     const [anchorEl, setAnchorEl] = useState(null);
@@ -38,28 +39,29 @@ export default function NavBar(){
             borderRadius: "1px 1px",
           }
     });
-    const menuId = 'primary-search-account-menu';
     const sortMenu = 
     <Menu
         anchorEl={anchorEl}
         anchorOrigin={{
-            vertical: 'top',
+            vertical: 'center',
             horizontal: 'right',
         }}
-        id={menuId}
         keepMounted
         transformOrigin={{
-            vertical: 'top',
+            vertical: 'center',
             horizontal: 'right',
         }}
+        MenuListProps={{
+            'aria-labelledby': 'sort-button',
+          }}
         open={isMenuOpen}
         onClose={handleMenuClose}
     >
-        <MenuItem>Publish Date (Newest)</MenuItem>
-        <MenuItem>Publish Date (Oldest)</MenuItem>
-        <MenuItem>Views</MenuItem>
-        <MenuItem>Likes</MenuItem>
-        <MenuItem>Dislikes</MenuItem>
+        <MenuItem onClick={handleMenuClose}>Publish Date (Newest)</MenuItem>
+        <MenuItem onClick={handleMenuClose}>Publish Date (Oldest)</MenuItem>
+        <MenuItem onClick={handleMenuClose}>Views</MenuItem>
+        <MenuItem onClick={handleMenuClose}>Likes</MenuItem>
+        <MenuItem onClick={handleMenuClose}>Dislikes</MenuItem>
     </Menu> 
     // const StyledTextField = styled((TextField)({
     //       border: '0px solid white',
@@ -70,21 +72,23 @@ export default function NavBar(){
     //       },
     //   }));
     let navMenu = "";
-    ;
+    //Only allow the nav menu to appear if a guest or a user is viewing the main app
+    //ie, remove the menu when a guest tries to go back to the splash screen
     if (auth.type){
         navMenu =
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar style={{backgroundColor: '#A19F9F'}}>
-                    <StyledIconButton
-                    edge="start"
-                    color="inherit"
-                    aria-label="open drawer"
-                    sx={{ mr: 2}}
-                    >
-                        <HomeOutlinedIcon style={{fill: "black", fontSize:"45px", float: "right"}}/>
-                    </StyledIconButton>
-
+                    <Link to="/home">
+                        <StyledIconButton
+                        edge="start"
+                        color="inherit"
+                        aria-label="open drawer"
+                        sx={{ mr: 2}}
+                        >
+                            <HomeOutlinedIcon style={{fill: "black", fontSize:"45px", float: "right"}}/>
+                        </StyledIconButton>
+                    </Link>
                     <StyledIconButton
                     edge="start"
                     color="inherit"
@@ -129,16 +133,16 @@ export default function NavBar(){
                         <StyledIconButton
                             size="large"
                             edge="end"
-                            aria-label="account of current user"
-                            aria-controls={menuId}
+                            aria-label="sort-button"
                             aria-haspopup="true"
+                            aria-expanded={isMenuOpen ? 'true' : undefined}
                             onClick={handleProfileMenuOpen}
                         >
                             <SortIcon style={{fontSize:"45px", color: "black"}}/>
                         </StyledIconButton>
-                        {sortMenu}
                     </Box>
                 </Toolbar>
+                {sortMenu}
             </AppBar>
         </Box>
     }

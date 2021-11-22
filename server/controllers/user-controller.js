@@ -150,7 +150,10 @@ loginUser = async (req, res) => {
     } 
     catch(err){
         console.error(err);
-        res.status(500).send();
+        return res.status(500).json({
+            success: false,
+            errorMessage: "Login was not successful"
+        });
     }
 }
 logoutUser = (req, res) => {

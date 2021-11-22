@@ -69,31 +69,41 @@ export default function AppBanner() {
         >
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
         </Menu>        
-
-    let editToolbar = "";
     let menu = loggedOutMenu;
     //Only make the menu the logged in menu if the user is logged in
-    
+    if (auth.user){
+        menu = loggedInMenu;
+    }
     function getAccountMenu(loggedIn) {
         //IF USER IS LOGGED IN, THEN DISPLAY USER INITIALS
         if (loggedIn){
-            return auth.user.firstName.substring(0,1) + auth.user.lastName.substring(0,1);
+            if (auth.user){
+                return auth.user.firstName.substring(0,1) + auth.user.lastName.substring(0,1);
+            }
         }
         ////Account circle is the icon that apppears on the top right of the default screen
         return <AccountCircle style={{fill: "black", fontSize:"40px", float: "right"}}/>;
     }
-
+    //Only make the button enabled if a guest is currently viewing the site
+    let splashScreenButton = <>T<sup>5</sup>L</>;
+    if (auth.type !== "user"){
+        splashScreenButton = <Link style={{ textDecoration: 'none', 
+        color: '#a68d0e', fontSize:"45px" }} 
+        onClick={()=>auth.checkLoggedIn()} to='/'>
+            {splashScreenButton}
+        </Link>
+    }
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
-                <Toolbar style={{backgroundColor: '#D6D4D4'}}>
+                <Toolbar style={{backgroundColor: '#BFBBBB'}}>
                     <Typography                        
                         variant="h4"
                         noWrap
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' } }}                        
                     >
-                        <Link style={{ textDecoration: 'none', color: '#a68d0e', style:"45px" }} onClick={()=>auth.checkLoggedIn()} to='/'>T<sup>5</sup>L</Link>
+                        {splashScreenButton}
                     </Typography>
                     {/*This is the code for the user icon button: when this is pressed, create new account & login buttons should be shown*/}
                     {/* When user is logged in, then getAccMenu will display initials, else it will display the AccountCircle */}

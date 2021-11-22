@@ -101,9 +101,10 @@ function AuthContextProvider(props) {
                         errorMessage: "",
                         type: "user",
                     }
-                })
-                history.push("/");
-                store.loadIdNamePairs();
+                });
+                //Navigate the new user to the home screen of the application upon signing in
+                history('/home');
+                //store.loadIdNamePairs();
             }
         }   
         //IF AN ERROR OCCURS, UPDATE THE ERROR MESSAGE SO THAT ACCOUNT MODAL CAN DISPLAY IT
@@ -135,8 +136,9 @@ function AuthContextProvider(props) {
                         type: "user",
                     }
                 });
-                history.push("/");
-                store.loadIdNamePairs();
+                //Navigate the newly signed in user to the home screen of the application upon logging in
+                history('/home');
+                //store.loadIdNamePairs();
              }
         }
         //IF AN ERROR OCCURS, UPDATE THE ERROR MESSAGE SO THAT ACCOUNT MODAL CAN DISPLAY IT
@@ -154,6 +156,7 @@ function AuthContextProvider(props) {
         }
     }
     //Allow a guest to view the site if they press the "continue as guest" button
+    //This function will allow for the nav bar to appear as the home screen is also loaded
     auth.allowGuest = function(){
         authReducer({
             type: AuthActionType.GET_LOGGED_IN,
@@ -176,7 +179,8 @@ function AuthContextProvider(props) {
                 type: "",
             }
         });
-        history.push('/');
+        //Navigate back to the splash screen (route /) upon logging out
+        history('/');
     }
     //Use this auth store function to hide the account error modal when user presses ok
     auth.unmarkError = function(){
@@ -195,12 +199,12 @@ function AuthContextProvider(props) {
     user logged in and keep them logged if so. If it's a guest though, then it will remove the
     second nav bar by setting type to null and lead back to the welcome screen */
     auth.checkLoggedIn = function(){
-        if (auth.type === "guest"){
+        if (auth.type !== "user"){
             authReducer({
                 type: AuthActionType.GET_LOGGED_IN,
                 payload: {
-                    user: auth.user,
-                    loggedIn: auth.loggedIn,
+                    user: null,
+                    loggedIn: false,
                     errorMessage: "", 
                     type: "",
                 }
