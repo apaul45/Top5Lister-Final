@@ -22,6 +22,7 @@ import TextField from '@mui/material/TextField';
 import { Link } from 'react-router-dom'
 export default function NavBar(){
     const { auth } = useContext(AuthContext);
+    //anchorEL will handle allowing the menu to open or not (initially closed so set to null)
     const [anchorEl, setAnchorEl] = useState(null);
     const isMenuOpen = Boolean(anchorEl);
 
@@ -39,6 +40,7 @@ export default function NavBar(){
             borderRadius: "1px 1px",
           }
     });
+    //sortMenu will only open if there is an associated anchor element
     const sortMenu = 
     <Menu
         anchorEl={anchorEl}
@@ -63,14 +65,6 @@ export default function NavBar(){
         <MenuItem onClick={handleMenuClose}>Likes</MenuItem>
         <MenuItem onClick={handleMenuClose}>Dislikes</MenuItem>
     </Menu> 
-    // const StyledTextField = styled((TextField)({
-    //       border: '0px solid white',
-    //       overflow: 'hidden',
-    //       borderRadius: 1,
-    //       '&:hover': {
-    //         border: '0px solid white'
-    //       },
-    //   }));
     let navMenu = "";
     //Only allow the nav menu to appear if a guest or a user is viewing the main app
     //ie, remove the menu when a guest tries to go back to the splash screen

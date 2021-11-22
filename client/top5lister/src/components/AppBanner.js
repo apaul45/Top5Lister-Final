@@ -78,18 +78,21 @@ export default function AppBanner() {
         //IF USER IS LOGGED IN, THEN DISPLAY USER INITIALS
         if (loggedIn){
             if (auth.user){
-                return auth.user.firstName.substring(0,1) + auth.user.lastName.substring(0,1);
+                return <div id="userCircle">
+                    {auth.user.firstName.substring(0,1) + auth.user.lastName.substring(0,1)}
+                </div>;
             }
         }
         ////Account circle is the icon that apppears on the top right of the default screen
         return <AccountCircle style={{fill: "black", fontSize:"40px", float: "right"}}/>;
     }
     //Only make the button enabled if a guest is currently viewing the site
-    let splashScreenButton = <>T<sup>5</sup>L</>;
+    let splashScreenButton = <div style={{  
+    color: '#a68d0e', fontSize:"45px" }} >T<sup>5</sup>L</div>;
     if (auth.type !== "user"){
-        splashScreenButton = <Link style={{ textDecoration: 'none', 
-        color: '#a68d0e', fontSize:"45px" }} 
-        onClick={()=>auth.checkLoggedIn()} to='/'>
+        splashScreenButton = <Link
+        onClick={()=>auth.checkLoggedIn()} to='/'
+        style={{textDecoration: 'none'}}>
             {splashScreenButton}
         </Link>
     }

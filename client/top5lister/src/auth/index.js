@@ -121,7 +121,7 @@ function AuthContextProvider(props) {
             });
         }
     }
-    auth.loginUser = async function(userData, store) {
+    auth.loginUser = async function(userData) {
         console.log("loginUser", userData);
         try{
             const response = await apis.loginUser(userData);     

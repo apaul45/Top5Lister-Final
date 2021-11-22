@@ -26,14 +26,24 @@ getLoggedIn = async (req, res) => {
 //and then saves this password along with the other required fields as a new user
 registerUser = async (req, res) => {
     try {
-        const { firstName, lastName, email, password, passwordVerify } = req.body;
-        if (!firstName || !lastName || !email || !password || !passwordVerify) {
+        const { firstName, lastName, username, email, password, passwordVerify } = req.body;
+        if (!firstName || !lastName || !email || !username || !password || !passwordVerify) {
             console.log(res
             .status(400)
             .json({ errorMessage: "Please enter all required fields." }));
             return res
                 .status(400)
                 .json({ errorMessage: "Please enter all required fields." });
+        }
+        //Check if the username only contains alphanumeric characters
+        let regex = /^[A-Za-z0-9]+$/;
+        if(!regex.test(username)){
+            console.log(res
+                .status(400)
+                .json({ errorMessage: "Please enter a valid username" }));
+                return res
+                    .status(400)
+                    .json({ errorMessage: "Please enter a valid username" });
         }
         if (password.length < 8) {
             console.log(res
@@ -55,7 +65,7 @@ registerUser = async (req, res) => {
                     errorMessage: "Please enter the same password twice."
                 })
         }
-        const existingUser = await User.findOne({ email: email });
+        let existingUser = await User.findOne({ email: email });
         if (existingUser) {
             console.log(res
                 .status(400)
@@ -69,6 +79,21 @@ registerUser = async (req, res) => {
                     errorMessage: "An account with this email address already exists."
                 })
         }
+        //Also check if this username exists
+        existingUser = await User.findOne({username: username});
+        if (existingUser){
+            console.log(res
+                .status(400)
+                .json({
+                    errorMessage:  "An account with this username already exists."
+                }))
+            return res
+                .status(400)
+                .json({
+                    success: false,
+                    errorMessage: "An account with this username already exists."
+                })
+        }
         //saltRounds indicate the total number of different salts there are
         //salts are random values that get appended to the end of a hashed password to ensure randomness:
         //makes it harder for hackers to crack hashed passes using lookup tables and etc
@@ -79,7 +104,7 @@ registerUser = async (req, res) => {
         const passwordHash = await bcrypt.hash(password, salt);
         //Then a new user is created using the entered first & last names, email, and password
         const newUser = new User({
-            firstName, lastName, email, passwordHash
+            firstName, lastName, username, email, passwordHash
         });
         const savedUser = await newUser.save();
 
