@@ -43,6 +43,12 @@
   text-align: center;
   width: 100%;
 }
+#home-screen {
+	background-color:#A19F9F;
+	height:820px;
+	text-align: center;
+	width: 100%;
+  }
 #welcome-text {
   color: black;
   position: relative;

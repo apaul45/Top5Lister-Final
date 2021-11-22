@@ -190,6 +190,23 @@ function AuthContextProvider(props) {
             }
         });
     }
+    /* auth.checkLoggedIn will be used (for now) whenever a guest clicks on the TSL option 
+    which should lead back to the welcome screen. This function will check if theres an actual 
+    user logged in and keep them logged if so. If it's a guest though, then it will remove the
+    second nav bar by setting type to null and lead back to the welcome screen */
+    auth.checkLoggedIn = function(){
+        if (auth.type === "guest"){
+            authReducer({
+                type: AuthActionType.GET_LOGGED_IN,
+                payload: {
+                    user: auth.user,
+                    loggedIn: auth.loggedIn,
+                    errorMessage: "", 
+                    type: "",
+                }
+            });
+        }
+    }
     return (
         <AuthContext.Provider value={{
             auth

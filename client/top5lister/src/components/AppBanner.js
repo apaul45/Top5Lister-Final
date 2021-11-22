@@ -93,7 +93,7 @@ export default function AppBanner() {
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' } }}                        
                     >
-                        <Link style={{ textDecoration: 'none', color: '#a68d0e', style:"45px" }} to='/'>T<sup>5</sup>L</Link>
+                        <Link style={{ textDecoration: 'none', color: '#a68d0e', style:"45px" }} onClick={()=>auth.checkLoggedIn()} to='/'>T<sup>5</sup>L</Link>
                     </Typography>
                     {/*This is the code for the user icon button: when this is pressed, create new account & login buttons should be shown*/}
                     {/* When user is logged in, then getAccMenu will display initials, else it will display the AccountCircle */}

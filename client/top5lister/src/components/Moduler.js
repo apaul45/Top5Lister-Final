@@ -6,6 +6,7 @@ import LoginScreen from './LoginScreen'
 import DeleteModal from './DeleteModal'
 import AccountErrorModal from './AccountErrorModal'
 import NavBar from './NavBar'
+import HomeScreen from './HomeScreen'
 /*
     This serves as a module so that we can import
     all the other components as we wish.
@@ -19,5 +20,6 @@ export {
     LoginScreen ,
     DeleteModal,
     AccountErrorModal,
-    NavBar
+    NavBar,
+    HomeScreen
 }

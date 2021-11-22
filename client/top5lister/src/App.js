@@ -10,7 +10,8 @@ import {
     DeleteModal,
     AccountErrorModal,
     WelcomeScreen,
-    NavBar
+    NavBar,
+    HomeScreen
 } from './components/Moduler'
 /*
     This is our application's top-level component.
@@ -39,6 +40,7 @@ const App = () => {
                         {/*When the user presses "Login", the server jumps to the login route, which will handle
                         verifying a user account */}
                         <Route exact path="/login" element={<LoginScreen/>} />
+                        <Route exact path="/home" element={<HomeScreen/>} />
                     </Routes>
                     <DeleteModal />
                     <AccountErrorModal />

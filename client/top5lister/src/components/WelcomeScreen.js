@@ -67,9 +67,11 @@ export default function WelcomeScreen() {
                 </div>
                 <div className="welcome-button" style={{position: 'relative', right:"-90px"}}>
                     Just want to browse? <br/> Continue as a guest below: <br/>
-                    <BootstrapButton onClick={()=>auth.allowGuest()}>
-                        Continue as Guest
-                    </BootstrapButton>
+                    <Link to="/home">
+                        <BootstrapButton onClick={()=>auth.allowGuest()}>
+                            Continue as Guest
+                        </BootstrapButton>
+                    </Link>
                 </div>
             </div>
             <div style={{position: "relative", bottom:"-300px", fontSize:"1vw"}}>
