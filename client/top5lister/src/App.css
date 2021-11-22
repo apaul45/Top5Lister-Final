@@ -1,0 +1,126 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+#splash-screen {
+  background-image: linear-gradient(to bottom, #B2AAF2, #F29999);
+  font-size: 3.5vw;
+  height:820px;
+  text-align: center;
+  width: 100%;
+}
+#welcome-text {
+  color: black;
+  position: relative;
+  bottom: -25px;
+}
+/* word-wrap is used to contain the description inside a certain box, and margin left 
+margin right auto is used to horizontally center the box */
+.description-box {
+  font-size:2vw;
+  position: relative; 
+  bottom:-80px; 
+  width:1090px;
+  padding-top:5px;
+  padding-bottom:10px;
+  word-wrap: break-word;
+  margin-left: auto;
+  margin-right: auto;   
+}
+#welcome-button-box{
+  white-space: nowrap;
+  position: relative;
+  bottom: -150px;
+}
+/* The welcome-button class keeps all the buttons on the same line */
+.welcome-button{
+  display: inline-block;
+  font-size: 1.5vw;
+  font-weight: bold;
+}
+.fade-in {
+	animation: fadeIn ease 3s;
+	-webkit-animation: fadeIn ease 3s;
+	-moz-animation: fadeIn ease 3s;
+	-o-animation: fadeIn ease 3s;
+	-ms-animation: fadeIn ease 3s;
+	}
+	@keyframes fadeIn {
+	0% {
+		opacity:0;
+	}
+	100% {
+		opacity:1;
+	}
+	}
+
+	@-moz-keyframes fadeIn {
+	0% {
+		opacity:0;
+	}
+	100% {
+		opacity:1;
+	}
+	}
+
+	@-webkit-keyframes fadeIn {
+	0% {
+		opacity:0;
+	}
+	100% {
+		opacity:1;
+	}
+	}
+
+	@-o-keyframes fadeIn {
+	0% {
+		opacity:0;
+	}
+	100% {
+		opacity:1;
+	}
+	}
+
+	@-ms-keyframes fadeIn {
+	0% {
+		opacity:0;
+	}
+	100% {
+		opacity:1;
+		}
+	}
+
