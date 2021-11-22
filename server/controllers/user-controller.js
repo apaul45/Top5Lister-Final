@@ -131,22 +131,22 @@ registerUser = async (req, res) => {
 loginUser = async (req, res) => {
     try{
         console.log(req.body);
-        //Destructure the body to get the email and password to be compared
-        const{email, password} = req.body;
+        //Destructure the body to get the username and password to be compared
+        const{username, password} = req.body;
         //Check if all necessary fields were provided
-        if (!email || !password) {
+        if (!username || !password) {
             return res
                 .status(400)
                 .json({ errorMessage: "Please enter all required fields." });
         }
-        //Check if the email the user entered exists in the current database
-        const existingUser = await User.findOne({ email: email });
+        //Check if the username the user entered exists in the current database
+        const existingUser = await User.findOne({ username: username });
         if (!existingUser) {
             return res
                 .status(400)
                 .json({
                     success: false,
-                    errorMessage: "Wrong email or password"
+                    errorMessage: "Wrong username or password"
                 })
         }
         //Use bcrypt to check if the entered password matches the hashed one
@@ -169,6 +169,7 @@ loginUser = async (req, res) => {
             user: {
                 firstName: existingUser.firstName,
                 lastName: existingUser.lastName,
+                username: existingUser.username, 
                 email: existingUser.email,
             }
         }).send();

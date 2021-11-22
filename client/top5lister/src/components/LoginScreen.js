@@ -27,11 +27,11 @@ function LoginScreen() {
     const data = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
     auth.loginUser({
-        email: data.get('email'),
+        username: data.get('username'),
         password: data.get('password'),
     }, store);
     console.log({
-      email: data.get('email'),
+      username: data.get('username'),
       password: data.get('password'),
     });
   };
@@ -75,10 +75,10 @@ function LoginScreen() {
                 margin="normal"
                 required
                 fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
+                id="username"
+                label="Username"
+                name="username"
+                autoComplete="username"
                 autoFocus
               />
               <TextField
