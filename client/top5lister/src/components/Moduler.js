@@ -8,6 +8,7 @@ import AccountErrorModal from './AccountErrorModal'
 import NavBar from './NavBar'
 import HomeScreen from './HomeScreen'
 import ListCard from './ListCard'
+import Statusbar from './Statusbar'
 /*
     This serves as a module so that we can import
     all the other components as we wish.
@@ -23,5 +24,6 @@ export {
     AccountErrorModal,
     NavBar,
     HomeScreen, 
-    ListCard
+    ListCard,
+    Statusbar
 }

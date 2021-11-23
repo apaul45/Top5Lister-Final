@@ -22,6 +22,7 @@ function ListCard(props) {
     const { store } = useContext(GlobalStoreContext);
     const [text, setText] = useState("");
 
+    //Make sure the background color is updated based on whos list it is (the current users vs. some other user)
     const StyledListItem = styled(ListItem)({
         border: "1px solid black", 
         borderRadius: "12px",

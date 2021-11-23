@@ -11,7 +11,8 @@ import {
     AccountErrorModal,
     WelcomeScreen,
     NavBar,
-    HomeScreen
+    HomeScreen,
+    Statusbar
 } from './components/Moduler'
 /*
     This is our application's top-level component.
@@ -42,6 +43,7 @@ const App = () => {
                         <Route exact path="/login" element={<LoginScreen/>} />
                         <Route exact path="/home" element={<HomeScreen/>} />
                     </Routes>
+                    <Statusbar/>
                     <DeleteModal />
                     <AccountErrorModal />
                 </GlobalStoreContextProvider>
