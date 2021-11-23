@@ -23,6 +23,9 @@ export default function AppBanner() {
 
     const handleMenuClose = () => {
         setAnchorEl(null);
+        /*use auth.checkLoggedIn to remove the second nav bar if
+        a guest presses it */
+        auth.checkLoggedIn();
     };
 
     const handleLogout = () => {

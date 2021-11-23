@@ -14,7 +14,8 @@ function Statusbar() {
     const{auth} = useContext(AuthContext);
     //Get the location of the app (the current url) using the useLocation hook
     const location = useLocation();
-    //Change what gets rendered for the status bar based on which screen the app is on
+    /*Change what gets rendered for the status bar based on which screen the app is on & 
+    other factors (ex: for home, it is also dependent on whether a guest is viewing or not) */
     if (location.pathname === "/home" && auth.type !== "guest"){
         text = <div id="top5-statusbar">
                     <Typography>
