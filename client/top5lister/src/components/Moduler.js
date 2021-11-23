@@ -7,6 +7,7 @@ import DeleteModal from './DeleteModal'
 import AccountErrorModal from './AccountErrorModal'
 import NavBar from './NavBar'
 import HomeScreen from './HomeScreen'
+import ListCard from './ListCard'
 /*
     This serves as a module so that we can import
     all the other components as we wish.
@@ -21,5 +22,6 @@ export {
     DeleteModal,
     AccountErrorModal,
     NavBar,
-    HomeScreen
+    HomeScreen, 
+    ListCard
 }

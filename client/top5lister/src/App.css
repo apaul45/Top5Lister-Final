@@ -87,6 +87,15 @@ margin right auto is used to horizontally center the box */
 	border-radius: 50%;
 	background-color: purple;
 }
+.listcard-edit-button{
+	padding: 0;
+	border: none;
+	background: none;
+	font-size: 9pt;
+}
+.listcard-edit-button:hover{
+	color:red;
+}
 .fade-in {
 	animation: fadeIn ease 3s;
 	-webkit-animation: fadeIn ease 3s;
