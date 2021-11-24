@@ -3,14 +3,12 @@ a search textfield, and a sort by drop down in the app */
 import * as React from 'react';
 import { useContext, useState } from 'react';
 import AuthContext from '../auth'
-import { GlobalStoreContext } from '../store'
 import FunctionsIcon from '@mui/icons-material/Functions';
 //import SearchIcon from '@mui/icons-material/SearchIcon';
 import SortIcon from '@mui/icons-material/Sort';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined'
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
 import MenuItem from '@mui/material/MenuItem';

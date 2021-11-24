@@ -32,18 +32,13 @@ function ListCard(props) {
     });
 
 
-    function handleLoadList(event, id) {
-        if (!event.target.disabled) {
-            // CHANGE THE CURRENT LIST
-            store.setCurrentList(id);
-        }
+    function handleLoadList(id) {
+        //expandListCard(id);
     }
-
     function handleToggleEdit(event) {
         event.stopPropagation();
         toggleEdit();
     }
-
     function toggleEdit() {
         // let newActive = !editActive;
         // if (newActive) {
@@ -56,18 +51,6 @@ function ListCard(props) {
         event.stopPropagation();
         store.markListForDeletion(id);
     }
-
-    function handleKeyPress(event) {
-        if (event.code === "Enter") {
-            let id = event.target.id.substring("list-".length);
-            store.changeListName(id, text);
-            toggleEdit();
-        }
-    }
-    function handleUpdateText(event) {
-        setText(event.target.value);
-    }
-
     let cardElement =
         <StyledListItem
 

@@ -12,7 +12,8 @@ import {
     WelcomeScreen,
     NavBar,
     HomeScreen,
-    Statusbar
+    Statusbar,
+    WorkspaceScreen
 } from './components/Moduler'
 /*
     This is our application's top-level component.
@@ -42,6 +43,7 @@ const App = () => {
                         verifying a user account */}
                         <Route exact path="/login" element={<LoginScreen/>} />
                         <Route exact path="/home" element={<HomeScreen/>} />
+                        <Route exact path="/edit" element={<WorkspaceScreen/>}/>
                     </Routes>
                     <Statusbar/>
                     <DeleteModal />

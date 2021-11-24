@@ -20,7 +20,7 @@ export default function HomeScreen(){
             </List>;
     }
     return (
-            <div id="home-screen">
+            <div className="background-screen">
                 {
                     listCard
                 }

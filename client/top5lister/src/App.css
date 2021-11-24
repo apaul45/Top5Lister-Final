@@ -43,7 +43,7 @@
   text-align: center;
   width: 100%;
 }
-#home-screen {
+.background-screen {
 	background-color:#A19F9F;
 	height:820px;
 	text-align: center;
@@ -109,6 +109,51 @@ margin right auto is used to horizontally center the box */
 	font-size: 40pt;
 	justify-content: center;
   }
+#workspace-screen{
+	position: absolute;
+	left: 2%;
+	top: 17%;
+	width: 1480px;
+	height: 700px;
+	border: 1px solid black;
+	border-radius: 10px;
+	background-color: #CBC7F2;
+}
+#workspace-items-box{
+	position: absolute;
+	left: 1.3%;
+	width: 1435px;
+	height:510px;
+	border: 1px solid black;
+	border-radius: 10px;
+	background-color:#051A5E;
+}
+#workspace-items-txtfields{
+	position: absolute;
+	top:8.5%;
+	left: 20%;
+}
+#workspace-buttons{
+	position: absolute;
+	left:80.7%;
+	top: 79%;
+}
+#workspace-items-numbers{
+	font-size: 60px;
+	line-height: 36px;
+	position: absolute;
+	top: 8.5%;
+	left: 2%;
+	
+}
+.workspace-items-boxes{
+	width: 65px;
+	max-width: 65px;
+	height: 56px;
+	max-height: 56px;
+	background-color: #D9AD0F;
+	border-radius: 23%;
+}
 .fade-in {
 	animation: fadeIn ease 3s;
 	-webkit-animation: fadeIn ease 3s;
