@@ -17,44 +17,6 @@ export default function WorkspaceScreen(){
     //isDisabled will determine whether to add a "disabled" field to the publish button or not
     let isDisabled = useRef(true);
 
-    /*use useEffect to update the both variables above, to then be used to check 
-    if the list can be published */
-    useEffect(() => {
-        //Update the isDisabled variable upon updating itemsArray and listName if applicable
-        // if(store.currentList){
-        //     const regex = /^[A-Za-z0-9]+$/;
-        //     if (store.currentList.name === ""){
-        //         isDisabled.current = true;
-        //     }
-        //     else if (!regex.test(store.currentList.name.charAt(0))){
-        //         isDisabled.current = true;
-        //     }
-        //     else if (store.currentList.items.indexOf("")!== -1){
-        //         isDisabled.current = true;
-        //     }
-        //     else if (store.lists){
-        //         let duplicates = store.lists.filter(list => ((list.isPublished)
-        //                 &&(list.name === store.currentList.name)));
-        //         if (duplicates.length >= 1){
-        //             isDisabled.current = true;
-        //         }
-        //         else{
-        //             let i=0;
-        //             for (i = 0; i<5; i++){
-        //                 if (!regex.test(store.currentList.items[i].charAt(0))){
-        //                     isDisabled.current = true;
-        //                     break;
-        //                 }
-        //             }
-        //             if (i===5){
-        //                 isDisabled.current=false;
-        //             }
-        //         }
-        //     }
-        // }
-        //Call the checker function
-    },[[],store.updateCurrentListCounter]);
-
     function handleListNameChange(event){
         console.log("called list change");
         let newList = store.currentList;
@@ -113,6 +75,7 @@ export default function WorkspaceScreen(){
       });
 
     let workspace = "";
+    //Check if the publish button should be enabled or disabled
     if(store.currentList){
         const regex = /^[A-Za-z0-9]+$/;
         if (store.currentList.name === ""){

@@ -20,7 +20,10 @@ export default function HomeScreen(){
         usersLists = store.lists.filter(list => list.owner == auth.user.username);
 
     }
- 
+    //Filter the user's lists if there's something in the search bar
+    if (store.searchField !== ""){
+        usersLists = usersLists.filter(list => list.name === store.searchField);
+    }
     return (
             <div className="background-screen">
                 <List sx={{ width: '96.8%', left: '1.6%'}}
