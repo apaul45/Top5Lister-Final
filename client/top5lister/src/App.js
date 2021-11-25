@@ -13,14 +13,10 @@ import {
     NavBar,
     HomeScreen,
     Statusbar,
-<<<<<<< HEAD
     WorkspaceScreen,
     PersonsListsScreen,
     CommunityScreen,
     AllListsScreen
-=======
-    WorkspaceScreen
->>>>>>> a2787e57d84d30cc036d543b1e6debb33d0ce7e7
 } from './components/Moduler'
 /*
     This is our application's top-level component.
@@ -51,12 +47,9 @@ const App = () => {
                         <Route exact path="/login" element={<LoginScreen/>} />
                         <Route exact path="/home" element={<HomeScreen/>} />
                         <Route exact path="/edit" element={<WorkspaceScreen/>}/>
-<<<<<<< HEAD
                         <Route exact path="/community-lists" element={<CommunityScreen/>}/>
                         <Route exact path="/persons-lists" element={<PersonsListsScreen/>}/>
                         <Route exact path="/all-lists" element={<AllListsScreen/>}/>
-=======
->>>>>>> a2787e57d84d30cc036d543b1e6debb33d0ce7e7
                     </Routes>
                     <Statusbar/>
                     <DeleteModal />

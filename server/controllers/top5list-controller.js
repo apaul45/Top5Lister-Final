@@ -15,7 +15,6 @@ createTop5List = (req, res) => {
         console.log("not top5 list");
         return res.status(400).json({ success: false, error: err })
     }
-
     top5List
         .save()
         .then(() => {

@@ -13,7 +13,6 @@ import { useNavigate } from 'react-router-dom'
 */
 function Statusbar() {
     let text ="";
-<<<<<<< HEAD
     const { store } = useContext(GlobalStoreContext);
     const navigate = useNavigate();
 
@@ -21,9 +20,6 @@ function Statusbar() {
         store.createNewList();
         navigate('/edit');
     }
-=======
-    const navigate = useNavigate();
->>>>>>> a2787e57d84d30cc036d543b1e6debb33d0ce7e7
     const{auth} = useContext(AuthContext);
     //Get the location of the app (the current url) using the useLocation hook
     const location = useLocation();
@@ -32,11 +28,7 @@ function Statusbar() {
     if ((location.pathname === "/home"||location.pathname === "/edit") && auth.type !== "guest"){
         text = <div id="top5-statusbar">
                     <Typography>
-<<<<<<< HEAD
                         <IconButton onClick={()=>handleCreateList()}>
-=======
-                        <IconButton onClick={()=>navigate('/edit')}>
->>>>>>> a2787e57d84d30cc036d543b1e6debb33d0ce7e7
                             <AddIcon style={{fontSize:"40pt", color: "black"}}/> 
                         </IconButton>
                     </Typography>
