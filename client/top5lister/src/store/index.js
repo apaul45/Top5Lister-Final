@@ -36,6 +36,7 @@ function GlobalStoreContextProvider(props) {
         listNameActive: false,
         itemActive: false,
         listMarkedForDeletion: null,
+        updateCurrentListCounter: 0
     });
     const history = useNavigate();
 
@@ -54,7 +55,8 @@ function GlobalStoreContextProvider(props) {
                     currentList: payload.top5List,
                     isListNameEditActive: false,
                     isItemEditActive: false,
-                    listMarkedForDeletion: null,        
+                    listMarkedForDeletion: null,
+                    updateCurrentListCounter: store.updateCurrentListCounter        
                 });
             }
             // CREATE A NEW LIST
@@ -64,7 +66,8 @@ function GlobalStoreContextProvider(props) {
                     currentList: payload.currentList,
                     isListNameEditActive: false,
                     isItemEditActive: false,
-                    listMarkedForDeletion: null,        
+                    listMarkedForDeletion: null, 
+                    updateCurrentListCounter: store.updateCurrentListCounter        
 
                 })
             }
@@ -75,7 +78,8 @@ function GlobalStoreContextProvider(props) {
                     currentList: null,
                     isListNameEditActive: false,
                     isItemEditActive: false,
-                    listMarkedForDeletion: null,        
+                    listMarkedForDeletion: null,   
+                    updateCurrentListCounter: store.updateCurrentListCounter      
 
                 });
             }
@@ -86,7 +90,8 @@ function GlobalStoreContextProvider(props) {
                     currentList: null,
                     isListNameEditActive: false,
                     isItemEditActive: false,
-                    listMarkedForDeletion: payload,        
+                    listMarkedForDeletion: payload, 
+                    updateCurrentListCounter: store.updateCurrentListCounter        
 
                 });
             }
@@ -97,17 +102,19 @@ function GlobalStoreContextProvider(props) {
                     currentList: null,
                     isListNameEditActive: false,
                     isItemEditActive: false,
-                    listMarkedForDeletion: null,        
+                    listMarkedForDeletion: null,  
+                    updateCurrentListCounter: store.updateCurrentListCounter       
                 });
             }
             // UPDATE A LIST
             case GlobalStoreActionType.SET_CURRENT_LIST: {
                 return setStore({
                     lists: store.lists,
-                    currentList: payload,
+                    currentList: payload.top5List,
                     isListNameEditActive: false,
                     isItemEditActive: false,
-                    listMarkedForDeletion: null,        
+                    listMarkedForDeletion: null,  
+                    updateCurrentListCounter: payload.counter,
                 });
             }
             default:
@@ -188,7 +195,7 @@ function GlobalStoreContextProvider(props) {
             if (response.data.success) {
                 storeReducer({
                     type: GlobalStoreActionType.SET_CURRENT_LIST,
-                    payload: top5List
+                    payload: {top5List: top5List, counter: store.updateCurrentListCounter}
                 });
                 /*Navigate the user to the edit screen to edit, save, and potentially
                 //publish their new list */
@@ -197,10 +204,10 @@ function GlobalStoreContextProvider(props) {
         }
     }
     //store.changeCurrentList is for updating the textfields in workspace
-    store.changeCurrentList= function(){
+    store.changeCurrentList= function(newList){
         storeReducer({
             type: GlobalStoreActionType.SET_CURRENT_LIST,
-            payload: store.currentList
+            payload: {top5List: newList, counter: store.updateCurrentListCounter+1}
         });
     }
     store.updateCurrentList = async function () {
@@ -208,7 +215,7 @@ function GlobalStoreContextProvider(props) {
         if (response.data.success) {
             storeReducer({
                 type: GlobalStoreActionType.SET_CURRENT_LIST,
-                payload: null
+                payload: {top5List: null, counter: store.updateCurrentListCounter}
             });
             response = await apis.getAllTop5Lists();
             if (response.data.success){

@@ -1,5 +1,6 @@
 import { useContext, useEffect } from 'react'
 import { GlobalStoreContext } from '../store'
+import AuthContext from '../auth'
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import ListItem from '@mui/material/ListItem';
@@ -21,29 +22,41 @@ import { useNavigate } from 'react-router-dom';
 */
 function ListCard(props) {
     const { store } = useContext(GlobalStoreContext);
+    const {auth} = useContext(AuthContext);
     const {list} = props;
     const navigate = useNavigate();
 
     /* editOrPublished is used to decide if the edit button will appear for a unpublished list, or 
     if the date that the list was published will be shown */
-    let editOrPublished = <>                    
-                            <button className="listcard-edit-button" onClick={()=>handleEditList()}>
-                                <u>Edit</u>
-                            </button>
-                          </>;
+    let editOrPublished = "";
     let listCardColor = "#F0ECC0";
-    //Control which color the list card is based on whether this list was published or not
+
+
+
+    /*Only allow the edit button to appear if there's an actual user logged in
+    and if the list is the current user's list. */
+    //
+    if (auth.user && auth.user.username === list.owner){
+        editOrPublished = <>                    
+        <button className="listcard-edit-button" onClick={()=>handleEditList()}>
+            <u>Edit</u>
+        </button>
+      </>;
+    }
+
+    /*Control which color the list card is and make the publish date 
+    visible based on whether this list was published or not */
     if (list.isPublished){
         //Stringify the updatedAt field of this list
-        console.log(list.updatedAt);
-        const publishedAt = list.updatedAt.toString().substring(0, list.updatedAt.toString().indexOf("T"));
-        editOrPublished = <>
-                            <u>Published:</u> 
-                            &nbsp;
-                           {publishedAt}
-                          </>;
-        listCardColor="#CBC7F2";
-        
+            console.log(list.updatedAt);
+            const publishedAt = list.updatedAt.toString().substring(0, list.updatedAt.toString().indexOf("T"));
+            editOrPublished = <>
+                                <u>Published:</u> 
+                                &nbsp;
+                               {publishedAt}
+                              </>;
+            listCardColor="#CBC7F2";
+            
     }
 
     //Make sure the background color is updated based on whos list it is (the current users vs. some other user)

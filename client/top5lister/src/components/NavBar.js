@@ -4,7 +4,6 @@ import * as React from 'react';
 import { useContext, useState } from 'react';
 import AuthContext from '../auth'
 import FunctionsIcon from '@mui/icons-material/Functions';
-//import SearchIcon from '@mui/icons-material/SearchIcon';
 import SortIcon from '@mui/icons-material/Sort';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
@@ -17,7 +16,6 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
-import { Link } from 'react-router-dom'
 import {useNavigate} from 'react-router-dom'
 import {useLocation} from 'react-router-dom'
 export default function NavBar(){

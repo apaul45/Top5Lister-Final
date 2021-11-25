@@ -2,7 +2,7 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button'
 import { styled } from '@mui/material/styles';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import { GlobalStoreContext } from '../store'
 import { useNavigate } from 'react-router';
 
@@ -13,6 +13,100 @@ import { useNavigate } from 'react-router';
 export default function WorkspaceScreen(){
     const { store } = useContext(GlobalStoreContext);
     const navigate = useNavigate();
+
+    //isDisabled will determine whether to add a "disabled" field to the publish button or not
+    let isDisabled = useRef(false);
+
+    /*use useEffect to update the both variables above, to then be used to check 
+    if the list can be published */
+    useEffect(() => {
+        //Update the isDisabled variable upon updating itemsArray and listName if applicable
+        if(store.currentList){
+            const regex = /^[A-Za-z0-9]+$/;
+            if (store.currentList.name.length === 0){
+                isDisabled.current = false;
+            }
+            else if (!regex.test(store.currentList.name.charAt(0))){
+                isDisabled.current = false;
+            }
+            else if (store.currentList.items.includes("")){
+                isDisabled.current = false;
+            }
+            else {
+                for (let i = 0; i<5; i++){
+                    if (!regex.test(store.currentList.items[i].charAt(0))){
+                        isDisabled.current = false;
+                    }
+                }
+                if (store.lists){
+                    let duplicates = store.lists.filter(list => list._id !== store.currentList._id &&
+                        list.name === store.currentList.name);
+                    if (duplicates.length >= 1){
+                        isDisabled.current = false;
+                    }
+                }
+                isDisabled.current = true;
+            }
+        }
+        //Call the checker function
+    },[store.updateCurrentListCounter]);
+
+    function publishChecker(){
+        const regex = /^[A-Za-z0-9]+$/;
+        if (store.currentList.name.length === 0){
+            return false;
+        }
+        else if (!regex.test(store.currentList.name.charAt(0))){
+            return false;
+        }
+        else if (store.currentList.items.includes("")){
+            return false;
+        }
+        else {
+            for (let i = 0; i<5; i++){
+                if (!regex.test(store.currentList.items[i].charAt(0))){
+                    return false;
+                }
+            }
+            if (store.lists){
+                let duplicates = store.lists.filter(list => list._id !== store.currentList._id &&
+                    list.name === store.currentList.name);
+                if (duplicates.length >= 1){
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+
+    function handleListNameChange(event){
+        console.log("called list change");
+        let newList = store.currentList;
+        newList.name = event.target.value;
+        store.changeCurrentList(newList);
+    }
+
+    function handleItemChange(event, index){
+        console.log("called item change");
+        let newList = store.currentList;
+        newList.items[index] = event.target.value;
+        store.changeCurrentList(newList);
+    }
+    function handleSaveList(){
+        console.log("called save list");
+        store.updateCurrentList();
+        navigate('/home');
+    }
+    
+    function handlePublishList(){
+        console.log("called publish list");
+        let newList = store.currentList;
+        newList.isPublished = true;
+        store.changeCurrentList(newList);
+        store.updateCurrentList();
+        navigate('/home');
+    }
+
     const BootstrapButton = styled(Button)({
         boxShadow: 'none',
         textTransform: 'none',
@@ -42,23 +136,6 @@ export default function WorkspaceScreen(){
         },
       });
 
-    function handleListNameChange(event){
-        store.currentList.name = event.target.value;
-        store.changeCurrentList();
-    }
-
-    function handleItemChange(event, index){
-        store.currentList.items[index] = event.target.value;
-        store.changeCurrentList();
-    }
-    function handleSaveList(){
-        store.updateCurrentList();
-        navigate('/home');
-    }
-    
-    function handlePublishList(){
-
-    }
     let workspace = "";
     if (store.currentList){
         workspace = 
@@ -108,9 +185,16 @@ export default function WorkspaceScreen(){
                             Save
                         </BootstrapButton>
                         &nbsp; &nbsp; &nbsp;
-                        <BootstrapButton onClick={()=>handlePublishList()}>
-                            Publish
-                        </BootstrapButton> 
+                        {
+                            !isDisabled.current ?
+                            <BootstrapButton disabled>
+                                Publish
+                            </BootstrapButton> 
+                            :                           
+                            <BootstrapButton onClick={()=>handlePublishList()}>
+                                Publish
+                            </BootstrapButton>
+                        }
                     </div>
                     </div>
                 </div>  
