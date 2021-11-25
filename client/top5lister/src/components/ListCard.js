@@ -1,10 +1,10 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect } from 'react'
 import { GlobalStoreContext } from '../store'
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import ListItem from '@mui/material/ListItem';
+import List from '@mui/material/List'
 import IconButton from '@mui/material/IconButton';
-import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { styled } from '@mui/material/styles';
 import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
@@ -20,30 +20,43 @@ import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDown
 */
 function ListCard(props) {
     const { store } = useContext(GlobalStoreContext);
-    const [text, setText] = useState("");
+    const {list} = props;
+
+
+    /* editOrPublished is used to decide if the edit button will appear for a unpublished list, or 
+    if the date that the list was published will be shown */
+    let editOrPublished = <>                    
+                            <button className="listcard-edit-button">
+                                <u>Edit</u>
+                            </button>
+                          </>;
+    let listCardColor = "#F0ECC0";
+    //Control which color the list card is based on whether this list was published or not
+    if (list.isPublished){
+        editOrPublished = <>
+                            <u>Published </u>
+                          </>;
+        listCardColor="#CBC7F2";
+        
+    }
 
     //Make sure the background color is updated based on whos list it is (the current users vs. some other user)
     const StyledListItem = styled(ListItem)({
         border: "1px solid black", 
         borderRadius: "12px",
-        backgroundColor: "#F0ECC0",
+        backgroundColor: listCardColor,
         width: "100%",
         fontsize: "28pt"
     });
 
 
-    function handleLoadList(event, id) {
-        if (!event.target.disabled) {
-            // CHANGE THE CURRENT LIST
-            store.setCurrentList(id);
-        }
+    function handleLoadList(id) {
+        //expandListCard(id);
     }
-
     function handleToggleEdit(event) {
         event.stopPropagation();
         toggleEdit();
     }
-
     function toggleEdit() {
         // let newActive = !editActive;
         // if (newActive) {
@@ -56,40 +69,24 @@ function ListCard(props) {
         event.stopPropagation();
         store.markListForDeletion(id);
     }
+    
 
-    function handleKeyPress(event) {
-        if (event.code === "Enter") {
-            let id = event.target.id.substring("list-".length);
-            store.changeListName(id, text);
-            toggleEdit();
-        }
-    }
-    function handleUpdateText(event) {
-        setText(event.target.value);
-    }
-
-    let cardElement =
+    return (
         <StyledListItem
-
-            sx={{ marginTop: '15px', display: 'flex', p: 1 }}
-            button
-            onClick={(event) => {
-                //handleLoadList(event, idNamePair._id)
-            }
-            }
+        sx={{ marginTop: '15px', display: 'flex', p: 1 }}
         >
             <div style={{display: "block", position:"relative", right:"-10px", lineHeight: "2"}}>
                 <div>
-                    <strong style={{fontSize: "13pt"}}> Games</strong> 
+                    <strong style={{fontSize: "13pt"}}>{list.name}</strong> 
                     <div style={{display:'inline', position:'relative',right:'-305%'}}>
                         <IconButton>
-                            <ThumbUpAltOutlinedIcon style={{fontSize:"40px", color:'black'}}/>
-                            <strong style={{color:'black'}}>800K</strong>
+                                <ThumbUpAltOutlinedIcon style={{fontSize:"40px", color:'black'}}/>
+                                <strong style={{color:'black'}}>{list.likes}</strong>
                         </IconButton>
-                            &nbsp;
+                        &nbsp;
                         <IconButton>
                             <ThumbDownAltOutlinedIcon style={{fontSize:"40px", color:'black'}}/>
-                            <strong style={{color:'black'}}>500K</strong>
+                            <strong style={{color:'black'}}>{list.dislikes}</strong>
                         </IconButton>
                         &nbsp;
                         <IconButton>
@@ -97,12 +94,10 @@ function ListCard(props) {
                         </IconButton>
                     </div>
                     <br/>
-                    <strong style={{fontSize:"9pt"}}>By: <u>mckenna</u></strong><br/>
-                    <button className="listcard-edit-button">
-                        <u>Edit</u>
-                    </button>
+                    <strong style={{fontSize:"9pt"}}>By: <u>{list.owner}</u></strong><br/>
+                    {editOrPublished}
                     <div style={{display: 'inline', position: 'relative', right: '-317%', fontSize: '9pt'}}> 
-                        <strong>Views:  <div style={{display:'inline', color:"red"}}>1eeeee000 </div> </strong>
+                        <strong>Views:  <div style={{display:'inline', color:"red"}}>{list.views} </div> </strong>
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;&nbsp;  
                         <IconButton>
                             <KeyboardArrowDownOutlinedIcon style={{fontSize:"40px", color:'black'}}/>
@@ -110,11 +105,7 @@ function ListCard(props) {
                     </div>
                 </div>
             </div>
-
         </StyledListItem>
-
-    return (
-        cardElement
     );
 }
 

@@ -12,12 +12,14 @@ createTop5List = (req, res) => {
     const top5List = new Top5List(body);
     console.log("creating top5List: " + JSON.stringify(top5List));
     if (!top5List) {
+        console.log("not top5 list");
         return res.status(400).json({ success: false, error: err })
     }
 
     top5List
         .save()
         .then(() => {
+            console.log("success")
             return res.status(201).json({
                 success: true,
                 top5List: top5List,
@@ -25,7 +27,8 @@ createTop5List = (req, res) => {
             })
         })
         .catch(error => {
-            return res.status(400).json({
+            console.log(error);
+            return res.status(400).json({ 
                 error,
                 message: 'Top 5 List Not Created!'
             })
@@ -64,7 +67,8 @@ updateTop5List = async (req, res) => {
         top5List.comments = body.comments
         //Make sure the top5List's view count is properly sent
         top5List.views = body.views
-            .save()
+            
+        top5List.save()
             .then(() => {
                 console.log("SUCCESS!!!");
                 return res.status(200).json({
@@ -116,7 +120,7 @@ getTop5Lists = async (req, res) => {
                 .status(404)
                 .json({ success: false, error: `Top 5 Lists not found` })
         }
-        return res.status(200).json({ success: true, data: top5Lists })
+        return res.status(200).json({ success: true, top5Lists: top5Lists })
     }).catch(err => console.log(err))
 }
 

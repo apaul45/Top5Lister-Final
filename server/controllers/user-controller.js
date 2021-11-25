@@ -13,6 +13,7 @@ getLoggedIn = async (req, res) => {
                     firstName: loggedInUser.firstName,
                     lastName: loggedInUser.lastName,
                     email: loggedInUser.email,
+                    username: loggedInUser.username,
                 }
             });
         });
@@ -121,6 +122,7 @@ registerUser = async (req, res) => {
                 firstName: savedUser.firstName,
                 lastName: savedUser.lastName,
                 email: savedUser.email,
+                username: savedUser.username,
             }
         }).send();
     } catch (err) {

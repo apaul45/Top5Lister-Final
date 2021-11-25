@@ -20,8 +20,8 @@ const api = axios.create({
 // WORK, AND SOME REQUIRE DATA, WHICH WE CALL THE payload, FOR WHEN
 // WE NEED TO PUT THINGS INTO THE DATABASE OR IF WE HAVE SOME
 // CUSTOM FILTERS FOR QUERIES
-export const createTop5List = (payload) => api.post(`/top5list/`, payload)
-export const getAllTop5Lists = () => api.get(`/top5lists/`)
+export const createTop5List = (payload) => api.post(`/top5list`, payload)
+export const getAllTop5Lists = () => api.get(`/top5lists`)
 export const updateTop5ListById = (id, payload) => api.put(`/top5list/${id}`, payload)
 export const deleteTop5ListById = (id) => api.delete(`/top5list/${id}`)
 export const getTop5ListById = (id) => api.get(`/top5list/${id}`)

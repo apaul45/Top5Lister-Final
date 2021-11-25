@@ -18,7 +18,7 @@ export const GlobalStoreActionType = {
     CHANGE_LIST_NAME: "CHANGE_LIST_NAME",
     CLOSE_CURRENT_LIST: "CLOSE_CURRENT_LIST",
     CREATE_NEW_LIST: "CREATE_NEW_LIST",
-    LOAD_ID_NAME_PAIRS: "LOAD_ID_NAME_PAIRS",
+    LOAD_LISTS: "LOAD_LISTS",
     MARK_LIST_FOR_DELETION: "MARK_LIST_FOR_DELETION",
     UNMARK_LIST_FOR_DELETION: "UNMARK_LIST_FOR_DELETION",
     SET_CURRENT_LIST: "SET_CURRENT_LIST",
@@ -31,9 +31,8 @@ export const GlobalStoreActionType = {
 function GlobalStoreContextProvider(props) {
     // THESE ARE ALL THE THINGS OUR DATA STORE WILL MANAGE
     const [store, setStore] = useState({
-        idNamePairs: [],
+        lists: [],
         currentList: null,
-        newListCounter: 0,
         listNameActive: false,
         itemActive: false,
         listMarkedForDeletion: null,
@@ -51,32 +50,18 @@ function GlobalStoreContextProvider(props) {
             // LIST UPDATE OF ITS NAME
             case GlobalStoreActionType.CHANGE_LIST_NAME: {
                 return setStore({
-                    idNamePairs: payload.idNamePairs,
+                    lists: payload.lists,
                     currentList: payload.top5List,
-                    newListCounter: store.newListCounter,
                     isListNameEditActive: false,
                     isItemEditActive: false,
                     listMarkedForDeletion: null,        
                 });
             }
-            // STOP EDITING THE CURRENT LIST
-            case GlobalStoreActionType.CLOSE_CURRENT_LIST: {
-                return setStore({
-                    idNamePairs: store.idNamePairs,
-                    currentList: null,
-                    newListCounter: store.newListCounter,
-                    isListNameEditActive: false,
-                    isItemEditActive: false,
-                    listMarkedForDeletion: null,        
-
-                })
-            }
             // CREATE A NEW LIST
             case GlobalStoreActionType.CREATE_NEW_LIST: {
                 return setStore({
-                    idNamePairs: store.idNamePairs,
-                    currentList: payload,
-                    newListCounter: store.newListCounter + 1,
+                    lists: payload.lists,
+                    currentList: payload.currentList,
                     isListNameEditActive: false,
                     isItemEditActive: false,
                     listMarkedForDeletion: null,        
@@ -84,11 +69,10 @@ function GlobalStoreContextProvider(props) {
                 })
             }
             // GET ALL THE LISTS SO WE CAN PRESENT THEM
-            case GlobalStoreActionType.LOAD_ID_NAME_PAIRS: {
+            case GlobalStoreActionType.LOAD_LISTS: {
                 return setStore({
-                    idNamePairs: payload,
+                    lists: payload,
                     currentList: null,
-                    newListCounter: store.newListCounter,
                     isListNameEditActive: false,
                     isItemEditActive: false,
                     listMarkedForDeletion: null,        
@@ -98,9 +82,8 @@ function GlobalStoreContextProvider(props) {
             // PREPARE TO DELETE A LIST
             case GlobalStoreActionType.MARK_LIST_FOR_DELETION: {
                 return setStore({
-                    idNamePairs: store.idNamePairs,
+                    lists: store.lists,
                     currentList: null,
-                    newListCounter: store.newListCounter,
                     isListNameEditActive: false,
                     isItemEditActive: false,
                     listMarkedForDeletion: payload,        
@@ -110,9 +93,8 @@ function GlobalStoreContextProvider(props) {
             // PREPARE TO DELETE A LIST
             case GlobalStoreActionType.UNMARK_LIST_FOR_DELETION: {
                 return setStore({
-                    idNamePairs: store.idNamePairs,
+                    lists: store.lists,
                     currentList: null,
-                    newListCounter: store.newListCounter,
                     isListNameEditActive: false,
                     isItemEditActive: false,
                     listMarkedForDeletion: null,        
@@ -121,32 +103,9 @@ function GlobalStoreContextProvider(props) {
             // UPDATE A LIST
             case GlobalStoreActionType.SET_CURRENT_LIST: {
                 return setStore({
-                    idNamePairs: store.idNamePairs,
+                    lists: store.lists,
                     currentList: payload,
-                    newListCounter: store.newListCounter,
                     isListNameEditActive: false,
-                    isItemEditActive: false,
-                    listMarkedForDeletion: null,        
-                });
-            }
-            // START EDITING A LIST ITEM
-            case GlobalStoreActionType.SET_ITEM_EDIT_ACTIVE: {
-                return setStore({
-                    idNamePairs: store.idNamePairs,
-                    currentList: store.currentList,
-                    newListCounter: store.newListCounter,
-                    isListNameEditActive: false,
-                    isItemEditActive: true,
-                    listMarkedForDeletion: null,        
-                });
-            }
-            // START EDITING A LIST NAME
-            case GlobalStoreActionType.SET_LIST_NAME_EDIT_ACTIVE: {
-                return setStore({
-                    idNamePairs: store.idNamePairs,
-                    currentList: payload,
-                    newListCounter: store.newListCounter,
-                    isListNameEditActive: true,
                     isItemEditActive: false,
                     listMarkedForDeletion: null,        
                 });
@@ -156,102 +115,51 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
-    // THESE ARE THE FUNCTIONS THAT WILL UPDATE OUR STORE AND
-    // DRIVE THE STATE OF THE APPLICATION. WE'LL CALL THESE IN 
-    // RESPONSE TO EVENTS INSIDE OUR COMPONENTS.
-
-    // THIS FUNCTION PROCESSES CHANGING A LIST NAME
-    store.changeListName = async function (id, newName) {
-        let response = await apis.getTop5ListById(id);
-        if (response.data.success) {
-            let top5List = response.data.top5List;
-            top5List.name = newName;
-            async function updateList(top5List) {
-                response = await apis.updateTop5ListById(top5List._id, top5List);
-                if (response.data.success) {
-                    async function getListPairs(top5List) {
-                        response = await apis.getTop5ListPairs();
-                        if (response.data.success) {
-                            let pairsArray = response.data.idNamePairs;
-                            //MAKE SURE TO ONLY DISPLAYS THIS USERS LIST UPON LIST NAME CHANGE
-                            if (auth.loggedIn){
-                                pairsArray = pairsArray.filter(pair => pair.email === auth.user.email);
-                            }
-                            storeReducer({
-                                type: GlobalStoreActionType.CHANGE_LIST_NAME,
-                                payload: {
-                                    idNamePairs: pairsArray,
-                                    top5List: top5List
-                                }
-                            });
-                        }
-                    }
-                    getListPairs(top5List);
-                }
-            }
-            updateList(top5List);
-        }
-    }
-
-    // THIS FUNCTION PROCESSES CLOSING THE CURRENTLY LOADED LIST
-    store.closeCurrentList = async function () {
-        //Make sure idNamePairs are updated before returning to the home screen
-        store.loadIdNamePairs();
-        storeReducer({
-            type: GlobalStoreActionType.CLOSE_CURRENT_LIST,
-        });
-        history.push("/");
-    }
-
     // THIS FUNCTION CREATES A NEW LIST
     store.createNewList = async function () {
-        let newListName = "Untitled" + store.newListCounter;
-        //MAKE SURE TO ASSOCIATE THE NEW LIST WITH THE USER'S EMAIL, SO THAT
-        //IT CAN BE IDENTIFIED AS THIS USER's LIST
-        let payload = {
-            name: newListName,
-            items: ["?", "?", "?", "?", "?"],
-            email: auth.user.email
-        };
-        const response = await apis.createTop5List(payload);
-        if (response.data.success) {
-            let newList = response.data.top5List;
-            storeReducer({
-                type: GlobalStoreActionType.CREATE_NEW_LIST,
-                payload: newList
+        try{
+            let payload = {
+                name: "New List",
+                items: ["?", "?", "?", "?", "?"],
+                owner: auth.user.username, 
+                comments: [],
+                likes: 0,
+                dislikes: 0, 
+                views: 0,
+                isPublished: false,
+            };
+            let response = await apis.createTop5List(payload);
+            if (response.data.success) {
+                let newList = response.data.top5List;
+                //Get all the new lists in the database
+                response = await apis.getAllTop5Lists();
+                if(response.data.success){
+                    storeReducer({
+                        type: GlobalStoreActionType.CREATE_NEW_LIST,
+                        payload: {currentList: newList, lists: response.data.top5Lists}
+                    });
+                }
             }
-            );
-            // IF IT'S A VALID LIST THEN LET'S START EDITING IT
-            history.push("/top5list/" + newList._id);
         }
-        else {
+        catch{
             console.log("apis FAILED TO CREATE A NEW LIST");
         }
     }
 
-    // THIS FUNCTION LOADS ALL THE ID, NAME PAIRS SO WE CAN LIST ALL THE LISTS
-    store.loadIdNamePairs = async function () {
-        const response = await apis.getTop5ListPairs();
+    // THIS FUNCTION LOADS ALL THE LISTS IN THE DATABASE
+    store.loadLists = async function () {
+        const response = await apis.getAllTop5Lists();
         if (response.data.success) {
-            let pairsArray = response.data.idNamePairs;
-            //IDENTIFY THE USER's LISTS FROM THEIR EMAIL
-            if (auth.loggedIn){
-                pairsArray = pairsArray.filter(pair => pair.email === auth.user.email);
-            }
+            let listsArray = response.data.top5Lists;
             storeReducer({
-                type: GlobalStoreActionType.LOAD_ID_NAME_PAIRS,
-                payload: pairsArray
+                type: GlobalStoreActionType.LOAD_LISTS,
+                payload: listsArray
             });
         }
         else {
-            console.log("apis FAILED TO GET THE LIST PAIRS");
+            console.log("apis FAILED TO GET THE LISTS");
         }
     }
-
-    // THE FOLLOWING 5 FUNCTIONS ARE FOR COORDINATING THE DELETION
-    // OF A LIST, WHICH INCLUDES USING A VERIFICATION MODAL. THE
-    // FUNCTIONS ARE markListForDeletion, deleteList, deleteMarkedList,
-    // showDeleteListModal, and hideDeleteListModal
     store.markListForDeletion = async function (id) {
         // GET THE LIST
         let response = await apis.getTop5ListById(id);
@@ -263,20 +171,15 @@ function GlobalStoreContextProvider(props) {
             });
         }
     }
-
     store.deleteList = async function (listToDelete) {
-        let currentDeleteList = (store.currentList ? store.currentList._id === listToDelete._id ? true : false : false);
         let response = await apis.deleteTop5ListById(listToDelete._id);
         if (response.data.success) {
-            store.loadIdNamePairs();
-            history.push("/");
+            store.loadLists();
         }
     }
-
     store.deleteMarkedList = function () {
         store.deleteList(store.listMarkedForDeletion);
     }
-
     store.unmarkListForDeletion = function () {
         storeReducer({
             type: GlobalStoreActionType.UNMARK_LIST_FOR_DELETION,
@@ -284,10 +187,6 @@ function GlobalStoreContextProvider(props) {
         });
     }
 
-    // THE FOLLOWING 8 FUNCTIONS ARE FOR COORDINATING THE UPDATING
-    // OF A LIST, WHICH INCLUDES DEALING WITH THE TRANSACTION STACK. THE
-    // FUNCTIONS ARE setCurrentList, addMoveItemTransaction, addUpdateItemTransaction,
-    // moveItem, updateItem, updateCurrentList, undo, and redo
     store.setCurrentList = async function (id) {
         let response = await apis.getTop5ListById(id);
         if (response.data.success) {
@@ -299,42 +198,35 @@ function GlobalStoreContextProvider(props) {
                     type: GlobalStoreActionType.SET_CURRENT_LIST,
                     payload: top5List
                 });
-                history.push("/top5list/" + top5List._id);
+                /*Navigate the user to the edit screen to edit, save, and potentially
+                //publish their new list */
+                history('/edit');
             }
         }
     }
-
-    store.updateItem = function (index, newItem) {
-        store.currentList.items[index] = newItem;
-        store.updateCurrentList();
+    //store.changeCurrentList is for updating the textfields in workspace
+    store.changeCurrentList= function(){
+        storeReducer({
+            type: GlobalStoreActionType.SET_CURRENT_LIST,
+            payload: store.currentList
+        });
     }
     store.updateCurrentList = async function () {
-        const response = await apis.updateTop5ListById(store.currentList._id, store.currentList);
+        let response = await apis.updateTop5ListById(store.currentList._id, store.currentList);
         if (response.data.success) {
             storeReducer({
                 type: GlobalStoreActionType.SET_CURRENT_LIST,
-                payload: store.currentList
+                payload: null
             });
+            response = await apis.getAllTop5Lists();
+            if (response.data.success){
+                storeReducer({
+                    type: GlobalStoreActionType.LOAD_LISTS,
+                    payload: response.data.top5Lists
+                });
+            }
         }
     }
-
-
-    // THIS FUNCTION ENABLES THE PROCESS OF EDITING A LIST NAME
-    store.setIsListNameEditActive = function () {
-        storeReducer({
-            type: GlobalStoreActionType.SET_LIST_NAME_EDIT_ACTIVE,
-            payload: null
-        });
-    }
-
-    // THIS FUNCTION ENABLES THE PROCESS OF EDITING AN ITEM
-    store.setIsItemEditActive = function () {
-        storeReducer({
-            type: GlobalStoreActionType.SET_ITEM_EDIT_ACTIVE,
-            payload: null
-        });
-    }
-
     return (
         <GlobalStoreContext.Provider value={{
             store

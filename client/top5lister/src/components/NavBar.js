@@ -3,14 +3,12 @@ a search textfield, and a sort by drop down in the app */
 import * as React from 'react';
 import { useContext, useState } from 'react';
 import AuthContext from '../auth'
-import { GlobalStoreContext } from '../store'
 import FunctionsIcon from '@mui/icons-material/Functions';
 //import SearchIcon from '@mui/icons-material/SearchIcon';
 import SortIcon from '@mui/icons-material/Sort';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined'
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
 import MenuItem from '@mui/material/MenuItem';
@@ -20,19 +18,26 @@ import IconButton from '@mui/material/IconButton';
 import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import { Link } from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
+import {useLocation} from 'react-router-dom'
 export default function NavBar(){
     const { auth } = useContext(AuthContext);
     //anchorEL will handle allowing the menu to open or not (initially closed so set to null)
     const [anchorEl, setAnchorEl] = useState(null);
     const isMenuOpen = Boolean(anchorEl);
 
+    //use navigate to navigate to different screens upon pressing the proper button
+    const navigate = useNavigate();
+
+    //use location to disable buttons if workspace screen is open
+    const location = useLocation();
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };
     const handleMenuClose = () => {
         setAnchorEl(null);
     };
-    const StyledIconButton = styled(IconButton)({
+    let StyledIconButton = styled(IconButton)({
         '&:hover': {
             border: '2px solid green',
             backgroundColor:"transparent",
@@ -40,6 +45,25 @@ export default function NavBar(){
             borderRadius: "1px 1px",
           }
     });
+    //Add the disabled property if the edit/create screen is open
+    if (location.pathname === "/edit"){
+        StyledIconButton = styled(IconButton)({
+            color:'gray',
+            '&:hover': {
+                border: '2px solid green',
+                backgroundColor:"transparent",
+                padding:"3px 3px 3px 3px",
+                borderRadius: "1px 1px",
+              }
+        });
+    }
+
+    function handleClick(path){
+        //Only allow navigation to other screens if the workspace screen isn't opened
+        if (location.pathname !== "/edit"){
+            navigate(path);
+        }
+    }
     //sortMenu will only open if there is an associated anchor element
     const sortMenu = 
     <Menu
@@ -73,21 +97,21 @@ export default function NavBar(){
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar style={{backgroundColor: '#A19F9F'}}>
-                    <Link to="/home">
-                        <StyledIconButton
+                    <StyledIconButton
                         edge="start"
                         color="inherit"
                         aria-label="open drawer"
                         sx={{ mr: 2}}
+                        onClick = {()=>handleClick("/home")}
                         >
                             <HomeOutlinedIcon style={{fill: "black", fontSize:"45px", float: "right"}}/>
-                        </StyledIconButton>
-                    </Link>
+                    </StyledIconButton>
                     <StyledIconButton
                     edge="start"
                     color="inherit"
                     aria-label="open drawer"
                     sx={{ mr: 2 }}
+                    onClick = {()=>handleClick("/all-lists")}
                     >
                         <GroupsOutlinedIcon style={{fill: "black", fontSize:"45px", float: "right"}} />
                     </StyledIconButton>
@@ -97,6 +121,7 @@ export default function NavBar(){
                     color="inherit"
                     aria-label="open drawer"
                     sx={{ mr: 2 }}
+                    onClick = {()=>handleClick("/persons-lists")}
                     >
                         <PersonOutlinedIcon style={{fill: "black", fontSize:"45px", float: "right"}} />
                     </StyledIconButton>
@@ -106,6 +131,7 @@ export default function NavBar(){
                     color="inherit"
                     aria-label="open drawer"
                     sx={{ mr: 2 }}
+                    onClick = {()=>handleClick("/community-lists")}
                     >
                         <FunctionsIcon style={{fill: "black", fontSize:"45px", float: "right"}} />
                     </StyledIconButton>
