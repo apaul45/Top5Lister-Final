@@ -11,6 +11,7 @@ import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
 import ThumbDownAltOutlinedIcon from '@mui/icons-material/ThumbDownAltOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
+import { useNavigate } from 'react-router-dom';
 /*
     This is a card in our list of top 5 lists. It lets select
     a list for editing and it has controls for changing its 
@@ -21,12 +22,12 @@ import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDown
 function ListCard(props) {
     const { store } = useContext(GlobalStoreContext);
     const {list} = props;
-
+    const navigate = useNavigate();
 
     /* editOrPublished is used to decide if the edit button will appear for a unpublished list, or 
     if the date that the list was published will be shown */
     let editOrPublished = <>                    
-                            <button className="listcard-edit-button">
+                            <button className="listcard-edit-button" onClick={()=>handleEditList()}>
                                 <u>Edit</u>
                             </button>
                           </>;
@@ -58,6 +59,10 @@ function ListCard(props) {
     function handleLoadList(id) {
         //expandListCard(id);
     }
+    function handleEditList(){
+        store.setCurrentList(list._id);
+        navigate('/edit');
+    }
     function handleToggleEdit(event) {
         event.stopPropagation();
         toggleEdit();
@@ -87,22 +92,25 @@ function ListCard(props) {
                     {editOrPublished}
                 </div>
 
-                <div style={{position:"absolute", left:"78.5%"}}>
-                    <IconButton>
+                <div style={{position:"absolute", left:"80.5%"}}>
+                    <IconButton
+                    style={{width:"110px"}}>
                         <ThumbUpAltOutlinedIcon style={{fontSize:"40px", color:'black'}}/>
                             <strong style={{color:'black'}}>{list.likes}</strong>
                     </IconButton>
-                    &nbsp; &nbsp;
-                    <IconButton>
+                    <IconButton style={{
+                    width: "90px" ,maxWidth:"90px"}}>
                             <ThumbDownAltOutlinedIcon style={{fontSize:"40px", color:'black'}}/>
                             <strong style={{color:'black'}}>{list.dislikes}</strong>
                     </IconButton>
                     &nbsp; &nbsp;
                     <IconButton onClick={(event)=>handleDeleteList(event)}>
                             <DeleteOutlineOutlinedIcon style={{fontSize:"40px", color:'black'}}/>
-                    </IconButton><br/> &nbsp;
-                    Views: {list.views}
-
+                    </IconButton><br/> &nbsp; &nbsp; &nbsp;
+                    <span style={{width: "300px", maxWidth: "300px"}}>Views: {list.views}</span>
+                    <IconButton style={{position:"absolute", right:"0.15%"}}>
+                            <KeyboardArrowDownOutlinedIcon style={{fontSize:"40px", color:'black'}}/>
+                    </IconButton>
                 </div>
 
             </div>
