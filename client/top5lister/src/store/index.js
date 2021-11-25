@@ -160,25 +160,17 @@ function GlobalStoreContextProvider(props) {
             console.log("apis FAILED TO GET THE LISTS");
         }
     }
-    store.markListForDeletion = async function (id) {
-        // GET THE LIST
-        let response = await apis.getTop5ListById(id);
-        if (response.data.success) {
-            let top5List = response.data.top5List;
+    store.markListForDeletion = function(list){
             storeReducer({
                 type: GlobalStoreActionType.MARK_LIST_FOR_DELETION,
-                payload: top5List
+                payload: list
             });
-        }
     }
-    store.deleteList = async function (listToDelete) {
-        let response = await apis.deleteTop5ListById(listToDelete._id);
+    store.deleteList = async function(){
+        let response = await apis.deleteTop5ListById(this.listMarkedForDeletion._id);
         if (response.data.success) {
             store.loadLists();
         }
-    }
-    store.deleteMarkedList = function () {
-        store.deleteList(store.listMarkedForDeletion);
     }
     store.unmarkListForDeletion = function () {
         storeReducer({

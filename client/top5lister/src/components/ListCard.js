@@ -70,9 +70,9 @@ function ListCard(props) {
         // setEditActive(newActive);
     }
 
-    async function handleDeleteList(event, id) {
+    async function handleDeleteList(event) {
         event.stopPropagation();
-        store.markListForDeletion(id);
+        store.markListForDeletion(list);
     }
     
 
@@ -80,34 +80,31 @@ function ListCard(props) {
         <StyledListItem
         sx={{ marginTop: '15px', display: 'flex', p: 1 }}
         >
-            <div style={{display: "block", position:"relative", right:"-10px", lineHeight: "2"}}>
+            <div style={{display: "flex",lineHeight: "2"}}>
                 <div>
-                    <strong style={{fontSize: "13pt", width: "500px",maxWidth: "500px"}}>{list.name}</strong> 
-                    <div style={{display:'inline', position:'absolute',right:'-525%'}}>
-                        <IconButton>
-                                <ThumbUpAltOutlinedIcon style={{fontSize:"40px", color:'black'}}/>
-                                <strong style={{color:'black'}}>{list.likes}</strong>
-                        </IconButton>
-                        &nbsp;
-                        <IconButton>
-                            <ThumbDownAltOutlinedIcon style={{fontSize:"40px", color:'black'}}/>
-                            <strong style={{color:'black'}}>{list.dislikes}</strong>
-                        </IconButton>
-                        &nbsp;
-                        <IconButton>
-                            <DeleteOutlineOutlinedIcon style={{fontSize:"40px", color:'black'}}/>
-                        </IconButton>
-                    </div>
-                    <br/>
+                    <strong style={{fontSize: "13pt"}}>{list.name}</strong><br/>
                     <strong style={{fontSize:"9pt"}}>By: <u style={{color:"blue"}}>{list.owner}</u></strong><br/>
                     {editOrPublished}
-                    <div style={{display: 'inline', position: 'relative', right: '-333%', fontSize: '9pt'}}> 
-                        <strong>Views:  <div style={{display:'inline', color:"red"}}>{list.views} </div> </strong> 
-                        <IconButton>
-                            <KeyboardArrowDownOutlinedIcon style={{fontSize:"40px", color:'black', position:"absolute", left:"90px"}}/>
-                        </IconButton>
-                    </div>
                 </div>
+
+                <div style={{position:"absolute", left:"78.5%"}}>
+                    <IconButton>
+                        <ThumbUpAltOutlinedIcon style={{fontSize:"40px", color:'black'}}/>
+                            <strong style={{color:'black'}}>{list.likes}</strong>
+                    </IconButton>
+                    &nbsp; &nbsp;
+                    <IconButton>
+                            <ThumbDownAltOutlinedIcon style={{fontSize:"40px", color:'black'}}/>
+                            <strong style={{color:'black'}}>{list.dislikes}</strong>
+                    </IconButton>
+                    &nbsp; &nbsp;
+                    <IconButton onClick={(event)=>handleDeleteList(event)}>
+                            <DeleteOutlineOutlinedIcon style={{fontSize:"40px", color:'black'}}/>
+                    </IconButton><br/> &nbsp;
+                    Views: {list.views}
+
+                </div>
+
             </div>
         </StyledListItem>
     );

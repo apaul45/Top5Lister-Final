@@ -36,7 +36,7 @@ function DeleteModal() {
         isOpen=true;
     }
     function handleDeleteList(event) {
-        store.deleteMarkedList();
+        store.deleteList();
     }
     function handleCloseModal(event) {
         store.unmarkListForDeletion();
