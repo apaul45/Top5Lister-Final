@@ -60,8 +60,14 @@ function GlobalStoreContextProvider(props) {
             // CREATE A NEW LIST
             case GlobalStoreActionType.CREATE_NEW_LIST: {
                 return setStore({
+<<<<<<< HEAD
                     lists: payload.lists,
                     currentList: payload.currentList,
+=======
+                    lists: store.lists,
+                    currentList: payload,
+                    newListCounter: store.newListCounter + 1,
+>>>>>>> a2787e57d84d30cc036d543b1e6debb33d0ce7e7
                     isListNameEditActive: false,
                     isItemEditActive: false,
                     listMarkedForDeletion: null,        
@@ -117,6 +123,7 @@ function GlobalStoreContextProvider(props) {
 
     // THIS FUNCTION CREATES A NEW LIST
     store.createNewList = async function () {
+<<<<<<< HEAD
         try{
             let payload = {
                 name: "New List",
@@ -140,6 +147,26 @@ function GlobalStoreContextProvider(props) {
                     });
                 }
             }
+=======
+        let payload = {
+            name: "",
+            items: ["?", "?", "?", "?", "?"],
+            owner: auth.user.username, 
+            comments: [],
+            likes: 0,
+            dislikes: 0, 
+            views: 0,
+            isPublished: false,
+        };
+        const response = await apis.createTop5List(payload);
+        if (response.data.success) {
+            let newList = response.data.top5List;
+            storeReducer({
+                type: GlobalStoreActionType.CREATE_NEW_LIST,
+                payload: newList
+            }
+            );
+>>>>>>> a2787e57d84d30cc036d543b1e6debb33d0ce7e7
         }
         catch{
             console.log("apis FAILED TO CREATE A NEW LIST");
@@ -204,12 +231,18 @@ function GlobalStoreContextProvider(props) {
             }
         }
     }
+<<<<<<< HEAD
     //store.changeCurrentList is for updating the textfields in workspace
     store.changeCurrentList= function(){
         storeReducer({
             type: GlobalStoreActionType.SET_CURRENT_LIST,
             payload: store.currentList
         });
+=======
+    store.updateItem = function (index, newItem) {
+        store.currentList.items[index] = newItem;
+        store.updateCurrentList();
+>>>>>>> a2787e57d84d30cc036d543b1e6debb33d0ce7e7
     }
     store.updateCurrentList = async function () {
         let response = await apis.updateTop5ListById(store.currentList._id, store.currentList);

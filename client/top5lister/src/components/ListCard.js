@@ -69,9 +69,13 @@ function ListCard(props) {
         event.stopPropagation();
         store.markListForDeletion(id);
     }
+<<<<<<< HEAD
     
 
     return (
+=======
+    let cardElement =
+>>>>>>> a2787e57d84d30cc036d543b1e6debb33d0ce7e7
         <StyledListItem
         sx={{ marginTop: '15px', display: 'flex', p: 1 }}
         >

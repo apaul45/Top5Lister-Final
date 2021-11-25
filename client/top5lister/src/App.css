@@ -122,7 +122,10 @@ margin right auto is used to horizontally center the box */
 #workspace-items-box{
 	position: absolute;
 	left: 1.3%;
+<<<<<<< HEAD
 	top:8%;
+=======
+>>>>>>> a2787e57d84d30cc036d543b1e6debb33d0ce7e7
 	width: 1435px;
 	height:510px;
 	border: 1px solid black;
@@ -131,6 +134,7 @@ margin right auto is used to horizontally center the box */
 }
 #workspace-items-txtfields{
 	position: absolute;
+<<<<<<< HEAD
 	top:7%;
 	left: 6.5%;
 	line-height: 36px;
@@ -142,17 +146,37 @@ margin right auto is used to horizontally center the box */
 }
 #workspace-items-numbers{
 	font-size: 55px;
+=======
+	top:8.5%;
+	left: 20%;
+}
+#workspace-buttons{
+	position: absolute;
+	left:80.7%;
+	top: 79%;
+}
+#workspace-items-numbers{
+	font-size: 60px;
+>>>>>>> a2787e57d84d30cc036d543b1e6debb33d0ce7e7
 	line-height: 36px;
 	position: absolute;
 	top: 8.5%;
 	left: 2%;
+<<<<<<< HEAD
+=======
+	
+>>>>>>> a2787e57d84d30cc036d543b1e6debb33d0ce7e7
 }
 .workspace-items-boxes{
 	width: 65px;
 	max-width: 65px;
 	height: 56px;
 	max-height: 56px;
+<<<<<<< HEAD
 	background-color: #E0A009;
+=======
+	background-color: #D9AD0F;
+>>>>>>> a2787e57d84d30cc036d543b1e6debb33d0ce7e7
 	border-radius: 23%;
 }
 .fade-in {
