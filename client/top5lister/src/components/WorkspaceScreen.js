@@ -5,13 +5,14 @@ import { styled } from '@mui/material/styles';
 import { useContext, useEffect, useRef } from 'react';
 import { GlobalStoreContext } from '../store'
 import { useNavigate } from 'react-router';
-
+import AuthContext from '../auth'
 /*
     Workspace handles editing/creating lists. 
     It is a separate screen (route '/edit)
 */
 export default function WorkspaceScreen(){
     const { store } = useContext(GlobalStoreContext);
+    const {auth} = useContext(AuthContext);
     const navigate = useNavigate();
 
     //isDisabled will determine whether to add a "disabled" field to the publish button or not
@@ -88,9 +89,11 @@ export default function WorkspaceScreen(){
             isDisabled.current = true;
         }
         else if (store.lists){
+            //Check if this user already published a list with this name
             let duplicates = store.lists.filter(list => ((list.isPublished)
-                    &&(list.name === store.currentList.name)));
-            if (duplicates.length >= 1){
+                    && (auth.user && list.owner === auth.user.username) &&
+                    (list.name === store.currentList.name)));
+            if (duplicates.length > 0){
                 isDisabled.current = true;
             }
             else{

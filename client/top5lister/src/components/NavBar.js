@@ -43,7 +43,13 @@ export default function NavBar(){
             backgroundColor:"transparent",
             padding:"3px 3px 3px 3px",
             borderRadius: "1px 1px",
-          }
+          },
+        '&:active':{
+            border: '2px solid green',
+            backgroundColor:"transparent",
+            padding:"3px 3px 3px 3px",
+            borderRadius: "1px 1px",
+        }
     });
     //Add the disabled property if the edit/create screen is open
     if (location.pathname === "/edit"){
