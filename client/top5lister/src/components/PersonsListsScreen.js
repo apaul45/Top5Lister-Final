@@ -15,20 +15,38 @@ export default function PersonsListsScreen(){
     /* If a change to the search bar is made while this screen is 
     open, update the lists that are shown */
 
-    useEffect(()=>{
-        if (store.lists && location.pathname === '/persons-lists'){
-            searchedLists.current = store.lists.filter(list => {
+    // useEffect(()=>{
+    //     if (store.lists && location.pathname === '/persons-lists'){
+    //         searchedLists.current = store.lists.filter(list => {
             
-                if(list.owner === store.searchField){
-                    if (auth.user){
-                        if (auth.user.username === store.searchField){
-                            return list;
-                        }
-                        else{
-                            if (list.isPublished){
-                                return list;
-                            }
-                        }
+    //             if(list.owner === store.searchField){
+    //                 if (auth.user){
+    //                     if (auth.user.username === store.searchField){
+    //                         return list;
+    //                     }
+    //                     else{
+    //                         if (list.isPublished){
+    //                             return list;
+    //                         }
+    //                     }
+    //                 }
+    //                 else{
+    //                     if (list.isPublished){
+    //                         return list;
+    //                     }
+    //                 }
+    //             }
+    //         });
+    //     }
+    // }, [[],store.searchField]);
+
+    if (store.lists && location.pathname === '/persons-lists'){
+        searchedLists.current = store.lists.filter(list => {
+        
+            if(list.owner === store.searchField){
+                if (auth.user){
+                    if (auth.user.username === store.searchField){
+                        return list;
                     }
                     else{
                         if (list.isPublished){
@@ -36,10 +54,14 @@ export default function PersonsListsScreen(){
                         }
                     }
                 }
-            });
-        }
-    }, [[],store.searchField]);
-
+                else{
+                    if (list.isPublished){
+                        return list;
+                    }
+                }
+            }
+        });
+    }
 
     return(
         <div className="background-screen"> 
