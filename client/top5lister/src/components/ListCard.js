@@ -30,10 +30,10 @@ function ListCard(props) {
     if the date that the list was published will be shown */
     let editOrPublished = "";
     let listCardColor = "#F0ECC0";
+    //Only allow the delete button to appar if this is the current user's list
+    let deleteButton = "";
 
-
-
-    /*Only allow the edit button to appear if there's an actual user logged in
+    /*Only allow the edit and delete button to appear if there's an actual user logged in
     and if the list is the current user's list. */
     //
     if (auth.user && auth.user.username === list.owner){
@@ -42,6 +42,12 @@ function ListCard(props) {
             <u>Edit</u>
         </button>
       </>;
+
+        deleteButton = <>
+                            <IconButton onClick={(event)=>handleDeleteList(event)}>
+                                <DeleteOutlineOutlinedIcon style={{fontSize:"40px", color:'black'}}/>
+                            </IconButton><br/> 
+                       </>
     }
 
     /*Control which color the list card is and make the publish date 
@@ -93,7 +99,6 @@ function ListCard(props) {
         store.markListForDeletion(list);
     }
     
-
     return (
         <StyledListItem
         sx={{ marginTop: '15px', display: 'flex', p: 1 }}
@@ -117,9 +122,7 @@ function ListCard(props) {
                             <strong style={{color:'black'}}>{list.dislikes}</strong>
                     </IconButton>
                     &nbsp; &nbsp;
-                    <IconButton onClick={(event)=>handleDeleteList(event)}>
-                            <DeleteOutlineOutlinedIcon style={{fontSize:"40px", color:'black'}}/>
-                    </IconButton><br/> &nbsp; &nbsp; &nbsp;
+                    {deleteButton}<br/> &nbsp; &nbsp; &nbsp;
                     <span style={{width: "300px", maxWidth: "300px"}}>Views: {list.views}</span>
                     <IconButton style={{position:"absolute", right:"0.15%"}}>
                             <KeyboardArrowDownOutlinedIcon style={{fontSize:"40px", color:'black'}}/>
