@@ -14,6 +14,9 @@ export const GlobalStoreContext = createContext({});
 
 // THESE ARE ALL THE TYPES OF UPDATES TO OUR GLOBAL
 // DATA STORE STATE THAT CAN BE PROCESSED
+
+/* SET_SEARCH_FIELD will simply be used to update the searchField 
+//state  variable */
 export const GlobalStoreActionType = {
     CHANGE_LIST_NAME: "CHANGE_LIST_NAME",
     CLOSE_CURRENT_LIST: "CLOSE_CURRENT_LIST",
@@ -23,20 +26,29 @@ export const GlobalStoreActionType = {
     UNMARK_LIST_FOR_DELETION: "UNMARK_LIST_FOR_DELETION",
     SET_CURRENT_LIST: "SET_CURRENT_LIST",
     SET_ITEM_EDIT_ACTIVE: "SET_ITEM_EDIT_ACTIVE",
-    SET_LIST_NAME_EDIT_ACTIVE: "SET_LIST_NAME_EDIT_ACTIVE"
+    SET_LIST_NAME_EDIT_ACTIVE: "SET_LIST_NAME_EDIT_ACTIVE",
+    SET_SEARCH_FIELD : "SET_SEARCH_FIELD"
 }
 
 // WITH THIS WE'RE MAKING OUR GLOBAL DATA STORE
 // AVAILABLE TO THE REST OF THE APPLICATION
 function GlobalStoreContextProvider(props) {
     // THESE ARE ALL THE THINGS OUR DATA STORE WILL MANAGE
+
+    /*updateCurrentListCounter will be used to update the visibility of 
+    the publish button in the workspace screen */
+
+    /* searchField will be used to contain what is written in the 
+    search textfield, so that different screens can access it and 
+    update the lists displayed accordingly */
     const [store, setStore] = useState({
         lists: [],
         currentList: null,
         listNameActive: false,
         itemActive: false,
         listMarkedForDeletion: null,
-        updateCurrentListCounter: 0
+        updateCurrentListCounter: 0,
+        searchField: "",
     });
     const history = useNavigate();
 
@@ -56,7 +68,8 @@ function GlobalStoreContextProvider(props) {
                     isListNameEditActive: false,
                     isItemEditActive: false,
                     listMarkedForDeletion: null,
-                    updateCurrentListCounter: store.updateCurrentListCounter        
+                    updateCurrentListCounter: store.updateCurrentListCounter,
+                    searchField: store.searchField       
                 });
             }
             // CREATE A NEW LIST
@@ -67,7 +80,8 @@ function GlobalStoreContextProvider(props) {
                     isListNameEditActive: false,
                     isItemEditActive: false,
                     listMarkedForDeletion: null, 
-                    updateCurrentListCounter: store.updateCurrentListCounter        
+                    updateCurrentListCounter: store.updateCurrentListCounter,
+                    searchField: store.searchField               
 
                 })
             }
@@ -79,7 +93,8 @@ function GlobalStoreContextProvider(props) {
                     isListNameEditActive: false,
                     isItemEditActive: false,
                     listMarkedForDeletion: null,   
-                    updateCurrentListCounter: store.updateCurrentListCounter      
+                    updateCurrentListCounter: store.updateCurrentListCounter,
+                    searchField: store.searchField             
 
                 });
             }
@@ -91,7 +106,8 @@ function GlobalStoreContextProvider(props) {
                     isListNameEditActive: false,
                     isItemEditActive: false,
                     listMarkedForDeletion: payload, 
-                    updateCurrentListCounter: store.updateCurrentListCounter        
+                    updateCurrentListCounter: store.updateCurrentListCounter,
+                    searchField: store.searchField               
 
                 });
             }
@@ -103,7 +119,8 @@ function GlobalStoreContextProvider(props) {
                     isListNameEditActive: false,
                     isItemEditActive: false,
                     listMarkedForDeletion: null,  
-                    updateCurrentListCounter: store.updateCurrentListCounter       
+                    updateCurrentListCounter: store.updateCurrentListCounter,
+                    searchField: store.searchField              
                 });
             }
             // UPDATE A LIST
@@ -115,6 +132,18 @@ function GlobalStoreContextProvider(props) {
                     isItemEditActive: false,
                     listMarkedForDeletion: null,  
                     updateCurrentListCounter: payload.counter,
+                    searchField: store.searchField       
+                });
+            }
+            case GlobalStoreActionType.SET_SEARCH_FIELD:{
+                return setStore({
+                    lists: store.lists,
+                    currentList: store.currentList,
+                    isListNameEditActive: store.isListNameEditActive,
+                    isItemEditActive: store.isItemEditActive,
+                    listMarkedForDeletion: store.listMarkedForDeletion,  
+                    updateCurrentListCounter: store.updateCurrentListCounter,
+                    searchField: payload,     
                 });
             }
             default:
@@ -225,6 +254,14 @@ function GlobalStoreContextProvider(props) {
                 });
             }
         }
+    }
+    /* updateSearchField should call th SET_SEARCH_FIELD action type,
+    which will only update the search field variable and nothing else */
+    store.updateSearchField = function(search){
+        storeReducer({
+            type: GlobalStoreActionType.SET_SEARCH_FIELD,
+            payload: search,
+        });
     }
     return (
         <GlobalStoreContext.Provider value={{

@@ -3,6 +3,7 @@ a search textfield, and a sort by drop down in the app */
 import * as React from 'react';
 import { useContext, useState } from 'react';
 import AuthContext from '../auth'
+import { GlobalStoreContext } from '../store'
 import FunctionsIcon from '@mui/icons-material/Functions';
 import SortIcon from '@mui/icons-material/Sort';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
@@ -19,6 +20,7 @@ import TextField from '@mui/material/TextField';
 import {useNavigate} from 'react-router-dom'
 import {useLocation} from 'react-router-dom'
 export default function NavBar(){
+    const {store} = useContext(GlobalStoreContext);
     const { auth } = useContext(AuthContext);
     //anchorEL will handle allowing the menu to open or not (initially closed so set to null)
     const [anchorEl, setAnchorEl] = useState(null);
@@ -142,7 +144,8 @@ export default function NavBar(){
                     noValidate
                     autoComplete="off"
                     >
-                        <TextField id="outlined-basic" label="Search" variant="outlined"/>
+                        <TextField id="outlined-basic" label="Search" variant="outlined"
+                        onChange={event => store.updateSearchField(event.target.value)}/>
                     </Box>
                     <strong style={{color: "black", position: "relative", right:"-340px", size:"45px"}}>
                         SORT BY
