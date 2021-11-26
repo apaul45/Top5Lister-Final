@@ -12,6 +12,8 @@ import ThumbDownAltOutlinedIcon from '@mui/icons-material/ThumbDownAltOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined';
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
+import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import { useNavigate } from 'react-router-dom';
 import { formControlLabelClasses } from '@mui/material';
 /*
@@ -23,7 +25,13 @@ import { formControlLabelClasses } from '@mui/material';
 function ListCard(props) {
     const { store } = useContext(GlobalStoreContext);
     const {auth} = useContext(AuthContext);
-    const[expanded, setExpanded] = useState(false); 
+    const[expanded, setExpanded] = useState(false);
+    /* liked and setLiked will handle determining which like button to show, and 
+    implement the logic behind liking a list */
+    const [liked, setLiked] = useState(false);
+    /* disliked and setDisliked will handle determining which like button to show, and 
+    implement the logic behind liking a list */
+    const [disliked, setDisliked] = useState(false);
     const {list} = props;
     const navigate = useNavigate();
 
@@ -121,9 +129,52 @@ function ListCard(props) {
         navigate("/persons-lists");
         store.updateSearchField(owner);
     }
-    console.log(list.comments);
 
-    //Make sure newest 
+    /* handleLikeDislike will handle updating the liked and disliked button, as well as the 
+    like and/or dislike count of this list */
+    function handleLikeDislike(param){
+        if (auth.type !== "guest"){
+            if (param === "like"){
+                if (liked){
+                    //If the user clicks like after already clicking it once, remove their like
+                    setLiked(false);
+                    list.likes--;
+                }
+                else if (disliked){
+                    setDisliked(false);
+                    list.dislikes--;
+                    setLiked(true);
+                    list.likes++;
+                }
+                else{
+                    setLiked(true);
+                    list.likes++;
+                }
+            }
+            else{
+                if (liked){
+                    setDisliked(true);
+                    setLiked(false);
+                    list.likes--;
+                    list.dislikes++;
+                }
+                else if (disliked){
+                    setDisliked(false);
+                    list.dislikes--;
+                }
+                else{
+                    setDisliked(true);
+                    list.dislikes++;
+                }
+            }
+            store.updateList(list);
+        }
+    }
+
+
+
+
+    //Make sure newest comments are at the top by reversing the comments list
     let reversed = [];
     for (let k = list.comments.length-1; k>=0; k--){
         reversed.push(list.comments[k]);
@@ -206,12 +257,27 @@ function ListCard(props) {
                 <div style={{position:"absolute", left:"80.5%", float:"right"}}>
                     <IconButton
                     style={{width:"110px"}}>
-                        <ThumbUpAltOutlinedIcon style={{fontSize:"40px", color:'black'}}/>
+                        {
+                            liked ?
+                            <ThumbUpAltIcon style={{fontSize:"40px", color:'black'}}
+                            onClick={()=>handleLikeDislike("like")}/>
+                            :
+                            <ThumbUpAltOutlinedIcon style={{fontSize:"40px", color:'black'}}
+                            onClick={()=>handleLikeDislike("like")}/>
+
+                        }
                             <strong style={{color:'black'}}>{list.likes}</strong>
                     </IconButton>
                     <IconButton style={{
                     width: "90px" ,maxWidth:"90px"}}>
-                            <ThumbDownAltOutlinedIcon style={{fontSize:"40px", color:'black'}}/>
+                        {
+                            disliked ? 
+                            <ThumbDownAltIcon style={{fontSize:"40px", color:'black'}}
+                            onClick={()=>handleLikeDislike("dislike")}/>
+                            :
+                            <ThumbDownAltOutlinedIcon style={{fontSize:"40px", color:'black'}}
+                            onClick={()=>handleLikeDislike("dislike")}/>
+                        }
                             <strong style={{color:'black'}}>{list.dislikes}</strong>
                     </IconButton>
                     &nbsp; &nbsp;
