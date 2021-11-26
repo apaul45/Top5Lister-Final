@@ -1,7 +1,8 @@
 import React, { createContext, useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom'
 import apis from "../axios-api/api";
-
+import {useContext} from 'react'
+import { GlobalStoreContext } from "../store";
 const AuthContext = createContext();
 console.log("create AuthContext: " + AuthContext);
 
@@ -24,6 +25,9 @@ function AuthContextProvider(props) {
         type: "",
 
     });
+
+    const {store} = useContext(GlobalStoreContext);
+
     const history = useNavigate();
 
     useEffect(() => {
@@ -209,6 +213,8 @@ function AuthContextProvider(props) {
                     type: "",
                 }
             });
+            //Make sure the search field is empty upon returning to splash screen
+            store.updateSearchField("");
         }
     }
     return (

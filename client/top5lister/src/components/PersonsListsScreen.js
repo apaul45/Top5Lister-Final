@@ -12,6 +12,9 @@ export default function PersonsListsScreen(){
     const location = useLocation();
     let searchedLists = useRef([]);
 
+    useEffect(() => {
+        store.loadLists();
+    }, []);
 
     if (store.lists && location.pathname === '/persons-lists'){
         searchedLists.current = store.lists.filter(list => {

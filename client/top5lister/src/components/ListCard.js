@@ -4,9 +4,7 @@ import AuthContext from '../auth'
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import ListItem from '@mui/material/ListItem';
-import List from '@mui/material/List'
 import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
 import { styled } from '@mui/material/styles';
 import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
 import ThumbDownAltOutlinedIcon from '@mui/icons-material/ThumbDownAltOutlined';
@@ -17,8 +15,6 @@ import { useNavigate } from 'react-router-dom';
     This is a card in our list of top 5 lists. It lets select
     a list for editing and it has controls for changing its 
     name or deleting it.
-    
-    @author McKilla Gorilla
 */
 function ListCard(props) {
     const { store } = useContext(GlobalStoreContext);
@@ -31,17 +27,17 @@ function ListCard(props) {
     let editOrPublished = "";
     let listCardColor = "#F0ECC0";
     //Only allow the delete button to appar if this is the current user's list
-    let deleteButton = "";
+    let deleteButton = <div></div>;
 
     /*Only allow the edit and delete button to appear if there's an actual user logged in
     and if the list is the current user's list. */
     //
     if (auth.user && auth.user.username === list.owner){
         editOrPublished = <>                    
-        <button className="listcard-edit-button" onClick={()=>handleEditList()}>
-            <u>Edit</u>
-        </button>
-      </>;
+                            <button className="listcard-edit-button" onClick={()=>handleEditList()}>
+                                <u>Edit</u>
+                            </button>
+                          </>;
 
         deleteButton = <>
                             <IconButton onClick={(event)=>handleDeleteList(event)}>
@@ -82,18 +78,6 @@ function ListCard(props) {
         store.setCurrentList(list._id);
         navigate('/edit');
     }
-    function handleToggleEdit(event) {
-        event.stopPropagation();
-        toggleEdit();
-    }
-    function toggleEdit() {
-        // let newActive = !editActive;
-        // if (newActive) {
-        //     store.setIsListNameEditActive();
-        // }
-        // setEditActive(newActive);
-    }
-
     async function handleDeleteList(event) {
         event.stopPropagation();
         store.markListForDeletion(list);
@@ -123,8 +107,8 @@ function ListCard(props) {
                     </IconButton>
                     &nbsp; &nbsp;
                     {deleteButton}<br/> &nbsp; &nbsp; &nbsp;
-                    <span style={{width: "300px", maxWidth: "300px"}}>Views: {list.views}</span>
-                    <IconButton style={{position:"absolute", right:"0.15%"}}>
+                    <span style={{position:"absolute", top:"57%",width: "300px", maxWidth: "300px"}}>Views: {list.views}</span>
+                    <IconButton style={{position:"absolute",top:"57%", right:"0.15%"}}>
                             <KeyboardArrowDownOutlinedIcon style={{fontSize:"40px", color:'black'}}/>
                     </IconButton>
                 </div>

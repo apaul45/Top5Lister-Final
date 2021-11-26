@@ -11,9 +11,13 @@ export default function AllListsScreen(){
     (essentially a hybrid of HomeScreen and PersonsListsScreen) */
     const {store} = useContext(GlobalStoreContext);
     const{auth} = useContext(AuthContext);
+
+    useEffect(() => {
+        store.loadLists();
+    }, []);
+    
     //Initialize searchedLists to store.lists 
     let searchedLists = useRef(store.lists);
-
 
     if (store.searchField !== "" && store.lists){
         searchedLists.current = store.lists.filter(list => {
@@ -38,11 +42,13 @@ export default function AllListsScreen(){
             }
         });
     }
-    else if (store.lists && auth.user){
+    /* Make sure all published lists are part of what gets shown on this screen
+    (this is so that guests can also view and search for specific things) */
+    else if (store.lists && auth.type){
         /* Only allow the user's saved lists to appear: everyone else's lists
         that appear on this screen should be published */
         searchedLists.current = store.lists.filter(list => {
-            if (auth.user.username === list.owner){
+            if (auth.user && auth.user.username === list.owner){
                 return list;
             }
             else{
