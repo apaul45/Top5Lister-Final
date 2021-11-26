@@ -40,7 +40,10 @@ export default function WorkspaceScreen(){
     function handlePublishList(){
         console.log("called publish list");
         let newList = store.currentList;
-        newList.isPublished = true;
+        newList.published.isPublished = true;
+        const timeElapsed = Date.now();
+        const today = new Date(timeElapsed);
+        newList.published.publishedDate = today.toDateString().substring(4);
         store.changeCurrentList(newList);
         store.updateCurrentList();
         navigate('/home');
@@ -88,9 +91,14 @@ export default function WorkspaceScreen(){
         else if (store.currentList.items.indexOf("")!== -1){
             isDisabled.current = true;
         }
+        else if (store.currentList.items.some(
+            (val, i) => store.currentList.items.indexOf(val) !== i
+          )){
+            isDisabled.current = true;
+          }
         else if (store.lists){
             //Check if this user already published a list with this name
-            let duplicates = store.lists.filter(list => ((list.isPublished)
+            let duplicates = store.lists.filter(list => ((list.published.isPublished)
                     && (auth.user && list.owner === auth.user.username) &&
                     (list.name === store.currentList.name)));
             if (duplicates.length > 0){

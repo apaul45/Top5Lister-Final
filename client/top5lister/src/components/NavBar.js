@@ -22,6 +22,7 @@ import {useLocation} from 'react-router-dom'
 export default function NavBar(){
     const {store} = useContext(GlobalStoreContext);
     const { auth } = useContext(AuthContext);
+    let disabled = false;
     //anchorEL will handle allowing the menu to open or not (initially closed so set to null)
     const [anchorEl, setAnchorEl] = useState(null);
     const isMenuOpen = Boolean(anchorEl);
@@ -38,6 +39,7 @@ export default function NavBar(){
         setAnchorEl(null);
     };
     let StyledIconButton = styled(IconButton)({
+        color: "black",
         '&:hover': {
             border: '2px solid green',
             backgroundColor:"transparent",
@@ -53,21 +55,14 @@ export default function NavBar(){
     });
     //Add the disabled property if the edit/create screen is open
     if (location.pathname === "/edit"){
-        StyledIconButton = styled(IconButton)({
-            color:'gray',
-            '&:hover': {
-                border: '2px solid green',
-                backgroundColor:"transparent",
-                padding:"3px 3px 3px 3px",
-                borderRadius: "1px 1px",
-              }
-        });
+        disabled = true;
     }
 
     function handleClick(path){
         //Only allow navigation to other screens if the workspace screen isn't opened
         if (location.pathname !== "/edit"){
             navigate(path);
+            disabled = false;
         }
     }
     //sortMenu will only open if there is an associated anchor element
@@ -108,18 +103,20 @@ export default function NavBar(){
                         color="inherit"
                         aria-label="open drawer"
                         sx={{ mr: 2}}
+                        disabled={disabled}
                         onClick = {()=>handleClick("/home")}
                         >
-                            <HomeOutlinedIcon style={{fill: "black", fontSize:"45px", float: "right"}}/>
+                            <HomeOutlinedIcon style={{fontSize:"45px", float: "right"}}/>
                     </StyledIconButton>
                     <StyledIconButton
                     edge="start"
                     color="inherit"
                     aria-label="open drawer"
                     sx={{ mr: 2 }}
+                    disabled={disabled}
                     onClick = {()=>handleClick("/all-lists")}
                     >
-                        <GroupsOutlinedIcon style={{fill: "black", fontSize:"45px", float: "right"}} />
+                        <GroupsOutlinedIcon style={{fontSize:"45px", float: "right"}} />
                     </StyledIconButton>
 
                     <StyledIconButton
@@ -127,9 +124,10 @@ export default function NavBar(){
                     color="inherit"
                     aria-label="open drawer"
                     sx={{ mr: 2 }}
+                    disabled={disabled}
                     onClick = {()=>handleClick("/persons-lists")}
                     >
-                        <PersonOutlinedIcon style={{fill: "black", fontSize:"45px", float: "right"}} />
+                        <PersonOutlinedIcon style={{fontSize:"45px", float: "right"}} />
                     </StyledIconButton>
 
                     <StyledIconButton
@@ -137,9 +135,10 @@ export default function NavBar(){
                     color="inherit"
                     aria-label="open drawer"
                     sx={{ mr: 2 }}
+                    disabled={disabled}
                     onClick = {()=>handleClick("/community-lists")}
                     >
-                        <FunctionsIcon style={{fill: "black", fontSize:"45px", float: "right"}} />
+                        <FunctionsIcon style={{fontSize:"45px", float: "right"}} />
                     </StyledIconButton>
 
                     <Box
@@ -147,10 +146,11 @@ export default function NavBar(){
                     sx={{
                         '& > :not(style)': { m: 1, width: '75ch', backgroundColor: "white" },
                     }}
+                    disabled={disabled}
                     noValidate
                     autoComplete="off"
                     >
-                        <TextField id="outlined-basic" label="Search" variant="outlined"
+                        <TextField id="outlined-basic" label="Search" disabled={disabled} variant="outlined"
                         onChange={event => store.updateSearchField(event.target.value)}/>
                     </Box>
                     <strong style={{color: "black", position: "relative", right:"-340px", size:"45px"}}>
@@ -160,12 +160,13 @@ export default function NavBar(){
                         <StyledIconButton
                             size="large"
                             edge="end"
+                            disabled={disabled}
                             aria-label="sort-button"
                             aria-haspopup="true"
                             aria-expanded={isMenuOpen ? 'true' : undefined}
                             onClick={handleProfileMenuOpen}
                         >
-                            <SortIcon style={{fontSize:"45px", color: "black"}}/>
+                            <SortIcon style={{fontSize:"45px"}}/>
                         </StyledIconButton>
                     </Box>
                 </Toolbar>

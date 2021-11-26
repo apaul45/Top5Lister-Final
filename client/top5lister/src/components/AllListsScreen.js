@@ -15,7 +15,7 @@ export default function AllListsScreen(){
     useEffect(() => {
         store.loadLists();
     }, []);
-    
+
     //Initialize searchedLists to store.lists 
     let searchedLists = useRef(store.lists);
 
@@ -29,13 +29,13 @@ export default function AllListsScreen(){
                         return list;
                     }
                     else{
-                        if (list.isPublished){
+                        if (list.published.isPublished){
                             return list;
                         }
                     }
                 }
                 else{
-                    if (list.isPublished){
+                    if (list.published.isPublished){
                         return list;
                     }
                 }
@@ -52,7 +52,7 @@ export default function AllListsScreen(){
                 return list;
             }
             else{
-                if (list.isPublished){
+                if (list.published.isPublished){
                     return list;
                 }
             }

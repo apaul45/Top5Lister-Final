@@ -55,14 +55,13 @@ function ListCard(props) {
 
     /*Control which color the list card is and make the publish date 
     visible based on whether this list was published or not */
-    if (list.isPublished){
+    if (list.published.isPublished){
         //Stringify the updatedAt field of this list
             console.log(list.updatedAt);
-            const publishedAt = list.updatedAt.toString().substring(0, list.updatedAt.toString().indexOf("T"));
             editOrPublished = <>
                                 <u>Published:</u> 
                                 &nbsp;
-                               {publishedAt}
+                               {list.published.publishedDate}
                               </>;
             secondRef = editOrPublished;
             listCardColor="#CBC7F2";
@@ -104,6 +103,16 @@ function ListCard(props) {
             store.updateList(list);
         }
     }
+
+    /* handleUpdateComments should add the new comment to this list 
+    if the user pressed enter */
+    function handleUpdateComments(event){
+        if (event.key === 'Enter'){
+            event.preventDefault();
+            list.comments.push([(auth.user ? auth.user.username : ""), event.target.value]);
+            store.updateList(list);
+        }
+    }
     console.log(list.comments);
     return (
         <StyledListItem
@@ -122,17 +131,35 @@ function ListCard(props) {
                                 &nbsp;4. &nbsp; &nbsp;{list.items[3]} <br/>
                                 &nbsp;5. &nbsp; &nbsp;{list.items[4]} <br/>
                             </div>
-                            <List sx={{width: '50%'}}
-                            style={{position:"absolute", top: "22.2%",left: "49%"}}>
+                            <List sx={{width: '250%'}}
+                            style={{position:"absolute", top: "16.6%",left: "49%"}}>
                                 {
                                     list.comments.map(comment =>
-                                        <div className="comment-style">
+                                        <StyledCommentItem>
                                             {comment[0]} <br/>
                                             {comment[1]}
-                                        </div>
+                                        </StyledCommentItem>
                                     )
                                 }
                             </List>
+                            {
+                                auth && auth.type !== "guest" ?
+
+                                <Box
+                                component="form"
+                                sx={{
+                                '& > :not(style)': { m: 1, width: '35ch', 
+                                backgroundColor: "white" },
+                                }}
+                                noValidate
+                                autoComplete="off"
+                                >
+                                    <TextField id="outlined-basic" label="Add Comment" variant="outlined"
+                                    onKeyPress={(event)=> handleUpdateComments(event)}/>
+                                </Box> 
+
+                                : ""
+                            }
                             {editOrPublished}
                       </div> : <>{editOrPublished}<br/></>
                     }

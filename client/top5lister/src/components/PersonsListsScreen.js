@@ -25,13 +25,13 @@ export default function PersonsListsScreen(){
                         return list;
                     }
                     else{
-                        if (list.isPublished){
+                        if (list.published.isPublished){
                             return list;
                         }
                     }
                 }
                 else{
-                    if (list.isPublished){
+                    if (list.published.isPublished){
                         return list;
                     }
                 }

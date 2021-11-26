@@ -162,7 +162,7 @@ function GlobalStoreContextProvider(props) {
                 likes: 0,
                 dislikes: 0, 
                 views: 0,
-                isPublished: false,
+                published: {isPublished: false, publishedDate:"not published"}
             };
             let response = await apis.createTop5List(payload);
             if (response.data.success) {

@@ -66,7 +66,7 @@ updateTop5List = async (req, res) => {
         top5List.comments = body.comments
         //Make sure the top5List's view count is properly sent
         top5List.views = body.views
-        top5List.isPublished = body.isPublished;
+        top5List.published = body.published;
         top5List.save()
             .then(() => {
                 console.log("SUCCESS!!!");
