@@ -27,7 +27,7 @@ export default function HomeScreen(){
     return (
             <div className="background-screen">
                 <List sx={{ width: '96.8%', left: '1.6%'}}
-                style={{maxHeight: '100%', overflow: 'auto'}}
+                style={{maxHeight: '140%', overflow: 'auto'}}
                 >
                 {
                     usersLists.map(list =>

@@ -214,9 +214,11 @@ function AuthContextProvider(props) {
                 }
             });
             //Make sure the search field is empty upon returning to splash screen
-            store.updateSearchField("");
-        }
+            if (store){
+                store.updateSearchField("");
+            }
     }
+}
     return (
         <AuthContext.Provider value={{
             auth

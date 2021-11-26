@@ -155,6 +155,25 @@ margin right auto is used to horizontally center the box */
 	background-color: #E0A009;
 	border-radius: 23%;
 }
+.outer-list-card{
+	display: flex;
+	line-height:2;
+}
+.expanded-list-items{
+	background-color: #051A5E;
+	color:#E0A009;
+	border: 1px solid;
+	border-radius: 12px;
+	height: 300px;
+	width:700px;
+	font-size:22pt;
+	font-weight: bold;
+}
+.comment-style{
+	background-color:#E0A009;
+	border: 1px solid;
+	border-radius: 12px;
+}
 .fade-in {
 	animation: fadeIn ease 3s;
 	-webkit-animation: fadeIn ease 3s;

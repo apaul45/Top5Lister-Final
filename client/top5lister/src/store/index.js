@@ -263,6 +263,22 @@ function GlobalStoreContextProvider(props) {
             payload: search,
         });
     }
+
+    /* updateList should handle updates to any list card (this is the same
+        as updateCurrentList but made particularly for updating like dislike and 
+        view counts) */
+    store.updateList = async function (list){
+        let response = await apis.updateTop5ListById(list._id, list);
+        if (response.data.success){
+            response = await apis.getAllTop5Lists();
+            if (response.data.success){
+                storeReducer({
+                    type: GlobalStoreActionType.LOAD_LISTS,
+                    payload: response.data.top5Lists
+                });
+            }
+        }
+    }
     return (
         <GlobalStoreContext.Provider value={{
             store
