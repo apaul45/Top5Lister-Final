@@ -87,11 +87,17 @@ margin right auto is used to horizontally center the box */
 	border-radius: 50%;
 	background-color: purple;
 }
-.listcard-edit-button{
+#listcard-edit-button{
 	padding: 0;
 	border: none;
 	background: none;
 	font-size: 9pt;
+}
+#listcard-owner-button{
+	padding: 0;
+	border: none;
+	background: none;
+	font-size: 13pt;
 }
 .listcard-edit-button:hover{
 	color:red;

@@ -150,7 +150,8 @@ export default function NavBar(){
                     noValidate
                     autoComplete="off"
                     >
-                        <TextField id="outlined-basic" label="Search" disabled={disabled} variant="outlined"
+                        <TextField id="outlined-basic" label={store.searchField?"" : "Search"} disabled={disabled} variant="outlined"
+                        value={store.searchField ? store.searchField : ""}
                         onChange={event => store.updateSearchField(event.target.value)}/>
                     </Box>
                     <strong style={{color: "black", position: "relative", right:"-340px", size:"45px"}}>

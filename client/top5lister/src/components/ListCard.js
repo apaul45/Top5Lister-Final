@@ -41,7 +41,7 @@ function ListCard(props) {
     //
     if (auth.user && auth.user.username === list.owner){
         editOrPublished = <>                    
-                            <button className="listcard-edit-button" onClick={()=>handleEditList()}>
+                            <button id="listcard-edit-button" onClick={()=>handleEditList()}>
                                 <u>Edit</u>
                             </button>
                           </>;
@@ -74,10 +74,11 @@ function ListCard(props) {
         borderRadius: "12px",
         backgroundColor: listCardColor,
         width: "100%",
-        fontsize: "28pt"
+        fontsize: "28pt",
     });
 
     const StyledCommentItem = styled(ListItem)({
+        overflow: "auto",
         border: "1px solid black", 
         borderRadius: "12px",
         backgroundColor: "#E0A009",
@@ -113,7 +114,21 @@ function ListCard(props) {
             store.updateList(list);
         }
     }
+
+    /* handleOwnerClick will set the search field to the owner's name, and then go to 
+    the person screen to display that person's lists */
+    function handleOwnerClick(owner){
+        navigate("/persons-lists");
+        store.updateSearchField(owner);
+    }
     console.log(list.comments);
+
+    //Make sure newest 
+    let reversed = [];
+    for (let k = list.comments.length-1; k>=0; k--){
+        reversed.push(list.comments[k]);
+    }
+    console.log(reversed);
     return (
         <StyledListItem
         sx={{ marginTop: '5px', display: 'flex', p: 1 }}
@@ -121,7 +136,9 @@ function ListCard(props) {
             <div className="outer-list-card">
                 <div>
                     <strong style={{fontSize: "13pt"}}>{list.name}</strong><br/>
-                    <strong style={{fontSize:"9pt"}}>By: <u style={{color:"blue"}}>{list.owner}</u></strong><br/>
+                    <button id ="listcard-owner-button" onClick={(event)=>handleOwnerClick(event.target.textContent)}>
+                    <strong style={{fontSize:"9pt"}}>By: <u style={{color:"blue"}}>{list.owner}</u></strong>
+                    </button><br/>
                     {expanded ?
                       <div>
                             <div className="expanded-list-items">
@@ -131,14 +148,24 @@ function ListCard(props) {
                                 &nbsp;4. &nbsp; &nbsp;{list.items[3]} <br/>
                                 &nbsp;5. &nbsp; &nbsp;{list.items[4]} <br/>
                             </div>
-                            <List sx={{width: '250%'}}
-                            style={{position:"absolute", top: "16.6%",left: "49%"}}>
+                            <List sx={{width: '250%', height: "45%", overflow: "auto"}}
+                            style={{position:"absolute", top: "16.5%",left: "49%"}}>
                                 {
-                                    list.comments.map(comment =>
+                                    reversed.map(comment =>
+                                        <>
                                         <StyledCommentItem>
-                                            {comment[0]} <br/>
-                                            {comment[1]}
-                                        </StyledCommentItem>
+                                            <div>
+                                            <button id ="listcard-owner-button" onClick={(event)=>
+                                            handleOwnerClick(event.target.textContent)}>
+                                                <strong>
+                                                    <u style={{color:"blue"}}>{comment[0]}</u>
+                                                </strong>
+                                            </button><br/>
+                                                {comment[1]} <br/>
+                                            </div>
+                                                
+                                        </StyledCommentItem> <br/>
+                                        </>
                                     )
                                 }
                             </List>
@@ -148,23 +175,35 @@ function ListCard(props) {
                                 <Box
                                 component="form"
                                 sx={{
-                                '& > :not(style)': { m: 1, width: '35ch', 
-                                backgroundColor: "white" },
+                                '& > :not(style)': { m: 1, width: '73.8ch',
+                                backgroundColor: "white" }, 
+                                position: "relative", right:"-500px"
                                 }}
                                 noValidate
                                 autoComplete="off"
                                 >
-                                    <TextField id="outlined-basic" label="Add Comment" variant="outlined"
+                                    <TextField id="outlined-basic" size="medium" label="Add Comment" variant="outlined"
+                                    style={{position: "relative", right:"-210px", top:"-65px",
+                                    border:"1px", borderRadius:"12px"}}
                                     onKeyPress={(event)=> handleUpdateComments(event)}/>
                                 </Box> 
 
-                                : ""
+                                : 
+
+                                <Box
+                                component="form"
+                                sx={{
+                                '& > :not(style)': { m: 1, width: '35ch'}
+                                }}
+                                noValidate
+                                autoComplete="off"
+                                > </Box>
                             }
                             {editOrPublished}
                       </div> : <>{editOrPublished}<br/></>
                     }
                 </div>
-                <div style={{position:"absolute", left:"80.5%"}}>
+                <div style={{position:"absolute", left:"80.5%", float:"right"}}>
                     <IconButton
                     style={{width:"110px"}}>
                         <ThumbUpAltOutlinedIcon style={{fontSize:"40px", color:'black'}}/>
@@ -187,7 +226,7 @@ function ListCard(props) {
                             </> : 
                             <>
                                 <span style={{position:"absolute", 
-                                top:"420%",width: "300px", maxWidth: "300px"}}>
+                                top:"412%",width: "300px", maxWidth: "300px"}}>
                                     Views: {list.views}
                                 </span> 
                             </>
@@ -197,7 +236,7 @@ function ListCard(props) {
 
                     <IconButton 
                     onClick={()=>setExpanded(false)}
-                    style={{position:"absolute",top:"405%", right:"0.15%",float:"right"}}>
+                    style={{position:"absolute",top:"400%", right:"0.15%"}}>
                             <KeyboardArrowUpOutlinedIcon style={{fontSize:"40px", color:'black'}}/>
                     </IconButton> 
                     
