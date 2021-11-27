@@ -26,15 +26,10 @@ function ListCard(props) {
     const { store } = useContext(GlobalStoreContext);
     const {auth} = useContext(AuthContext);
     const[expanded, setExpanded] = useState(false);
-    /* liked and setLiked will handle determining which like button to show, and 
-    implement the logic behind liking a list */
-    const [liked, setLiked] = useState(false);
-    /* disliked and setDisliked will handle determining which like button to show, and 
-    implement the logic behind liking a list */
-    const [disliked, setDisliked] = useState(false);
     const {list} = props;
     const navigate = useNavigate();
 
+    
     /* editOrPublished is used to decide if the edit button will appear for a unpublished list, or 
     if the date that the list was published will be shown */
     let editOrPublished = "";
@@ -108,7 +103,7 @@ function ListCard(props) {
         setExpanded(true);
     
         if (auth.type !== "guest"){
-            list.views++;
+            list.views.push(auth.user.username);
             store.updateList(list);
         }
     }
@@ -135,36 +130,28 @@ function ListCard(props) {
     function handleLikeDislike(param){
         if (auth.type !== "guest"){
             if (param === "like"){
-                if (liked){
+                if (list.likes.includes(auth.user.username)){
                     //If the user clicks like after already clicking it once, remove their like
-                    setLiked(false);
-                    list.likes--;
+                    list.likes = list.likes.filter(username => username !== auth.user.username);
                 }
-                else if (disliked){
-                    setDisliked(false);
-                    list.dislikes--;
-                    setLiked(true);
-                    list.likes++;
+                else if (list.dislikes.includes(auth.user.username)){
+                    list.dislikes = list.dislikes.filter(username => username !== auth.user.username);
+                    list.likes.push(auth.user.username);
                 }
                 else{
-                    setLiked(true);
-                    list.likes++;
+                    list.likes.push(auth.user.username);
                 }
             }
             else{
-                if (liked){
-                    setDisliked(true);
-                    setLiked(false);
-                    list.likes--;
-                    list.dislikes++;
+                if (list.likes.includes(auth.user.username)){
+                    list.likes = list.likes.filter(username => username !== auth.user.username);
+                    list.dislikes.push(auth.user.username);
                 }
-                else if (disliked){
-                    setDisliked(false);
-                    list.dislikes--;
+                else if (list.dislikes.includes(auth.user.username)){
+                    list.dislikes = list.dislikes.filter(username => username !== auth.user.username);
                 }
                 else{
-                    setDisliked(true);
-                    list.dislikes++;
+                    list.dislikes.push(auth.user.username);
                 }
             }
             store.updateList(list);
@@ -258,7 +245,7 @@ function ListCard(props) {
                     <IconButton
                     style={{width:"110px"}}>
                         {
-                            liked ?
+                            auth && auth.user && list.likes.includes(auth.user.username) ?
                             <ThumbUpAltIcon style={{fontSize:"40px", color:'black'}}
                             onClick={()=>handleLikeDislike("like")}/>
                             :
@@ -266,19 +253,19 @@ function ListCard(props) {
                             onClick={()=>handleLikeDislike("like")}/>
 
                         }
-                            <strong style={{color:'black'}}>{list.likes}</strong>
+                            <strong style={{color:'black'}}>{list.likes.length}</strong>
                     </IconButton>
                     <IconButton style={{
                     width: "90px" ,maxWidth:"90px"}}>
                         {
-                            disliked ? 
+                            auth && auth.user && list.dislikes.includes(auth.user.username) ? 
                             <ThumbDownAltIcon style={{fontSize:"40px", color:'black'}}
                             onClick={()=>handleLikeDislike("dislike")}/>
                             :
                             <ThumbDownAltOutlinedIcon style={{fontSize:"40px", color:'black'}}
                             onClick={()=>handleLikeDislike("dislike")}/>
                         }
-                            <strong style={{color:'black'}}>{list.dislikes}</strong>
+                            <strong style={{color:'black'}}>{list.dislikes.length}</strong>
                     </IconButton>
                     &nbsp; &nbsp;
                     {deleteButton}<br/>
@@ -287,13 +274,13 @@ function ListCard(props) {
                             <>
                                 &nbsp; &nbsp; &nbsp;
                                 <span style={{position:"absolute", top:"52%",width: "300px", maxWidth: "300px"}}>
-                                    Views: {list.views}
+                                    Views: {list.views.length}
                                 </span> 
                             </> : 
                             <>
                                 <span style={{position:"absolute", 
                                 top:"412%",width: "300px", maxWidth: "300px"}}>
-                                    Views: {list.views}
+                                    Views: {list.views.length}
                                 </span> 
                             </>
                     }

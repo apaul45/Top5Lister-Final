@@ -99,7 +99,7 @@ margin right auto is used to horizontally center the box */
 	background: none;
 	font-size: 13pt;
 }
-.listcard-edit-button:hover{
+#listcard-edit-button:hover{
 	color:red;
 }
 #top5-statusbar {

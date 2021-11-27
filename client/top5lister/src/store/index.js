@@ -159,9 +159,9 @@ function GlobalStoreContextProvider(props) {
                 items: ["?", "?", "?", "?", "?"],
                 owner: auth.user.username, 
                 comments: [],
-                likes: 0,
-                dislikes: 0, 
-                views: 0,
+                likes: [],
+                dislikes: [], 
+                views: [],
                 published: {isPublished: false, publishedDate:"not published"}
             };
             let response = await apis.createTop5List(payload);
@@ -184,16 +184,21 @@ function GlobalStoreContextProvider(props) {
 
     // THIS FUNCTION LOADS ALL THE LISTS IN THE DATABASE
     store.loadLists = async function () {
-        const response = await apis.getAllTop5Lists();
-        if (response.data.success) {
-            let listsArray = response.data.top5Lists;
+        try{
+            const response = await apis.getAllTop5Lists();
+            if (response.data.success) {
+                let listsArray = response.data.top5Lists;
+                storeReducer({
+                    type: GlobalStoreActionType.LOAD_LISTS,
+                    payload: listsArray
+                });
+            }
+        }
+        catch(err){
             storeReducer({
                 type: GlobalStoreActionType.LOAD_LISTS,
-                payload: listsArray
+                payload: []
             });
-        }
-        else {
-            console.log("apis FAILED TO GET THE LISTS");
         }
     }
     store.markListForDeletion = function(list){
@@ -203,9 +208,17 @@ function GlobalStoreContextProvider(props) {
             });
     }
     store.deleteList = async function(){
-        let response = await apis.deleteTop5ListById(this.listMarkedForDeletion._id);
-        if (response.data.success) {
-            store.loadLists();
+        try{
+            let response = await apis.deleteTop5ListById(this.listMarkedForDeletion._id);
+            if (response.data.success){
+                store.loadLists();
+            }
+        }
+        catch(err){
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_LISTS,
+                payload: store.lists.filter(list => list._id !== store.listMarkedForDeletion._id)
+            });
         }
     }
     store.unmarkListForDeletion = function () {
