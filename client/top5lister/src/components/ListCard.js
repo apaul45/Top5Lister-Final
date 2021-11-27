@@ -108,6 +108,10 @@ function ListCard(props) {
             list.views.push(auth.user.username);
             store.updateList(list);
         }
+        else{
+            list.views.push("");
+            store.updateList(list);
+        }
     }
 
     /* handleUpdateComments should add the new comment to this list 
@@ -120,12 +124,6 @@ function ListCard(props) {
         }
     }
 
-    /* handleOwnerClick will set the search field to the owner's name, and then go to 
-    the person screen to display that person's lists */
-    function handleOwnerClick(owner){
-        navigate("/persons-lists");
-        store.updateSearchField(owner);
-    }
 
     /* handleLikeDislike will handle updating the liked and disliked button, as well as the 
     like and/or dislike count of this list */
@@ -176,9 +174,8 @@ function ListCard(props) {
             <div className="outer-list-card">
                 <div>
                     <strong style={{fontSize: "13pt"}}>{list.name}</strong><br/>
-                    <button id ="listcard-owner-button" onClick={(event)=>handleOwnerClick(event.target.textContent)}>
                     <strong style={{fontSize:"9pt"}}>By: <u style={{color:"blue"}}>{list.owner}</u></strong>
-                    </button><br/>
+                    <br/>
                     {expanded ?
                       <div>
                             <div className="expanded-list-items">
@@ -195,12 +192,9 @@ function ListCard(props) {
                                         <>
                                         <StyledCommentItem>
                                             <div>
-                                            <button id ="listcard-owner-button" onClick={(event)=>
-                                            handleOwnerClick(event.target.textContent)}>
                                                 <strong>
                                                     <u style={{color:"blue"}}>{comment[0]}</u>
-                                                </strong>
-                                            </button><br/>
+                                                </strong><br/>
                                                 {comment[1]} <br/>
                                             </div>
                                                 

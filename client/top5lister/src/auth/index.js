@@ -143,6 +143,11 @@ function AuthContextProvider(props) {
                 //Navigate the newly signed in user to the home screen of the application upon logging in
                 history('/home');
                 //store.loadIdNamePairs();
+                        //Make sure the search field is empty upon logging out
+        if (store){
+            store.updateSearchField("");
+            store.setSortField("");
+        }
              }
         }
         //IF AN ERROR OCCURS, UPDATE THE ERROR MESSAGE SO THAT ACCOUNT MODAL CAN DISPLAY IT
@@ -157,6 +162,11 @@ function AuthContextProvider(props) {
                     type: auth.type,
                 }
             });
+                    //Make sure the search field is empty upon logging out
+        if (store){
+            store.updateSearchField("");
+            store.setSortField("");
+        }
         }
     }
     //Allow a guest to view the site if they press the "continue as guest" button
@@ -173,6 +183,10 @@ function AuthContextProvider(props) {
         });
     }
     auth.logoutUser = async function(){
+        if (store){
+            store.updateSearchField("");
+            store.setSortField("");
+        }
         apis.logoutUser();
         authReducer({
             type: AuthActionType.GET_LOGGED_IN,
@@ -183,13 +197,9 @@ function AuthContextProvider(props) {
                 type: "",
             }
         });
-        //Make sure the search field is empty upon logging out
-        if (store){
-            store.updateSearchField("");
-            store.setSortField("");
-        }
         //Navigate back to the splash screen (route /) upon logging out
         history('/');
+        //Make sure the search field is empty upon logging out
     }
     //Use this auth store function to hide the account error modal when user presses ok
     auth.unmarkError = function(){
@@ -209,6 +219,11 @@ function AuthContextProvider(props) {
     second nav bar by setting type to null and lead back to the welcome screen */
     auth.checkLoggedIn = function(){
         if (auth.type !== "user"){
+            //Make sure the search & sort fields are empty upon returning to splash screen
+            if (store){
+                store.updateSearchField("");
+                store.setSortField("");
+            }
             authReducer({
                 type: AuthActionType.GET_LOGGED_IN,
                 payload: {
@@ -218,11 +233,6 @@ function AuthContextProvider(props) {
                     type: "",
                 }
             });
-            //Make sure the search & sort fields are empty upon returning to splash screen
-            if (store){
-                store.updateSearchField("");
-                store.setSortField("");
-            }
     }
 }
     return (

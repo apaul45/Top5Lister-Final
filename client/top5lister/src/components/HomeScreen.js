@@ -21,8 +21,10 @@ export default function HomeScreen(){
 
     }
     //Filter the user's lists if there's something in the search bar
+    //NOTE: Only for HomeScreen, the search field should return results that
+    //START WITH the search query
     if (store.searchField !== ""){
-        usersLists = usersLists.filter(list => list.name === store.searchField);
+        usersLists = usersLists.filter(list => list.name.startsWith(store.searchField));
     }
 
     /* Filter the user's lists if a sorting option was chosen, and 

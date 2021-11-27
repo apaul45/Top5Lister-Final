@@ -160,8 +160,9 @@ export default function NavBar(){
                     >
                         <TextField id="outlined-basic" label={store.searchField?"" : "Search"} disabled={disabled} 
                         variant="outlined"
-                        value={store.searchField ? store.searchField : ""}
-                        onChange={event => store.updateSearchField(event.target.value)}/>
+                        defaultValue={store ? store.searchField : ""}
+                        onKeyPress={event => store.updateSearchField("keypress", event)}
+                        onChange={event => store.updateSearchField("change",event)}/>
                     </Box>
                     <strong style={{color: "black", position: "relative", 
                     right:"-340px", size:"45px"}}>

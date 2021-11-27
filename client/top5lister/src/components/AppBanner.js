@@ -21,6 +21,7 @@ export default function AppBanner() {
         setAnchorEl(event.currentTarget);
     };
 
+
     const handleMenuClose = () => {
         setAnchorEl(null);
         /*use auth.checkLoggedIn to remove the second nav bar if

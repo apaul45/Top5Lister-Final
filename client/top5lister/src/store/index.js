@@ -55,6 +55,8 @@ function GlobalStoreContextProvider(props) {
         searchField: "",
         sortField: "",
     });
+
+
     const history = useNavigate();
 
     // SINCE WE'VE WRAPPED THE STORE IN THE AUTH CONTEXT WE CAN ACCESS THE USER HERE
@@ -294,11 +296,26 @@ function GlobalStoreContextProvider(props) {
     }
     /* updateSearchField should call th SET_SEARCH_FIELD action type,
     which will only update the search field variable and nothing else */
-    store.updateSearchField = function(search){
-        storeReducer({
-            type: GlobalStoreActionType.SET_SEARCH_FIELD,
-            payload: search,
-        });
+    store.updateSearchField = function(type, event){
+        if (type==="keypress" && event.key === "Enter"){
+            event.preventDefault();
+            storeReducer({
+                type: GlobalStoreActionType.SET_SEARCH_FIELD,
+                payload: event.target.value,
+            });
+        }
+        else if (type === "change"){
+            storeReducer({
+                type: GlobalStoreActionType.SET_SEARCH_FIELD,
+                payload: event.target.value,
+            });
+        }
+        else{
+            storeReducer({
+                type: GlobalStoreActionType.SET_SEARCH_FIELD,
+                payload: "",
+            });
+        }
     }
 
     /* updateList should handle updates to any list card (this is the same
@@ -325,6 +342,8 @@ function GlobalStoreContextProvider(props) {
             payload: sort
         });
     }
+
+
     return (
         <GlobalStoreContext.Provider value={{
             store

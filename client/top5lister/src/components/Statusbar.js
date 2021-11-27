@@ -25,7 +25,7 @@ function Statusbar() {
     const location = useLocation();
     /*Change what gets rendered for the status bar based on which screen the app is on & 
     other factors (ex: for home, it is also dependent on whether a guest is viewing or not) */
-    if ((location.pathname === "/home"||location.pathname === "/edit") && auth.type !== "guest"){
+    if (location.pathname === "/home" && auth.type !== "guest"){
         text = <div id="top5-statusbar">
                     <Typography>
                         <IconButton onClick={()=>handleCreateList()}>
@@ -35,6 +35,7 @@ function Statusbar() {
                     Your Lists
                </div> ;
     }
+    //If on the workspace screen, show the add button (but disabled)
     if (location.pathname === "/edit"){
         text = <div id="top5-statusbar" style={{fontSize:"40pt", color: "gray"}}>
                     <Typography>
@@ -44,6 +45,18 @@ function Statusbar() {
                     </Typography>
                     Your Lists
                </div> ;
+    }
+    //If on the persons, all lists, or community screen, update the status bar with the 
+    //search query
+    if (location.pathname === "/all-lists" || location.pathname === "/persons-lists" ||
+    location.pathname === "/community-lists"){
+        text = <div id="top5-statusbar" style={{color: "black"}}>
+                <Typography variant="h3">
+                    {
+                        store ? store.searchField : ""
+                    }
+                </Typography>
+              </div> ;
     }
     return(
         text
