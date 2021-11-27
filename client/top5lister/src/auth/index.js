@@ -142,12 +142,6 @@ function AuthContextProvider(props) {
                 });
                 //Navigate the newly signed in user to the home screen of the application upon logging in
                 history('/home');
-                //store.loadIdNamePairs();
-                        //Make sure the search field is empty upon logging out
-        if (store){
-            store.updateSearchField("");
-            store.setSortField("");
-        }
              }
         }
         //IF AN ERROR OCCURS, UPDATE THE ERROR MESSAGE SO THAT ACCOUNT MODAL CAN DISPLAY IT
@@ -162,11 +156,6 @@ function AuthContextProvider(props) {
                     type: auth.type,
                 }
             });
-                    //Make sure the search field is empty upon logging out
-        if (store){
-            store.updateSearchField("");
-            store.setSortField("");
-        }
         }
     }
     //Allow a guest to view the site if they press the "continue as guest" button
@@ -183,10 +172,6 @@ function AuthContextProvider(props) {
         });
     }
     auth.logoutUser = async function(){
-        if (store){
-            store.updateSearchField("");
-            store.setSortField("");
-        }
         apis.logoutUser();
         authReducer({
             type: AuthActionType.GET_LOGGED_IN,
@@ -223,6 +208,7 @@ function AuthContextProvider(props) {
             if (store){
                 store.updateSearchField("");
                 store.setSortField("");
+                console.log(store.searchField);
             }
             authReducer({
                 type: AuthActionType.GET_LOGGED_IN,
