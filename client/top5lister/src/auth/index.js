@@ -186,6 +186,7 @@ function AuthContextProvider(props) {
         //Make sure the search field is empty upon logging out
         if (store){
             store.updateSearchField("");
+            store.setSortField("");
         }
         //Navigate back to the splash screen (route /) upon logging out
         history('/');
@@ -217,9 +218,10 @@ function AuthContextProvider(props) {
                     type: "",
                 }
             });
-            //Make sure the search field is empty upon returning to splash screen
+            //Make sure the search & sort fields are empty upon returning to splash screen
             if (store){
                 store.updateSearchField("");
+                store.setSortField("");
             }
     }
 }

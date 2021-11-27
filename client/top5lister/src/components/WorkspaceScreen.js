@@ -43,7 +43,7 @@ export default function WorkspaceScreen(){
         newList.published.isPublished = true;
         const timeElapsed = Date.now();
         const today = new Date(timeElapsed);
-        newList.published.publishedDate = today.toDateString().substring(4);
+        newList.published.publishedDate = today;
         store.changeCurrentList(newList);
         store.updateCurrentList();
         navigate('/home');

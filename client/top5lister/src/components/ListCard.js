@@ -61,10 +61,12 @@ function ListCard(props) {
     if (list.published.isPublished){
         //Stringify the updatedAt field of this list
             console.log(list.updatedAt);
+            const publishedDate = new Date(list.published.publishedDate);
+            const publishedDateString = publishedDate.toDateString().substring(4);
             editOrPublished = <>
                                 <u>Published:</u> 
                                 &nbsp;
-                               {list.published.publishedDate}
+                               {publishedDateString}
                               </>;
             secondRef = editOrPublished;
             listCardColor="#CBC7F2";

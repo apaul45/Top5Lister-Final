@@ -59,6 +59,36 @@ export default function AllListsScreen(){
         });
     }
 
+
+    /* Filter the user's lists if a sorting option was chosen, and 
+    then set the sort field in store to null */
+    if (store && store.sortField !== ""){
+        if (store.sortField === "newest"){
+            searchedLists.current.sort((a,b) => {
+                const dateA = new Date(a.published.publishedDate);
+                const dateB = new Date(b.published.publishedDate);
+                return dateB-dateA;
+            });
+        }
+        else if (store.sortField === "oldest"){
+            searchedLists.current.sort((a,b) => {
+                const dateA = new Date(a.published.publishedDate);
+                const dateB = new Date(b.published.publishedDate);
+                return dateA-dateB;
+            });
+        }
+        else if (store.sortField === "views"){
+            console.log(searchedLists);
+            searchedLists.current.sort((a,b) => b.views.length-a.views.length);
+        }
+        else if (store.sortField === "likes"){
+            searchedLists.current.sort((a,b) => b.likes.length-a.likes.length);
+        }
+        else{
+            searchedLists.current.sort((a,b) => b.dislikes.length-a.dislikes.length);
+        }
+
+    }
     return(
         <div className="background-screen"> 
             <List sx={{ width: '96.8%', left: '1.6%'}}
@@ -68,6 +98,7 @@ export default function AllListsScreen(){
                     <ListCard 
                     key={list._id}
                     list={list} />)}
+                    {console.log(searchedLists)}
             </List>
         </div>
     )

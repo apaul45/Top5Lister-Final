@@ -24,6 +24,36 @@ export default function HomeScreen(){
     if (store.searchField !== ""){
         usersLists = usersLists.filter(list => list.name === store.searchField);
     }
+
+    /* Filter the user's lists if a sorting option was chosen, and 
+    then set the sort field in store to null */
+    if (store && store.sortField !== ""){
+        if (store.sortField === "newest"){
+            usersLists.sort((a,b) => {
+                const dateA = new Date(a.published.publishedDate);
+                const dateB = new Date(b.published.publishedDate);
+                return dateB-dateA;
+            });
+        }
+        else if (store.sortField === "oldest"){
+            usersLists.sort((a,b) => {
+                const dateA = new Date(a.published.publishedDate);
+                const dateB = new Date(b.published.publishedDate);
+                return dateA-dateB;
+            });
+        }
+        else if (store.sortField === "views"){
+
+            usersLists.sort((a,b) => b.views.length-a.views.length);
+        }
+        else if (store.sortField === "likes"){
+            usersLists.sort((a,b) => b.likes.length-a.likes.length);
+        }
+        else{
+            usersLists.sort((a,b) => b.dislikes.length-a.dislikes.length);
+        }
+
+    }
     return (
             <div className="background-screen">
                 <List sx={{ width: '96.8%', left: '1.6%'}}

@@ -27,7 +27,8 @@ export const GlobalStoreActionType = {
     SET_CURRENT_LIST: "SET_CURRENT_LIST",
     SET_ITEM_EDIT_ACTIVE: "SET_ITEM_EDIT_ACTIVE",
     SET_LIST_NAME_EDIT_ACTIVE: "SET_LIST_NAME_EDIT_ACTIVE",
-    SET_SEARCH_FIELD : "SET_SEARCH_FIELD"
+    SET_SEARCH_FIELD : "SET_SEARCH_FIELD",
+    SET_SORT : "SET_SORT"
 }
 
 // WITH THIS WE'RE MAKING OUR GLOBAL DATA STORE
@@ -41,6 +42,9 @@ function GlobalStoreContextProvider(props) {
     /* searchField will be used to contain what is written in the 
     search textfield, so that different screens can access it and 
     update the lists displayed accordingly */
+
+    /* sortField should be used to identify which sorting method to 
+    complete in the given screen */
     const [store, setStore] = useState({
         lists: [],
         currentList: null,
@@ -49,6 +53,7 @@ function GlobalStoreContextProvider(props) {
         listMarkedForDeletion: null,
         updateCurrentListCounter: 0,
         searchField: "",
+        sortField: "",
     });
     const history = useNavigate();
 
@@ -69,7 +74,8 @@ function GlobalStoreContextProvider(props) {
                     isItemEditActive: false,
                     listMarkedForDeletion: null,
                     updateCurrentListCounter: store.updateCurrentListCounter,
-                    searchField: store.searchField       
+                    searchField: store.searchField,
+                    sortField: store.sortField      
                 });
             }
             // CREATE A NEW LIST
@@ -81,7 +87,8 @@ function GlobalStoreContextProvider(props) {
                     isItemEditActive: false,
                     listMarkedForDeletion: null, 
                     updateCurrentListCounter: store.updateCurrentListCounter,
-                    searchField: store.searchField               
+                    searchField: store.searchField,
+                    sortField: store.sortField                   
 
                 })
             }
@@ -94,7 +101,8 @@ function GlobalStoreContextProvider(props) {
                     isItemEditActive: false,
                     listMarkedForDeletion: null,   
                     updateCurrentListCounter: store.updateCurrentListCounter,
-                    searchField: store.searchField             
+                    searchField: store.searchField,
+                    sortField: store.sortField                 
 
                 });
             }
@@ -107,7 +115,8 @@ function GlobalStoreContextProvider(props) {
                     isItemEditActive: false,
                     listMarkedForDeletion: payload, 
                     updateCurrentListCounter: store.updateCurrentListCounter,
-                    searchField: store.searchField               
+                    searchField: store.searchField,
+                    sortField: store.sortField                   
 
                 });
             }
@@ -120,7 +129,8 @@ function GlobalStoreContextProvider(props) {
                     isItemEditActive: false,
                     listMarkedForDeletion: null,  
                     updateCurrentListCounter: store.updateCurrentListCounter,
-                    searchField: store.searchField              
+                    searchField: store.searchField,
+                    sortField: store.sortField                  
                 });
             }
             // UPDATE A LIST
@@ -132,7 +142,8 @@ function GlobalStoreContextProvider(props) {
                     isItemEditActive: false,
                     listMarkedForDeletion: null,  
                     updateCurrentListCounter: payload.counter,
-                    searchField: store.searchField       
+                    searchField: store.searchField,
+                    sortField: store.sortField           
                 });
             }
             case GlobalStoreActionType.SET_SEARCH_FIELD:{
@@ -143,7 +154,20 @@ function GlobalStoreContextProvider(props) {
                     isItemEditActive: store.isItemEditActive,
                     listMarkedForDeletion: store.listMarkedForDeletion,  
                     updateCurrentListCounter: store.updateCurrentListCounter,
-                    searchField: payload,     
+                    searchField: payload,
+                    sortField: store.sortField        
+                });
+            }
+            case GlobalStoreActionType.SET_SORT:{
+                return setStore({
+                    lists: store.lists,
+                    currentList: store.currentList,
+                    isListNameEditActive: store.isListNameEditActive,
+                    isItemEditActive: store.isItemEditActive,
+                    listMarkedForDeletion: store.listMarkedForDeletion,  
+                    updateCurrentListCounter: store.updateCurrentListCounter,
+                    searchField: store.searchField,
+                    sortField: payload     
                 });
             }
             default:
@@ -162,7 +186,7 @@ function GlobalStoreContextProvider(props) {
                 likes: [],
                 dislikes: [], 
                 views: [],
-                published: {isPublished: false, publishedDate:"not published"}
+                published: {isPublished: false, publishedDate:new Date()}
             };
             let response = await apis.createTop5List(payload);
             if (response.data.success) {
@@ -291,6 +315,15 @@ function GlobalStoreContextProvider(props) {
                 });
             }
         }
+    }
+
+    /* setSortField should be used to set which sort operation to perform 
+    in the given screen */
+    store.setSortField = function(sort){
+        storeReducer({
+            type: GlobalStoreActionType.SET_SORT,
+            payload: sort
+        });
     }
     return (
         <GlobalStoreContext.Provider value={{

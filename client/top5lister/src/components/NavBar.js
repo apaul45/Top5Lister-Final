@@ -25,19 +25,14 @@ export default function NavBar(){
     let disabled = false;
     //anchorEL will handle allowing the menu to open or not (initially closed so set to null)
     const [anchorEl, setAnchorEl] = useState(null);
-    const isMenuOpen = Boolean(anchorEl);
+    let isMenuOpen = Boolean(anchorEl);
 
     //use navigate to navigate to different screens upon pressing the proper button
     const navigate = useNavigate();
 
     //use location to disable buttons if workspace screen is open
     const location = useLocation();
-    const handleProfileMenuOpen = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-    const handleMenuClose = () => {
-        setAnchorEl(null);
-    };
+
     let StyledIconButton = styled(IconButton)({
         color: "black",
         '&:hover': {
@@ -65,37 +60,50 @@ export default function NavBar(){
             disabled = false;
         }
     }
+
+    function handleMenuItemClick(sortParam){
+        store.setSortField(sortParam);
+        setAnchorEl(null);
+    }
+    const handleProfileMenuOpen = (event) => {
+        console.log(event.currentTarget);
+        setAnchorEl(event.currentTarget);
+    }
+    const handleMenuClose = () => {
+        setAnchorEl(null);
+    };
+    const menuId = 'primary-search-account-menu';
     //sortMenu will only open if there is an associated anchor element
-    const sortMenu = 
+    const sortMenu = (
     <Menu
         anchorEl={anchorEl}
         anchorOrigin={{
-            vertical: 'center',
+            vertical: 'top',
             horizontal: 'right',
         }}
+        id={menuId}
         keepMounted
         transformOrigin={{
-            vertical: 'center',
+            vertical: 'top',
             horizontal: 'right',
         }}
-        MenuListProps={{
-            'aria-labelledby': 'sort-button',
-          }}
         open={isMenuOpen}
         onClose={handleMenuClose}
     >
-        <MenuItem onClick={handleMenuClose}>Publish Date (Newest)</MenuItem>
-        <MenuItem onClick={handleMenuClose}>Publish Date (Oldest)</MenuItem>
-        <MenuItem onClick={handleMenuClose}>Views</MenuItem>
-        <MenuItem onClick={handleMenuClose}>Likes</MenuItem>
-        <MenuItem onClick={handleMenuClose}>Dislikes</MenuItem>
-    </Menu> 
+        <MenuItem onClick={()=>handleMenuItemClick("newest")}>Publish Date (Newest)</MenuItem>
+        <MenuItem onClick={()=>handleMenuItemClick("oldest")}>Publish Date (Oldest)</MenuItem>
+        <MenuItem onClick={()=>handleMenuItemClick("views")}>Views</MenuItem>
+        <MenuItem onClick={()=>handleMenuItemClick("likes")}>Likes</MenuItem>
+        <MenuItem onClick={()=>handleMenuItemClick("dislikes")}>Dislikes</MenuItem>
+    </Menu>);
+
+
     let navMenu = "";
     //Only allow the nav menu to appear if a guest or a user is viewing the main app
     //ie, remove the menu when a guest tries to go back to the splash screen
     if (auth.type){
         navMenu =
-        <Box sx={{ flexGrow: 1 }}>
+        (<Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar style={{backgroundColor: '#A19F9F'}}>
                     <StyledIconButton
@@ -150,30 +158,34 @@ export default function NavBar(){
                     noValidate
                     autoComplete="off"
                     >
-                        <TextField id="outlined-basic" label={store.searchField?"" : "Search"} disabled={disabled} variant="outlined"
+                        <TextField id="outlined-basic" label={store.searchField?"" : "Search"} disabled={disabled} 
+                        variant="outlined"
                         value={store.searchField ? store.searchField : ""}
                         onChange={event => store.updateSearchField(event.target.value)}/>
                     </Box>
-                    <strong style={{color: "black", position: "relative", right:"-340px", size:"45px"}}>
-                        SORT BY
-                    </strong>
-                    <Box sx={{ display: { xs: 'none', md: 'flex', marginLeft: 'auto'} }}>
+                    <strong style={{color: "black", position: "relative", 
+                    right:"-340px", size:"45px"}}>
+                            SORT BY
+                        </strong>
+                    <Box sx={{ display: {md: 'flex', marginLeft: 'auto'} }}>
                         <StyledIconButton
                             size="large"
                             edge="end"
                             disabled={disabled}
                             aria-label="sort-button"
                             aria-haspopup="true"
-                            aria-expanded={isMenuOpen ? 'true' : undefined}
+                            aria-controls={menuId}
                             onClick={handleProfileMenuOpen}
                         >
-                            <SortIcon style={{fontSize:"45px"}}/>
+                            <SortIcon 
+                            style={{fontSize:"45px"}}
+                            />
                         </StyledIconButton>
                     </Box>
                 </Toolbar>
-                {sortMenu}
             </AppBar>
-        </Box>
+            {sortMenu}
+        </Box>);
     }
     return (
         navMenu
