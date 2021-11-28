@@ -13,7 +13,7 @@ import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDown
 import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
-
+require('@gouch/to-title-case')
 /* 
 
 AggregateListCard is essentially the same as ListCard, but adapted for 
@@ -24,14 +24,9 @@ authors, and don't allow for deletion or editing.
 export default function AggregateListCard(props){
     const {list} = props;
     const {auth} = useContext(AuthContext);
-    const [comments, setComments] = useState(list.comments);
-    const [likes, setLikes] = useState(list.likes);
-    const [dislikes, setDislikes] = useState(list.dislikes);
-    const [views, setViews] = useState(list.views);
+    const{store} = useContext(GlobalStoreContext);
     const [expanded, setExpanded] = useState(false);
 
-    console.log(likes);
-    console.log(dislikes);
 
     //Make sure the background color is updated based on whos list it is (the current users vs. some other user)
     const StyledListItem = styled(ListItem)({
@@ -52,7 +47,7 @@ export default function AggregateListCard(props){
     });
 
 
-    const publishedDate = new Date(list.created);
+    const publishedDate = new Date(list.published.publishedDate);
     const publishedDateString = publishedDate.toDateString().substring(4);
     let published = <>
                         <u>Published:</u> 
@@ -65,54 +60,68 @@ export default function AggregateListCard(props){
     //then update view count to be updated in the back end 
     function handleExpandedList(event){
         setExpanded(true);
-        setViews(views+1);
+        list.views.push("");
+        store.updateList(list);
     }
-
-
 
     /* handleUpdateComments should add the new comment to this list 
     if the user pressed enter */
     function handleUpdateComments(event){
         if (event.key === 'Enter'){
             event.preventDefault();
-            setComments([...comments, [(auth.user ? auth.user.username : "")
-            , event.target.value]]);
-            console.log(comments);
+            list.comments.push([(auth.user ? auth.user.username : ""), event.target.value]);
+            store.updateList(list);
         }
     }
 
-        /* handleLikeDislike will handle updating the liked and disliked button, as well as the 
+
+    /* handleLikeDislike will handle updating the liked and disliked button, as well as the 
     like and/or dislike count of this list */
     function handleLikeDislike(param){
         if (auth.type !== "guest"){
             if (param === "like"){
-                if (likes.includes(auth.user.username)){
+                if (list.likes.includes(auth.user.username)){
                     //If the user clicks like after already clicking it once, remove their like
-                    setLikes(likes.filter(username => username !== auth.user.username));
+                    list.likes = list.likes.filter(username => username !== auth.user.username);
                 }
-                else if (dislikes.includes(auth.user.username)){
-                    setDislikes(dislikes.filter(username => username !== auth.user.username));
-                    setLikes([...likes,auth.user.username]);
+                else if (list.dislikes.includes(auth.user.username)){
+                    list.dislikes = list.dislikes.filter(username => username !== auth.user.username);
+                    list.likes.push(auth.user.username);
                 }
                 else{
-                    setLikes([...likes,auth.user.username]);
+                    list.likes.push(auth.user.username);
                 }
             }
             else{
-                if (likes.includes(auth.user.username)){
-                    setLikes(likes.filter(username => username !== auth.user.username));
-                    setDislikes([...dislikes, auth.user.username]);
+                if (list.likes.includes(auth.user.username)){
+                    list.likes = list.likes.filter(username => username !== auth.user.username);
+                    list.dislikes.push(auth.user.username);
                 }
-                else if (dislikes.includes(auth.user.username)){
-                    setDislikes(dislikes.filter(username => username !== auth.user.username));
+                else if (list.dislikes.includes(auth.user.username)){
+                    list.dislikes = list.dislikes.filter(username => username !== auth.user.username);
                 }
                 else{
-                    setDislikes([...dislikes, auth.user.username]);
+                    list.dislikes.push(auth.user.username);
                 }
             }
+            store.updateList(list);
         }
     }
 
+    const item1Name = list.items[0].substring(list.items[0].indexOf(")") + 2).toTitleCase();
+    const item1Votes = " " +list.items[0].substring(0, (list.items[0].indexOf(")")+1));
+
+    const item2Name = list.items[1].substring(list.items[1].indexOf(")") + 2).toTitleCase();
+    const item2Votes = " " + list.items[1].substring(0, (list.items[1].indexOf(")")+1));
+
+    const item3Name = list.items[2].substring(list.items[2].indexOf(")") + 2).toTitleCase();
+    const item3Votes = " " +list.items[2].substring(0, (list.items[2].indexOf(")")+1));
+
+    const item4Name = list.items[3].substring(list.items[3].indexOf(")") + 2).toTitleCase();
+    const item4Votes = " " +list.items[3].substring(0, (list.items[3].indexOf(")")+1));
+
+    const item5Name = list.items[4].substring(list.items[4].indexOf(")") + 2).toTitleCase();
+    const item5Votes = " " +list.items[4].substring(0, (list.items[4].indexOf(")")+1));
 
     return (
         <StyledListItem
@@ -125,21 +134,16 @@ export default function AggregateListCard(props){
                     {expanded ?
                       <div>
                             <div className="expanded-list-items">
-                                &nbsp;1. &nbsp; &nbsp;{list.items[0].name.toTitleCase()} {"(" +
-                                list.items[0].votes + " votes)"}<br/>
-                                &nbsp;2. &nbsp; &nbsp;{list.items[1].name.toTitleCase()} {"(" +
-                                list.items[1].votes + " votes)"}<br/>
-                                &nbsp;3. &nbsp; &nbsp;{list.items[2].name.toTitleCase()} {"(" +
-                                list.items[2].votes + " votes)"} <br/>
-                                &nbsp;4. &nbsp; &nbsp;{list.items[3].name.toTitleCase()} {"(" +
-                                list.items[3].votes + " votes)"}<br/>
-                                &nbsp;5. &nbsp; &nbsp;{list.items[4].name.toTitleCase()} {"(" +
-                                list.items[4].votes + " votes)"}<br/>
+                                &nbsp;1. &nbsp; &nbsp;{item1Name + item1Votes}<br/>
+                                &nbsp;2. &nbsp; &nbsp;{item2Name + item2Votes}<br/>
+                                &nbsp;3. &nbsp; &nbsp;{item3Name + item3Votes}<br/> 
+                                &nbsp;4. &nbsp; &nbsp;{item4Name + item4Votes}<br/>
+                                &nbsp;5. &nbsp; &nbsp;{item5Name + item5Votes}<br/>
                             </div>
-                            <List sx={{width: '250%', height: "45%", overflow: "auto"}}
+                            <List sx={{width: '250%', height: "45%", overflow: "auto", padding: 0}}
                             style={{position:"absolute", top: "16.5%",left: "49%"}}>
                                 {
-                                    comments.map(comment =>
+                                    list.comments.map(comment =>
                                         <>
                                         <StyledCommentItem>
                                             <div>
@@ -192,7 +196,7 @@ export default function AggregateListCard(props){
                     <IconButton
                     style={{width:"110px"}}>
                         {
-                            auth && auth.user && likes.includes(auth.user.username) ?
+                            auth && auth.user && list.likes.includes(auth.user.username) ?
                             <ThumbUpAltIcon style={{fontSize:"40px", color:'black'}}
                             onClick={()=>handleLikeDislike("like")}/>
                             :
@@ -200,19 +204,19 @@ export default function AggregateListCard(props){
                             onClick={()=>handleLikeDislike("like")}/>
 
                         }
-                            <strong style={{color:'black'}}>{likes.length}</strong>
+                            <strong style={{color:'black'}}>{list.likes.length}</strong>
                     </IconButton>
                     <IconButton style={{
                     width: "90px" ,maxWidth:"90px"}}>
                         {
-                            auth && auth.user && dislikes.includes(auth.user.username) ? 
+                            auth && auth.user && list.dislikes.includes(auth.user.username) ? 
                             <ThumbDownAltIcon style={{fontSize:"40px", color:'black'}}
                             onClick={()=>handleLikeDislike("dislike")}/>
                             :
                             <ThumbDownAltOutlinedIcon style={{fontSize:"40px", color:'black'}}
                             onClick={()=>handleLikeDislike("dislike")}/>
                         }
-                            <strong style={{color:'black'}}>{dislikes.length}</strong>
+                            <strong style={{color:'black'}}>{list.dislikes.length}</strong>
                     </IconButton>
                     &nbsp; &nbsp;
                     <br/>
@@ -221,13 +225,13 @@ export default function AggregateListCard(props){
                             <>
                                 &nbsp; &nbsp; &nbsp;
                                 <span style={{position:"absolute", top:"52%",width: "300px", maxWidth: "300px"}}>
-                                    Views: {views}
+                                    Views: {list.views.length}
                                 </span> 
                             </> : 
                             <>
                                 <span style={{position:"absolute", 
                                 top:"412%",width: "300px", maxWidth: "300px"}}>
-                                    Views: {views}
+                                    Views: {list.views.length}
                                 </span> 
                             </>
                     }

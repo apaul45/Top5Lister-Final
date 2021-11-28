@@ -29,13 +29,13 @@ export default function AllListsScreen(){
                         return list;
                     }
                     else{
-                        if (list.published.isPublished){
+                        if (list.owner !== "community-aggregate" && list.published.isPublished){
                             return list;
                         }
                     }
                 }
                 else{
-                    if (list.published.isPublished){
+                    if (list.owner !== "community-aggregate" && list.published.isPublished){
                         return list;
                     }
                 }
@@ -52,7 +52,7 @@ export default function AllListsScreen(){
                 return list;
             }
             else{
-                if (list.published.isPublished){
+                if (list.owner !== "community-aggregate" && list.published.isPublished){
                     return list;
                 }
             }

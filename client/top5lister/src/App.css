@@ -130,27 +130,27 @@ margin right auto is used to horizontally center the box */
 	left: 1.3%;
 	top:8%;
 	width: 1435px;
-	height:510px;
+	height:490px;
 	border: 1px solid black;
 	border-radius: 10px;
 	background-color:#051A5E;
 }
 #workspace-items-txtfields{
 	position: absolute;
-	top:7%;
+	top:5.2%;
 	left: 6.5%;
 	line-height: 36px;
 }
 #workspace-buttons{
 	position: absolute;
 	left:81.7%;
-	top: 97%;
+	top: 97.55%;
 }
 #workspace-items-numbers{
 	font-size: 45px;
 	line-height: 36px;
 	position: absolute;
-	top: 8.5%;
+	top: 6.7%;
 	left: 2%;
 }
 .workspace-items-boxes{

@@ -4,6 +4,7 @@ import { GlobalStoreContext } from '../store'
 import AuthContext from '../auth'
 import AggregateListCard from './AggregateListCard.js'
 import List from '@mui/material/List';
+require('@gouch/to-title-case');
 
 export default function CommunityScreen(){
     const {store} = useContext(GlobalStoreContext);
@@ -17,14 +18,17 @@ export default function CommunityScreen(){
         /* For each list, map it to namesTable */
         store.lists.map(list => {
             const lowercase = list.name.toLowerCase();
-            if (namesTable.has(lowercase) && list.published.isPublished){
-                let mappedList = [...namesTable.get(lowercase), list.items];
-                namesTable.set(lowercase, mappedList);
-            }
-            else{
-                if (list.published.isPublished){
-                    let mappedList = [list.items];
+            //Make sure not to add the existing aggregate lists to the namesTable
+            if (list.owner !== "community-aggregate"){
+                if (namesTable.has(lowercase) && list.published.isPublished){
+                    let mappedList = [...namesTable.get(lowercase), list.items];
                     namesTable.set(lowercase, mappedList);
+                }
+                else{
+                    if (list.published.isPublished){
+                        let mappedList = [list.items];
+                        namesTable.set(lowercase, mappedList);
+                    }
                 }
             }
         });
@@ -33,12 +37,20 @@ export default function CommunityScreen(){
             let aggregateList = {
                 name: name,
                 items: [],
+                owner: "community-aggregate",
                 comments: [],
                 likes: [],
                 dislikes: [], 
-                views: 0,
-                created: new Date(),
+                views: [],
+                published: {isPublished: true, publishedDate: new Date()},
             };
+            let listIndex = store.lists.findIndex(list => list.name === 
+            name && list.owner === "community-aggregate");
+
+            if(listIndex !== -1){
+                aggregateList = store.lists[listIndex];
+                aggregateList.published.publishedDate = new Date();
+            }
             //Rankings will map each unique item name to the number of votes it got
             let rankings = [];
             //Go through each list and map items to their votes
@@ -57,8 +69,11 @@ export default function CommunityScreen(){
                 }
             });
             //Sort rankings, and return the 5 highest items in terms of votes
+            //Make sure to change the item objects to strings so they can be 
+            //saved in the backend
             aggregateList.items = rankings.sort((a,b) => b.votes - a.votes)
-                                  .slice(0,5);
+                                  .slice(0,5).map(item => "(" + item.votes 
+            + " votes) " + item.name);
             aggregateLists.push(aggregateList);
         });    
         console.log(aggregateLists); 
@@ -68,37 +83,36 @@ export default function CommunityScreen(){
     //NOTE: Only for HomeScreen, the search field should return results that
     //START WITH the search query
     if (store.searchField !== ""){
-        aggregateLists = aggregateLists.filter(list => list.name === store.searchField);
+        aggregateLists = aggregateLists.filter(list => list.name.toTitleCase() === store.searchField);
     }
 
-    // /* Filter the aggregate lists if a sorting option was chosen */
-    // if (store && store.sortField !== ""){
-    //     if (store.sortField === "newest"){
-    //         aggregateLists.sort((a,b) => {
-    //             const dateA = new Date(a.created);
-    //             const dateB = new Date(b.created);
-    //             return dateB-dateA;
-    //         });
-    //     }
-    //     else if (store.sortField === "oldest"){
-    //         aggregateLists.sort((a,b) => {
-    //             const dateA = new Date(a.created);
-    //             const dateB = new Date(b.created);
-    //             return dateA-dateB;
-    //         });
-    //     }
-    //     else if (store.sortField === "views"){
+    /* Filter the aggregate lists if a sorting option was chosen */
+    if (store && store.sortField !== ""){
+        if (store.sortField === "newest"){
+            aggregateLists.sort((a,b) => {
+                const dateA = new Date(a.created);
+                const dateB = new Date(b.created);
+                return dateB-dateA;
+            });
+        }
+        else if (store.sortField === "oldest"){
+            aggregateLists.sort((a,b) => {
+                const dateA = new Date(a.created);
+                const dateB = new Date(b.created);
+                return dateA-dateB;
+            });
+        }
+        else if (store.sortField === "views"){
+            aggregateLists.sort((a,b) => b.views.length-a.views.length);
+        }
+        else if (store.sortField === "likes"){
+            aggregateLists.sort((a,b) => b.likes.length-a.likes.length);
+        }
+        else{
+            aggregateLists.sort((a,b) => b.dislikes.length-a.dislikes.length);
+        }
 
-    //         aggregateLists.sort((a,b) => b.views-a.views);
-    //     }
-    //     else if (store.sortField === "likes"){
-    //         aggregateLists.sort((a,b) => b.likes.length-a.likes.length);
-    //     }
-    //     else{
-    //         aggregateLists.sort((a,b) => b.dislikes.length-a.dislikes.length);
-    //     }
-
-    // }
+    }
 
     return(
         <div className="background-screen"> 

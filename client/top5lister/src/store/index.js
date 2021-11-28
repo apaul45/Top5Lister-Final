@@ -322,14 +322,33 @@ function GlobalStoreContextProvider(props) {
         as updateCurrentList but made particularly for updating like dislike and 
         view counts) */
     store.updateList = async function (list){
-        let response = await apis.updateTop5ListById(list._id, list);
-        if (response.data.success){
-            response = await apis.getAllTop5Lists();
+        if (list.hasOwnProperty('_id')){
+            let response = await apis.updateTop5ListById(list._id, list);
             if (response.data.success){
-                storeReducer({
-                    type: GlobalStoreActionType.LOAD_LISTS,
-                    payload: response.data.top5Lists
-                });
+                response = await apis.getAllTop5Lists();
+                if (response.data.success){
+                    storeReducer({
+                        type: GlobalStoreActionType.LOAD_LISTS,
+                        payload: response.data.top5Lists
+                    });
+                }
+            }
+        }
+        else{
+            /* If this list doesn't have an id, that means this is a 
+            unsaved community aggregate list. That means its items 
+            have to be adjusted to become strings that can be used */
+            let response = await apis.createTop5List(list);
+            if (response.data.success) {
+                let newList = response.data.top5List;
+                //Get all the new lists in the database
+                response = await apis.getAllTop5Lists();
+                if(response.data.success){
+                    storeReducer({
+                        type: GlobalStoreActionType.CREATE_NEW_LIST,
+                        payload: {currentList: newList, lists: response.data.top5Lists}
+                    });
+                }
             }
         }
     }

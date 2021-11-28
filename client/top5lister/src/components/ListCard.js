@@ -246,7 +246,7 @@ function ListCard(props) {
                             onClick={()=>handleLikeDislike("like")}/>
                             : list.published.isPublished ? 
                             <ThumbUpAltOutlinedIcon style={{fontSize:"40px", color:'black'}}
-                            onClick={()=>handleLikeDislike("like")}/> : "" 
+                            onClick={()=>handleLikeDislike("like")}/> : ""
 
                         }
                             <strong style={{color:'black'}}>{list.likes.length}</strong>
