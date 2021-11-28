@@ -123,6 +123,11 @@ export default function AggregateListCard(props){
     const item5Name = list.items[4].substring(list.items[4].indexOf(")") + 2).toTitleCase();
     const item5Votes = " " +list.items[4].substring(0, (list.items[4].indexOf(")")+1));
 
+    //Make sure newest comments are at the top by reversing the comments list
+    let reversed = [];
+    for (let k = list.comments.length-1; k>=0; k--){
+            reversed.push(list.comments[k]);
+     }
     return (
         <StyledListItem
         sx={{ marginTop: '5px', display: 'flex', p: 1 }}
@@ -143,7 +148,7 @@ export default function AggregateListCard(props){
                             <List sx={{width: '250%', height: "45%", overflow: "auto", padding: 0}}
                             style={{position:"absolute", top: "16.5%",left: "49%"}}>
                                 {
-                                    list.comments.map(comment =>
+                                    reversed.map(comment =>
                                         <>
                                         <StyledCommentItem>
                                             <div>
