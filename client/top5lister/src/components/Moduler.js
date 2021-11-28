@@ -13,6 +13,7 @@ import WorkspaceScreen from './WorkspaceScreen'
 import CommunityScreen from './CommunityScreen'
 import AllListsScreen from './AllListsScreen'
 import PersonsListsScreen from './PersonsListsScreen'
+import AggregateListCard from './AggregateListCard'
 /*
     This serves as a module so that we can import
     all the other components as we wish.
@@ -33,5 +34,6 @@ export {
     WorkspaceScreen,
     CommunityScreen,
     AllListsScreen,
-    PersonsListsScreen
+    PersonsListsScreen,
+    AggregateListCard
 }

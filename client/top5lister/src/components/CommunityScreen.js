@@ -2,7 +2,9 @@
 import React, { useContext, useEffect } from 'react'
 import { GlobalStoreContext } from '../store'
 import AuthContext from '../auth'
-import ListCard from './ListCard.js'
+import AggregateListCard from './AggregateListCard.js'
+import List from '@mui/material/List';
+
 export default function CommunityScreen(){
     const {store} = useContext(GlobalStoreContext);
     
@@ -32,8 +34,8 @@ export default function CommunityScreen(){
                 name: name,
                 items: [],
                 comments: [],
-                likes: 0,
-                dislikes: 0, 
+                likes: [],
+                dislikes: [], 
                 views: 0,
                 created: new Date(),
             };
@@ -61,9 +63,54 @@ export default function CommunityScreen(){
         });    
         console.log(aggregateLists); 
     }
+
+    //Filter the user's lists if there's something in the search bar
+    //NOTE: Only for HomeScreen, the search field should return results that
+    //START WITH the search query
+    if (store.searchField !== ""){
+        aggregateLists = aggregateLists.filter(list => list.name === store.searchField);
+    }
+
+    // /* Filter the aggregate lists if a sorting option was chosen */
+    // if (store && store.sortField !== ""){
+    //     if (store.sortField === "newest"){
+    //         aggregateLists.sort((a,b) => {
+    //             const dateA = new Date(a.created);
+    //             const dateB = new Date(b.created);
+    //             return dateB-dateA;
+    //         });
+    //     }
+    //     else if (store.sortField === "oldest"){
+    //         aggregateLists.sort((a,b) => {
+    //             const dateA = new Date(a.created);
+    //             const dateB = new Date(b.created);
+    //             return dateA-dateB;
+    //         });
+    //     }
+    //     else if (store.sortField === "views"){
+
+    //         aggregateLists.sort((a,b) => b.views-a.views);
+    //     }
+    //     else if (store.sortField === "likes"){
+    //         aggregateLists.sort((a,b) => b.likes.length-a.likes.length);
+    //     }
+    //     else{
+    //         aggregateLists.sort((a,b) => b.dislikes.length-a.dislikes.length);
+    //     }
+
+    // }
+
     return(
         <div className="background-screen"> 
-
+                <List sx={{ width: '96.8%', left: '1.6%'}}
+                style={{maxHeight: '140%', overflow: 'auto'}}
+                >
+                    {
+                        aggregateLists.map(list =>
+                            <AggregateListCard 
+                            list={list} />)
+                    }
+                </List>
         </div>
     )
 };

@@ -27,8 +27,7 @@ export default function HomeScreen(){
         usersLists = usersLists.filter(list => list.name.startsWith(store.searchField));
     }
 
-    /* Filter the user's lists if a sorting option was chosen, and 
-    then set the sort field in store to null */
+    /* Filter the user's lists if a sorting option was chosen */
     if (store && store.sortField !== ""){
         if (store.sortField === "newest"){
             usersLists.sort((a,b) => {
