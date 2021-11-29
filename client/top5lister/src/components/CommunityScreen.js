@@ -9,6 +9,9 @@ require('@gouch/to-title-case');
 export default function CommunityScreen(){
     const {store} = useContext(GlobalStoreContext);
     
+    useEffect(() => {
+        store.loadLists();
+    }, []);
     /* namesTable will map each unique list name to the list of lists 
     that have that name */
     let namesTable = new Map();
