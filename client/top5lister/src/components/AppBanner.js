@@ -21,6 +21,12 @@ export default function AppBanner() {
         setAnchorEl(event.currentTarget);
     };
 
+    function handleGuestClick(){
+        if (store){
+            store.setSortField("");
+        }
+        auth.checkLoggedIn();
+    }
 
     const handleMenuClose = () => {
         setAnchorEl(null);
@@ -30,6 +36,7 @@ export default function AppBanner() {
     };
 
     const handleLogout = () => {
+        store.setSortField("");
         handleMenuClose();
         auth.logoutUser();
     }
@@ -95,7 +102,7 @@ export default function AppBanner() {
     color: '#a68d0e', fontSize:"45px" }} >T<sup>5</sup>L</div>;
     if (auth.type !== "user"){
         splashScreenButton = <Link
-        onClick={()=>auth.checkLoggedIn()} to='/'
+        onClick={()=>handleGuestClick()} to='/'
         style={{textDecoration: 'none'}}>
             {splashScreenButton}
         </Link>

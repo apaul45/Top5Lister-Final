@@ -90,7 +90,7 @@ function GlobalStoreContextProvider(props) {
                     listMarkedForDeletion: null, 
                     updateCurrentListCounter: store.updateCurrentListCounter,
                     searchField: store.searchField,
-                    sortField: store.sortField                   
+                    sortField: ""                   
 
                 })
             }
@@ -104,7 +104,7 @@ function GlobalStoreContextProvider(props) {
                     listMarkedForDeletion: null,   
                     updateCurrentListCounter: store.updateCurrentListCounter,
                     searchField: store.searchField,
-                    sortField: store.sortField                 
+                    sortField: "",                 
 
                 });
             }
@@ -145,7 +145,7 @@ function GlobalStoreContextProvider(props) {
                     listMarkedForDeletion: null,  
                     updateCurrentListCounter: payload.counter,
                     searchField: store.searchField,
-                    sortField: store.sortField           
+                    sortField: "",           
                 });
             }
             case GlobalStoreActionType.SET_SEARCH_FIELD:{

@@ -56,6 +56,9 @@ export default function NavBar(){
     function handleClick(path){
         //Only allow navigation to other screens if the workspace screen isn't opened
         if (location.pathname !== "/edit"){
+            if (location.pathname !== path){
+                store.setSortField("");
+            }
             navigate(path);
             disabled = false;
         }
