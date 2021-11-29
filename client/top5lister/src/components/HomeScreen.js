@@ -56,7 +56,7 @@ export default function HomeScreen(){
 
     }
     return (
-            <div className="background-screen">
+            <div className="background-screen" style={{overflow: "auto"}}>
                 <List sx={{ width: '96.8%', left: '1.6%'}}
                 style={{maxHeight: '140%', overflow: 'auto'}}
                 >
