@@ -247,27 +247,56 @@ function ListCard(props) {
                     style={{width:"110px"}}>
                         {
                             auth && auth.user && list.likes.includes(auth.user.username) ?
-                            <ThumbUpAltIcon style={{fontSize:"40px", color:'black'}}
-                            onClick={()=>handleLikeDislike("like")}/>
+                            
+                            <>
+                                <ThumbUpAltIcon style={{fontSize:"40px", color:'black'}}
+                                onClick={()=>handleLikeDislike("like")}/>
+
+                                <strong style={{color:'black'}}>
+                                    {list.likes.length}
+                                </strong>
+                            </>
+                            
+                            
                             : list.published.isPublished ? 
-                            <ThumbUpAltOutlinedIcon style={{fontSize:"40px", color:'black'}}
-                            onClick={()=>handleLikeDislike("like")}/> : ""
+                            <>
+                                <ThumbUpAltOutlinedIcon style={{fontSize:"40px", color:'black'}}
+                                onClick={()=>handleLikeDislike("like")}/> 
+
+                                <strong style={{color:'black'}}>
+                                    {list.likes.length}
+                                </strong>
+                            </>
+                            : ""
 
                         }
-                            <strong style={{color:'black'}}>{list.likes.length}</strong>
                     </IconButton>
                     <IconButton style={{
                     width: "90px" ,maxWidth:"90px"}}>
                         {
                             auth && auth.user && list.dislikes.includes(auth.user.username) ? 
-                            <ThumbDownAltIcon style={{fontSize:"40px", color:'black'}}
-                            onClick={()=>handleLikeDislike("dislike")}/>
+                            <>
+                                <ThumbDownAltIcon style={{fontSize:"40px", color:'black'}}
+                                onClick={()=>handleLikeDislike("dislike")}/>
+
+                                <strong style={{color:'black'}}>
+                                    {list.dislikes.length}
+                                </strong>
+                            </>
+
                             :
                             list.published.isPublished ? 
-                            <ThumbDownAltOutlinedIcon style={{fontSize:"40px", color:'black'}}
-                            onClick={()=>handleLikeDislike("dislike")}/> : ""
+                            <>
+                                <ThumbDownAltOutlinedIcon style={{fontSize:"40px", color:'black'}}
+                                onClick={()=>handleLikeDislike("dislike")}/> 
+
+                                <strong style={{color:'black'}}>
+                                    {list.dislikes.length}
+                                </strong>
+                            </>
+                            
+                            : ""
                         }
-                            <strong style={{color:'black'}}>{list.dislikes.length}</strong>
                     </IconButton>
                     &nbsp; &nbsp;
                     {deleteButton}<br/>
@@ -276,13 +305,13 @@ function ListCard(props) {
                             <>
                                 &nbsp; &nbsp; &nbsp;
                                 <span style={{position:"absolute", top:"52%",width: "300px", maxWidth: "300px"}}>
-                                    Views: {list.views.length}
+                                     {list.published.isPublished ? "Views : " + list.views.length : ""}
                                 </span> 
                             </> : 
                             <>
                                 <span style={{position:"absolute", 
                                 top:"412%",width: "300px", maxWidth: "300px"}}>
-                                    Views: {list.views.length}
+                                    {list.published.isPublished ? "Views : " + list.views.length : ""}
                                 </span> 
                             </>
                     }
