@@ -50,10 +50,12 @@ export default function AggregateListCard(props){
     const publishedDate = new Date(list.published.publishedDate);
     const publishedDateString = publishedDate.toDateString().substring(4);
     let published = <>
-                        <u>Published:</u> 
+                        <strong>Published:</strong> 
                         &nbsp;
-                       {publishedDateString}
-                      </>;
+                        <strong style = {{color: "green"}}>
+                            {publishedDateString}
+                        </strong>
+                    </>;
     
     
     //handleExpandedList should set the expanded variable to true so that the items can be shown, and 

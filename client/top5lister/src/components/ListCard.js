@@ -44,7 +44,8 @@ function ListCard(props) {
     //
     if (auth.user && auth.user.username === list.owner){
         editOrPublished = <>                    
-                            <button id="listcard-edit-button" onClick={()=>handleEditList()}>
+                            <button id="listcard-edit-button" onClick={()=>handleEditList()}
+                            style={{color: "red"}}>
                                 <u>Edit</u>
                             </button>
                           </>;
@@ -64,9 +65,11 @@ function ListCard(props) {
             const publishedDate = new Date(list.published.publishedDate);
             const publishedDateString = publishedDate.toDateString().substring(4);
             editOrPublished = <>
-                                <u>Published:</u> 
+                                <strong>Published:</strong> 
                                 &nbsp;
-                               {publishedDateString}
+                                <strong style = {{color: "green"}}>
+                                    {publishedDateString}
+                                </strong>
                               </>;
             secondRef = editOrPublished;
             listCardColor="#CBC7F2";
@@ -103,14 +106,16 @@ function ListCard(props) {
     //then update view count to be updated in the back end 
     function handleExpandedList(event){
         setExpanded(true);
-    
-        if (auth.type !== "guest"){
-            list.views.push(auth.user.username);
-            store.updateList(list);
-        }
-        else{
-            list.views.push("");
-            store.updateList(list);
+        //Only allow views to be updated when expanding a published list
+        if (list.published.isPublished){
+            if (auth.type !== "guest"){
+                list.views.push(auth.user.username);
+                store.updateList(list);
+            }
+            else{
+                list.views.push("");
+                store.updateList(list);
+            }
         }
     }
 
