@@ -40,13 +40,7 @@ export default function NavBar(){
             backgroundColor:"transparent",
             padding:"3px 3px 3px 3px",
             borderRadius: "1px 1px",
-          },
-        '&:active':{
-            border: '2px solid green',
-            backgroundColor:"transparent",
-            padding:"3px 3px 3px 3px",
-            borderRadius: "1px 1px",
-        }
+          }
     });
     //Add the disabled property if the edit/create screen is open
     if (location.pathname === "/edit"){
@@ -171,8 +165,8 @@ export default function NavBar(){
                     right:"-340px", size:"45px"}}>
                             SORT BY
                         </strong>
-                    <Box sx={{ display: {md: 'flex', marginLeft: 'auto'} }}>
-                        <StyledIconButton
+                    <Box sx={{display: {xs: 'none', md: 'flex', marginLeft: 'auto'}}}>
+                        <IconButton
                             size="large"
                             edge="end"
                             disabled={disabled}
@@ -182,9 +176,9 @@ export default function NavBar(){
                             onClick={handleProfileMenuOpen}
                         >
                             <SortIcon 
-                            style={{fontSize:"45px"}}
+                            style={{fontSize:"45px", color: "black"}}
                             />
-                        </StyledIconButton>
+                        </IconButton>
                     </Box>
                 </Toolbar>
             </AppBar>
