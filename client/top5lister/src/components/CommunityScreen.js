@@ -86,11 +86,11 @@ export default function CommunityScreen(){
     //NOTE: Only for HomeScreen, the search field should return results that
     //START WITH the search query
     if (store.searchField !== ""){
-        aggregateLists = aggregateLists.filter(list => list.name.toTitleCase() === store.searchField);
+        aggregateLists = aggregateLists.filter(list => list.name.toLowerCase() === store.searchField.toLowerCase());
     }
 
     /* Filter the aggregate lists if a sorting option was chosen */
-    if (store && store.sortField !== ""){
+    if (aggregateLists.length > 0 && store && store.sortField !== ""){
         if (store.sortField === "newest"){
             aggregateLists.sort((a,b) => {
                 const dateA = new Date(a.created);
@@ -111,8 +111,24 @@ export default function CommunityScreen(){
         else if (store.sortField === "likes"){
             aggregateLists.sort((a,b) => b.likes.length-a.likes.length);
         }
-        else{
+        else if (store.sortField === "dislikes"){
             aggregateLists.sort((a,b) => b.dislikes.length-a.dislikes.length);
+        }
+        else if (store.sortField.includes("name")){
+            if (store.sortField.includes("a-z")){
+                aggregateLists.sort((a,b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+            }
+            else{
+                aggregateLists.sort((a,b) => b.name.toLowerCase().localeCompare(a.name.toLowerCase()));
+            }
+        }
+        else{
+            if (store.sortField.includes("a-z")){
+                aggregateLists.sort((a,b) => a.owner.toLowerCase().localeCompare(b.owner.toLowerCase()));
+            }
+            else{
+                aggregateLists.sort((a,b) => b.owner.toLowerCase().localeCompare(a.owner.toLowerCase()));
+            }
         }
 
     }

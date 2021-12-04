@@ -87,6 +87,10 @@ export default function NavBar(){
         open={isMenuOpen}
         onClose={handleMenuClose}
     >
+        <MenuItem onClick={() => handleMenuItemClick("name_a-z")}> Name (A-Z) </MenuItem>
+        <MenuItem onClick={() => handleMenuItemClick("name_z-a")}> Name (Z-A) </MenuItem>
+        <MenuItem onClick={() => handleMenuItemClick("by_a-z")}> User (A-Z) </MenuItem>
+        <MenuItem onClick={() => handleMenuItemClick("by_z-a")}> User (Z-A) </MenuItem>
         <MenuItem onClick={()=>handleMenuItemClick("newest")}>Publish Date (Newest)</MenuItem>
         <MenuItem onClick={()=>handleMenuItemClick("oldest")}>Publish Date (Oldest)</MenuItem>
         <MenuItem onClick={()=>handleMenuItemClick("views")}>Views</MenuItem>

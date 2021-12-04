@@ -1,0 +1,113 @@
+[{
+  "_id": {
+    "$oid": "6176eab6bac19a3d7a541f28"
+  },
+  "firstName": "Ayon",
+  "lastName": "Paul",
+  "email": "ayon.paul@stonybrook.edu",
+  "passwordHash": "$2a$10$asFLk11bC6dtyCYQC6OEIuYgwoT.R4AI1aQRFf2/KroGBsKphVPDy",
+  "createdAt": {
+    "$date": "2021-10-25T17:34:46.281Z"
+  },
+  "updatedAt": {
+    "$date": "2021-10-25T17:34:46.281Z"
+  },
+  "__v": 0,
+  "username": "apaul421"
+},{
+  "_id": {
+    "$oid": "617e1ed276ac4f15999737de"
+  },
+  "firstName": "Moe",
+  "lastName": "Vlogs",
+  "email": "moevlogs123@gmail.com",
+  "passwordHash": "$2a$10$M9TSS3x6lODdOrg0hFmRGOxm4puNaHiHyGQ9A9gX1upGIlCWW1ste",
+  "createdAt": {
+    "$date": "2021-10-31T04:42:58.122Z"
+  },
+  "updatedAt": {
+    "$date": "2021-10-31T04:42:58.122Z"
+  },
+  "__v": 0,
+  "username": "moesVlogs"
+},{
+  "_id": {
+    "$oid": "619c27a1524c128ab7223e5e"
+  },
+  "firstName": "electro",
+  "lastName": "loki",
+  "username": "based",
+  "email": "electroloki@avengers.com",
+  "passwordHash": "$2a$10$kW0QvQBgZZmKMQyithj7c.J4Esnav9VejTPgahmLDcEy02.J2ViTq",
+  "createdAt": {
+    "$date": "2021-11-22T23:28:33.730Z"
+  },
+  "updatedAt": {
+    "$date": "2021-11-22T23:28:33.730Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "619c2859524c128ab7223e62"
+  },
+  "firstName": "Jesse",
+  "lastName": "Pinkman",
+  "username": "CapnCook",
+  "email": "capncook@chilipmeth.com",
+  "passwordHash": "$2a$10$slZ33C4wHB93TM0jPYJ9pu3VKKZs76.IKroR4NL4LrPeAhzW3Sej2",
+  "createdAt": {
+    "$date": "2021-11-22T23:31:37.218Z"
+  },
+  "updatedAt": {
+    "$date": "2021-11-22T23:31:37.218Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "619c2b1c524c128ab7223e6c"
+  },
+  "firstName": "Walter",
+  "lastName": "White",
+  "username": "Heisenberg",
+  "email": "heisenberg@el-jefe.com",
+  "passwordHash": "$2a$10$rcl8SnV8X97.wEV5yFqen.N0M2R3aoImqy.R99aYYnXxhsCqmKOke",
+  "createdAt": {
+    "$date": "2021-11-22T23:43:24.979Z"
+  },
+  "updatedAt": {
+    "$date": "2021-11-22T23:43:24.979Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "619c2c932c212c8c8eacd124"
+  },
+  "firstName": "Richard",
+  "lastName": "McKenna",
+  "username": "TheMcKillaGorilla",
+  "email": "mckenna@cs.com",
+  "passwordHash": "$2a$10$.b2/VVZyvLWRImaXYrH/VugUhd4w1wf2k8S1Qhbv8KZiw9vmjrPmW",
+  "createdAt": {
+    "$date": "2021-11-22T23:49:39.761Z"
+  },
+  "updatedAt": {
+    "$date": "2021-11-22T23:49:39.761Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "619f082d6e1a76f895ebc1b2"
+  },
+  "firstName": "Abrar",
+  "lastName": "R",
+  "username": "Abrizzle",
+  "email": "arahman@hotspot.com",
+  "passwordHash": "$2a$10$9Pel9Vjd/bGZakAYhWFIUuDCXe8cDN8I7tk86RxMU4hRlX6uk8I3O",
+  "createdAt": {
+    "$date": "2021-11-25T03:51:09.650Z"
+  },
+  "updatedAt": {
+    "$date": "2021-11-25T03:51:09.650Z"
+  },
+  "__v": 0
+}]

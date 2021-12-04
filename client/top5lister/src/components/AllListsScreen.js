@@ -21,7 +21,7 @@ export default function AllListsScreen(){
 
     if (store.searchField !== "" && store.lists){
         searchedLists.current = store.lists.filter(list => {
-            if(list.name === store.searchField){
+            if(list.name.toLowerCase() === store.searchField.toLowerCase()){
                 if (auth.user){
                     /* If the list is the user's list, then also 
                     allow their saved, unpublished ones to appear */
@@ -62,20 +62,28 @@ export default function AllListsScreen(){
 
     /* Filter the user's lists if a sorting option was chosen, and 
     then set the sort field in store to null */
-    if (store && store.sortField !== ""){
+    if (searchedLists.current.length > 0 && store && store.sortField !== ""){
+        const publishedLists = searchedLists.current.filter((list) => list.published.isPublished);
+        const savedLists = searchedLists.current.filter((list) => !list.published.isPublished);
         if (store.sortField === "newest"){
-            searchedLists.current.sort((a,b) => {
+            publishedLists.sort((a,b) => {
                 const dateA = new Date(a.published.publishedDate);
                 const dateB = new Date(b.published.publishedDate);
                 return dateB-dateA;
             });
+            /* Make sure to only sort the published lists, and leave
+            unpublished lists at the bottom */
+            searchedLists.current = [...publishedLists, ...savedLists];
         }
         else if (store.sortField === "oldest"){
-            searchedLists.current.sort((a,b) => {
+            publishedLists.sort((a,b) => {
                 const dateA = new Date(a.published.publishedDate);
                 const dateB = new Date(b.published.publishedDate);
                 return dateA-dateB;
             });
+            /* Make sure to only sort the published lists, and leave
+            unpublished lists at the bottom */
+            searchedLists.current = [...publishedLists, ...savedLists];
         }
         else if (store.sortField === "views"){
             console.log(searchedLists);
@@ -84,8 +92,24 @@ export default function AllListsScreen(){
         else if (store.sortField === "likes"){
             searchedLists.current.sort((a,b) => b.likes.length-a.likes.length);
         }
-        else{
+        else if (store.sortField === "dislikes"){
             searchedLists.current.sort((a,b) => b.dislikes.length-a.dislikes.length);
+        }
+        else if (store.sortField.includes("name")){
+            if (store.sortField.includes("a-z")){
+                searchedLists.current.sort((a,b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+            }
+            else{
+                searchedLists.current.sort((a,b) => b.name.toLowerCase().localeCompare(a.name.toLowerCase()));
+            }
+        }
+        else{
+            if (store.sortField.includes("a-z")){
+                searchedLists.current.sort((a,b) => a.owner.toLowerCase().localeCompare(b.owner.toLowerCase()));
+            }
+            else{
+                searchedLists.current.sort((a,b) => b.owner.toLowerCase().localeCompare(a.owner.toLowerCase()));
+            }
         }
 
     }

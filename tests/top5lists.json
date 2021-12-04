@@ -1,0 +1,978 @@
+[{
+  "_id": {
+    "$oid": "61a1dee2760bad80ca081803"
+  },
+  "items": [
+    "Breaking Bad",
+    "The Wire",
+    "Sopranos",
+    "Prison Break",
+    "The Office"
+  ],
+  "comments": [
+    [
+      "apaul421",
+      "Ngl your list looks pretty good, but can't comment on wire or sopranos cause I never watched them"
+    ]
+  ],
+  "likes": [
+    "moesVlogs",
+    "apaul421"
+  ],
+  "dislikes": [],
+  "views": [
+    "apaul421",
+    "apaul421",
+    "CapnCook",
+    "based",
+    "based",
+    "apaul421"
+  ],
+  "name": "Shows",
+  "owner": "moesVlogs",
+  "published": {
+    "isPublished": true,
+    "publishedDate": "2021-11-27T07:32:56.223Z"
+  },
+  "createdAt": {
+    "$date": "2021-11-27T07:31:46.236Z"
+  },
+  "updatedAt": {
+    "$date": "2021-11-29T05:32:58.731Z"
+  },
+  "__v": 23
+},{
+  "_id": {
+    "$oid": "61a1dfaa760bad80ca081828"
+  },
+  "items": [
+    "Breaking Bad",
+    "Prison Break",
+    "Money Heist",
+    "Friday Night Lights",
+    "The Office"
+  ],
+  "comments": [
+    [
+      "moesVlogs",
+      "Nah bro, this a L"
+    ],
+    [
+      "moesVlogs",
+      "Friday Night Lights???"
+    ],
+    [
+      "apaul421",
+      "It's my list my opinion, moesVlogs"
+    ],
+    [
+      "apaul421",
+      "oink"
+    ],
+    [
+      "apaul421",
+      "oink"
+    ]
+  ],
+  "likes": [
+    "apaul421"
+  ],
+  "dislikes": [
+    "moesVlogs"
+  ],
+  "views": [
+    "apaul421",
+    "apaul421",
+    "apaul421",
+    "apaul421",
+    "moesVlogs",
+    "apaul421",
+    "apaul421",
+    "apaul421",
+    "apaul421",
+    "apaul421",
+    "apaul421",
+    "apaul421",
+    "based",
+    "based",
+    "based",
+    "CapnCook",
+    "CapnCook",
+    "CapnCook",
+    "CapnCook",
+    "CapnCook",
+    "apaul421",
+    "apaul421",
+    "apaul421",
+    "apaul421",
+    "apaul421"
+  ],
+  "name": "Shows",
+  "owner": "apaul421",
+  "published": {
+    "isPublished": true,
+    "publishedDate": "2021-11-27T07:36:07.514Z"
+  },
+  "createdAt": {
+    "$date": "2021-11-27T07:35:06.551Z"
+  },
+  "updatedAt": {
+    "$date": "2021-11-30T05:54:13.202Z"
+  },
+  "__v": 43
+},{
+  "_id": {
+    "$oid": "61a2c08c760bad80ca081a92"
+  },
+  "items": [
+    "LeBron James",
+    "Michael Jordan",
+    "Stephen Curry",
+    "Magic Johnson",
+    "Kevin Durant"
+  ],
+  "comments": [
+    [
+      "TheMcKillaGorilla",
+      "This is a terriblelist."
+    ],
+    [
+      "TheMcKillaGorilla",
+      "This is a terrible list*"
+    ],
+    [
+      "TheMcKillaGorilla",
+      "Let me show you what a proper list looks like."
+    ],
+    [
+      "apaul421",
+      "Curry 3???? KD 5???? Are you 13?"
+    ],
+    [
+      "CapnCook",
+      "Come on dude no Kobe Bryant? Dude was the shit!"
+    ]
+  ],
+  "likes": [
+    "based",
+    "apaul421"
+  ],
+  "dislikes": [
+    "TheMcKillaGorilla",
+    "CapnCook"
+  ],
+  "views": [
+    "moesVlogs",
+    "TheMcKillaGorilla",
+    "TheMcKillaGorilla",
+    "apaul421",
+    "CapnCook",
+    "CapnCook",
+    "based",
+    "apaul421",
+    "apaul421",
+    "apaul421",
+    "apaul421"
+  ],
+  "name": "Top 5 NBA Players of All Time",
+  "owner": "moesVlogs",
+  "published": {
+    "isPublished": true,
+    "publishedDate": "2021-11-27T23:35:23.857Z"
+  },
+  "createdAt": {
+    "$date": "2021-11-27T23:34:36.118Z"
+  },
+  "updatedAt": {
+    "$date": "2021-11-30T05:54:19.459Z"
+  },
+  "__v": 22
+},{
+  "_id": {
+    "$oid": "61a2c128760bad80ca081ac9"
+  },
+  "items": [
+    "Kareem Abdul Jabbar",
+    "Magic Johnson",
+    "Michael Jordan",
+    "LeBron James",
+    "Bill Russell"
+  ],
+  "comments": [],
+  "likes": [],
+  "dislikes": [
+    "apaul421"
+  ],
+  "views": [],
+  "name": "Top 5 NBA Players of All Time",
+  "owner": "TheMcKillaGorilla",
+  "published": {
+    "isPublished": true,
+    "publishedDate": "2021-11-27T23:38:07.094Z"
+  },
+  "createdAt": {
+    "$date": "2021-11-27T23:37:12.098Z"
+  },
+  "updatedAt": {
+    "$date": "2021-11-30T05:54:46.415Z"
+  },
+  "__v": 5
+},{
+  "_id": {
+    "$oid": "61a2d699760bad80ca081b15"
+  },
+  "items": [
+    "Kareem Abdul Jabbar",
+    "Michael Jordan",
+    "Magic Johnson",
+    "Larry Bird",
+    "Bill Russell"
+  ],
+  "comments": [],
+  "likes": [
+    "apaul421"
+  ],
+  "dislikes": [],
+  "views": [
+    "based",
+    "apaul421",
+    "apaul421"
+  ],
+  "name": "top 5 nba players of all time",
+  "owner": "Heisenberg",
+  "published": {
+    "isPublished": true,
+    "publishedDate": "2021-11-28T01:09:26.774Z"
+  },
+  "createdAt": {
+    "$date": "2021-11-28T01:08:41.992Z"
+  },
+  "updatedAt": {
+    "$date": "2021-11-30T05:03:24.330Z"
+  },
+  "__v": 6
+},{
+  "_id": {
+    "$oid": "61a2d788760bad80ca081b37"
+  },
+  "items": [
+    "Joe Montana",
+    "Tom Brady",
+    "Peyton Manning",
+    "John Elway",
+    "Johnny Unitas"
+  ],
+  "comments": [],
+  "likes": [
+    "apaul421"
+  ],
+  "dislikes": [],
+  "views": [
+    "apaul421",
+    "based",
+    "apaul421",
+    "apaul421"
+  ],
+  "name": "NFL QBs",
+  "owner": "Heisenberg",
+  "published": {
+    "isPublished": true,
+    "publishedDate": "2021-11-28T01:13:42.287Z"
+  },
+  "createdAt": {
+    "$date": "2021-11-28T01:12:40.008Z"
+  },
+  "updatedAt": {
+    "$date": "2021-11-30T05:54:34.487Z"
+  },
+  "__v": 6
+},{
+  "_id": {
+    "$oid": "61a3bb1659cdff273879c36b"
+  },
+  "items": [
+    "?",
+    "?",
+    "?",
+    "?",
+    "?"
+  ],
+  "comments": [],
+  "likes": [],
+  "dislikes": [],
+  "views": [],
+  "name": "New List",
+  "owner": "moesVlogs",
+  "published": {
+    "isPublished": false,
+    "publishedDate": "2021-11-28T17:23:34.402Z"
+  },
+  "createdAt": {
+    "$date": "2021-11-28T17:23:34.430Z"
+  },
+  "updatedAt": {
+    "$date": "2021-11-28T17:23:34.430Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61a3bbb059cdff273879c38d"
+  },
+  "items": [
+    "Patrick Mahomes",
+    "Tom Brady",
+    "Aaron Rodgers",
+    "Peyton Manning",
+    "Russell Wilson"
+  ],
+  "comments": [],
+  "likes": [],
+  "dislikes": [],
+  "views": [
+    "CapnCook",
+    "apaul421",
+    "apaul421",
+    "apaul421"
+  ],
+  "name": "NFL QBs",
+  "owner": "moesVlogs",
+  "published": {
+    "isPublished": true,
+    "publishedDate": "2021-11-28T17:26:55.246Z"
+  },
+  "createdAt": {
+    "$date": "2021-11-28T17:26:08.100Z"
+  },
+  "updatedAt": {
+    "$date": "2021-11-30T04:59:49.722Z"
+  },
+  "__v": 5
+},{
+  "_id": {
+    "$oid": "61a3bc9bbb0a0a283b648751"
+  },
+  "items": [
+    "?",
+    "?",
+    "?",
+    "?",
+    "?"
+  ],
+  "comments": [],
+  "likes": [],
+  "dislikes": [],
+  "views": [],
+  "name": "New List",
+  "owner": "CapnCook",
+  "published": {
+    "isPublished": false,
+    "publishedDate": "2021-11-28T17:30:03.859Z"
+  },
+  "createdAt": {
+    "$date": "2021-11-28T17:30:03.890Z"
+  },
+  "updatedAt": {
+    "$date": "2021-11-28T17:30:03.890Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61a3daf171ddfa2f6e6fa3c8"
+  },
+  "items": [
+    "(10 votes) breaking bad",
+    "(6 votes) prison break",
+    "(4 votes) the wire",
+    "(3 votes) sopranos",
+    "(3 votes) money heist"
+  ],
+  "comments": [
+    [
+      "apaul421",
+      "Plz work"
+    ],
+    [
+      "apaul421",
+      "Oof"
+    ],
+    [
+      "apaul421",
+      "Nice"
+    ]
+  ],
+  "likes": [
+    "apaul421",
+    "CapnCook"
+  ],
+  "dislikes": [],
+  "views": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+  ],
+  "name": "shows",
+  "owner": "community-aggregate",
+  "published": {
+    "isPublished": true,
+    "publishedDate": "2021-11-29T05:27:58.465Z"
+  },
+  "createdAt": {
+    "$date": "2021-11-28T19:39:29.750Z"
+  },
+  "updatedAt": {
+    "$date": "2021-11-29T05:28:01.716Z"
+  },
+  "__v": 27
+},{
+  "_id": {
+    "$oid": "61a3db9d71ddfa2f6e6fa3dd"
+  },
+  "items": [
+    "(11 votes) michael jordan",
+    "(10 votes) kareem abdul jabbar",
+    "(9 votes) magic johnson",
+    "(7 votes) lebron james",
+    "(3 votes) stephen curry"
+  ],
+  "comments": [
+    [
+      "apaul421",
+      "Curry fifth? This list is a joke."
+    ],
+    [
+      "apaul421",
+      "ol"
+    ],
+    [
+      "apaul421",
+      "Lol"
+    ]
+  ],
+  "likes": [
+    "based"
+  ],
+  "dislikes": [],
+  "views": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+  ],
+  "name": "top 5 nba players of all time",
+  "owner": "community-aggregate",
+  "published": {
+    "isPublished": true,
+    "publishedDate": "2021-11-30T05:57:04.141Z"
+  },
+  "createdAt": {
+    "$date": "2021-11-28T19:42:21.187Z"
+  },
+  "updatedAt": {
+    "$date": "2021-11-30T05:57:23.085Z"
+  },
+  "__v": 43
+},{
+  "_id": {
+    "$oid": "61a3dba671ddfa2f6e6fa3e5"
+  },
+  "items": [
+    "(5 votes) vamonos pest",
+    "(4 votes) gus's laundromat",
+    "(3 votes) the rv",
+    "(2 votes) jesse's basement",
+    "(1 votes) n/a"
+  ],
+  "comments": [],
+  "likes": [],
+  "dislikes": [],
+  "views": [
+    "",
+    "",
+    "",
+    ""
+  ],
+  "name": "favorite places to cook meth",
+  "owner": "community-aggregate",
+  "published": {
+    "isPublished": true,
+    "publishedDate": "2021-11-28T20:33:39.471Z"
+  },
+  "createdAt": {
+    "$date": "2021-11-28T19:42:30.553Z"
+  },
+  "updatedAt": {
+    "$date": "2021-11-28T20:33:42.510Z"
+  },
+  "__v": 3
+},{
+  "_id": {
+    "$oid": "61a3dbae71ddfa2f6e6fa3e9"
+  },
+  "items": [
+    "(8 votes) tom brady",
+    "(5 votes) joe montana",
+    "(5 votes) peyton manning",
+    "(5 votes) patrick mahomes",
+    "(3 votes) aaron rodgers"
+  ],
+  "comments": [
+    [
+      "apaul421",
+      "Mahomes may be top 5 when he all done, but not right now."
+    ],
+    [
+      "apaul421",
+      "Not a bad list though."
+    ]
+  ],
+  "likes": [
+    "apaul421",
+    "based"
+  ],
+  "dislikes": [],
+  "views": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+  ],
+  "name": "nfl qbs",
+  "owner": "community-aggregate",
+  "published": {
+    "isPublished": true,
+    "publishedDate": "2021-11-30T05:57:23.192Z"
+  },
+  "createdAt": {
+    "$date": "2021-11-28T19:42:38.217Z"
+  },
+  "updatedAt": {
+    "$date": "2021-11-30T05:57:27.473Z"
+  },
+  "__v": 10
+},{
+  "_id": {
+    "$oid": "61a3e7fd71ddfa2f6e6fa462"
+  },
+  "items": [
+    "(5 votes) derrick henry",
+    "(4 votes) christian mcaffrey",
+    "(3 votes) jonathan taylor",
+    "(2 votes) alvin kamara",
+    "(1 votes) dalvin cook"
+  ],
+  "comments": [],
+  "likes": [],
+  "dislikes": [],
+  "views": [
+    "",
+    ""
+  ],
+  "name": "nfl rbs ",
+  "owner": "community-aggregate",
+  "published": {
+    "isPublished": true,
+    "publishedDate": "2021-11-28T20:36:46.817Z"
+  },
+  "createdAt": {
+    "$date": "2021-11-28T20:35:09.957Z"
+  },
+  "updatedAt": {
+    "$date": "2021-11-28T20:36:50.612Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61a3e83571ddfa2f6e6fa469"
+  },
+  "items": [
+    "Christian Mcaffrey",
+    "Derrick Henry",
+    "Jonathan Taylor",
+    "Dalvin Cook",
+    "Alvin Kamara"
+  ],
+  "comments": [],
+  "likes": [],
+  "dislikes": [],
+  "views": [
+    "apaul421"
+  ],
+  "name": "NFL RBs",
+  "owner": "Heisenberg",
+  "published": {
+    "isPublished": true,
+    "publishedDate": "2021-11-28T20:36:43.998Z"
+  },
+  "createdAt": {
+    "$date": "2021-11-28T20:36:05.976Z"
+  },
+  "updatedAt": {
+    "$date": "2021-11-30T05:55:59.505Z"
+  },
+  "__v": 2
+},{
+  "_id": {
+    "$oid": "61a3e86571ddfa2f6e6fa477"
+  },
+  "items": [
+    "(9 votes) derrick henry",
+    "(7 votes) jonathan taylor",
+    "(5 votes) christian mcaffrey",
+    "(4 votes) dalvin cook",
+    "(3 votes) ezekiel elliot"
+  ],
+  "comments": [
+    [
+      "apaul421",
+      "Pretty good list"
+    ]
+  ],
+  "likes": [
+    "apaul421",
+    "based"
+  ],
+  "dislikes": [],
+  "views": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+  ],
+  "name": "nfl rbs",
+  "owner": "community-aggregate",
+  "published": {
+    "isPublished": true,
+    "publishedDate": "2021-11-30T05:57:02.207Z"
+  },
+  "createdAt": {
+    "$date": "2021-11-28T20:36:53.111Z"
+  },
+  "updatedAt": {
+    "$date": "2021-11-30T05:57:04.028Z"
+  },
+  "__v": 11
+},{
+  "_id": {
+    "$oid": "61a400df71ddfa2f6e6fa644"
+  },
+  "items": [
+    "(5 votes) g?",
+    "(4 votes) a?",
+    "(3 votes) q?",
+    "(2 votes) w?",
+    "(1 votes) e?"
+  ],
+  "comments": [],
+  "likes": [],
+  "dislikes": [],
+  "views": [
+    ""
+  ],
+  "name": "plzzz",
+  "owner": "community-aggregate",
+  "published": {
+    "isPublished": true,
+    "publishedDate": "2021-11-28T22:20:40.919Z"
+  },
+  "createdAt": {
+    "$date": "2021-11-28T22:21:19.673Z"
+  },
+  "updatedAt": {
+    "$date": "2021-11-28T22:21:19.673Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61a41ef971ddfa2f6e6fa6a2"
+  },
+  "items": [
+    "?",
+    "?",
+    "?",
+    "?",
+    "?"
+  ],
+  "comments": [],
+  "likes": [],
+  "dislikes": [],
+  "views": [],
+  "name": "New List",
+  "owner": "CapnCook",
+  "published": {
+    "isPublished": false,
+    "publishedDate": "2021-11-29T00:29:45.528Z"
+  },
+  "createdAt": {
+    "$date": "2021-11-29T00:29:45.546Z"
+  },
+  "updatedAt": {
+    "$date": "2021-11-29T00:29:45.546Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61a5ae3071ddfa2f6e6fa9c8"
+  },
+  "items": [
+    "?",
+    "?",
+    "?",
+    "?",
+    "?"
+  ],
+  "comments": [],
+  "likes": [],
+  "dislikes": [],
+  "views": [],
+  "name": "New List",
+  "owner": "apaul421",
+  "published": {
+    "isPublished": false,
+    "publishedDate": "2021-11-30T04:53:04.440Z"
+  },
+  "createdAt": {
+    "$date": "2021-11-30T04:53:04.472Z"
+  },
+  "updatedAt": {
+    "$date": "2021-11-30T04:53:04.472Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61a5bcfb71ddfa2f6e6faa90"
+  },
+  "items": [
+    "Derrick Henry",
+    "Jonathan Taylor",
+    "Ezekiel Elliot",
+    "Dalvin Cook",
+    "Alvin Kamara"
+  ],
+  "comments": [],
+  "likes": [],
+  "dislikes": [],
+  "views": [],
+  "name": "NFL RBs",
+  "owner": "apaul421",
+  "published": {
+    "isPublished": true,
+    "publishedDate": "2021-11-30T05:57:00.613Z"
+  },
+  "createdAt": {
+    "$date": "2021-11-30T05:56:11.201Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-04T19:16:15.857Z"
+  },
+  "__v": 9
+},{
+  "_id": {
+    "$oid": "61abb41804e450b331d0ee52"
+  },
+  "items": [
+    "?",
+    "?",
+    "?",
+    "?",
+    "?"
+  ],
+  "comments": [],
+  "likes": [],
+  "dislikes": [],
+  "views": [],
+  "name": "New List",
+  "owner": "apaul421",
+  "published": {
+    "isPublished": false,
+    "publishedDate": "2021-12-04T18:31:52.852Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-04T18:31:52.881Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-04T18:31:52.881Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61abb41b04e450b331d0ee5c"
+  },
+  "items": [
+    "?",
+    "?",
+    "?",
+    "?",
+    "?"
+  ],
+  "comments": [],
+  "likes": [],
+  "dislikes": [],
+  "views": [],
+  "name": "New List",
+  "owner": "apaul421",
+  "published": {
+    "isPublished": false,
+    "publishedDate": "2021-12-04T18:31:55.116Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-04T18:31:55.130Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-04T18:31:55.130Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61abb4a704e450b331d0ee66"
+  },
+  "items": [
+    "Walt Frazier",
+    "Willis Reed",
+    "Patrick Ewing",
+    "Earl Monroe",
+    "Carmelo Anthony"
+  ],
+  "comments": [],
+  "likes": [],
+  "dislikes": [],
+  "views": [],
+  "name": "Knicks Players",
+  "owner": "apaul421",
+  "published": {
+    "isPublished": true,
+    "publishedDate": "2021-12-04T18:38:48.318Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-04T18:34:15.961Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-04T18:38:48.346Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61abb5c504e450b331d0ee72"
+  },
+  "items": [
+    "(9 votes) walt frazier",
+    "(8 votes) patrick ewing",
+    "(7 votes) willis reed",
+    "(4 votes) earl monroe",
+    "(1 votes) carmelo anthony"
+  ],
+  "comments": [
+    [
+      "Heisenberg",
+      "Carmelo should not be on this list."
+    ]
+  ],
+  "likes": [],
+  "dislikes": [
+    "Heisenberg"
+  ],
+  "views": [
+    "",
+    ""
+  ],
+  "name": "knicks players",
+  "owner": "community-aggregate",
+  "published": {
+    "isPublished": true,
+    "publishedDate": "2021-12-04T19:18:16.486Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-04T18:39:01.166Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-04T19:18:21.427Z"
+  },
+  "__v": 4
+},{
+  "_id": {
+    "$oid": "61abbe8e04e450b331d0eee6"
+  },
+  "items": [
+    "Patrick Ewing",
+    "Walt Frazier",
+    "Willis Reed",
+    "Earl Monroe",
+    "Bernard King"
+  ],
+  "comments": [],
+  "likes": [],
+  "dislikes": [],
+  "views": [],
+  "name": "Knicks Players",
+  "owner": "Heisenberg",
+  "published": {
+    "isPublished": true,
+    "publishedDate": "2021-12-04T19:17:49.618Z"
+  },
+  "createdAt": {
+    "$date": "2021-12-04T19:16:30.955Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-04T19:17:49.652Z"
+  },
+  "__v": 1
+}]

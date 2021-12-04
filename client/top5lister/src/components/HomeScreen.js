@@ -24,34 +24,57 @@ export default function HomeScreen(){
     //NOTE: Only for HomeScreen, the search field should return results that
     //START WITH the search query
     if (store.searchField !== ""){
-        usersLists = usersLists.filter(list => list.name.startsWith(store.searchField));
+        usersLists = usersLists.filter(list => list.name.toLowerCase().startsWith(store.searchField.toLowerCase()));
     }
 
     /* Filter the user's lists if a sorting option was chosen */
-    if (store && store.sortField !== ""){
+    if (usersLists.length > 0 && store && store.sortField !== ""){
+        const publishedLists = usersLists.filter((list) => list.published.isPublished);
+        const savedLists = usersLists.filter((list) => !list.published.isPublished);
         if (store.sortField === "newest"){
-            usersLists.sort((a,b) => {
+            publishedLists.sort((a,b) => {
                 const dateA = new Date(a.published.publishedDate);
                 const dateB = new Date(b.published.publishedDate);
                 return dateB-dateA;
             });
+            /* Make sure to only sort the published lists, and leave
+            unpublished lists at the bottom */
+            usersLists = [...publishedLists, ...savedLists];
         }
         else if (store.sortField === "oldest"){
-            usersLists.sort((a,b) => {
+            publishedLists.sort((a,b) => {
                 const dateA = new Date(a.published.publishedDate);
                 const dateB = new Date(b.published.publishedDate);
                 return dateA-dateB;
             });
+            /* Make sure to only sort the published lists, and leave
+            unpublished lists at the bottom */
+            usersLists = [...publishedLists, ...savedLists];
         }
         else if (store.sortField === "views"){
-
             usersLists.sort((a,b) => b.views.length-a.views.length);
         }
         else if (store.sortField === "likes"){
             usersLists.sort((a,b) => b.likes.length-a.likes.length);
         }
-        else{
+        else if (store.sortField === "dislikes"){
             usersLists.sort((a,b) => b.dislikes.length-a.dislikes.length);
+        }
+        else if (store.sortField.includes("name")){
+            if (store.sortField.includes("a-z")){
+                usersLists.sort((a,b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+            }
+            else{
+                usersLists.sort((a,b) => b.name.toLowerCase().localeCompare(a.name.toLowerCase()));
+            }
+        }
+        else{
+            if (store.sortField.includes("a-z")){
+                usersLists.sort((a,b) => a.owner.toLowerCase().localeCompare(b.owner.toLowerCase()));
+            }
+            else{
+                usersLists.sort((a,b) => b.owner.toLowerCase().localeCompare(a.owner.toLowerCase()));
+            }
         }
 
     }
