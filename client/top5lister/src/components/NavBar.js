@@ -63,8 +63,11 @@ export default function NavBar(){
         setAnchorEl(null);
     }
     const handleProfileMenuOpen = (event) => {
-        console.log(event.currentTarget);
-        setAnchorEl(event.currentTarget);
+        //Only open the sort menu if the current screen isn't workspace
+        if (location.pathname !== "/edit"){
+            console.log(event.currentTarget);
+            setAnchorEl(event.currentTarget);
+        }
     }
     const handleMenuClose = () => {
         setAnchorEl(null);
@@ -173,14 +176,13 @@ export default function NavBar(){
                         <IconButton
                             size="large"
                             edge="end"
-                            disabled={disabled}
                             aria-label="sort-button"
                             aria-haspopup="true"
                             aria-controls={menuId}
                             onClick={handleProfileMenuOpen}
                         >
                             <SortIcon 
-                            style={{fontSize:"45px", color: "black"}}
+                            style={{fontSize:"45px", color:"black"}}
                             />
                         </IconButton>
                     </Box>
