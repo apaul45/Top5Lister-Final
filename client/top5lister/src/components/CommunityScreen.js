@@ -1,7 +1,6 @@
 /* This screen displays all the community aggregate lists */
 import React, { useContext, useEffect } from 'react'
 import { GlobalStoreContext } from '../store'
-import AuthContext from '../auth'
 import AggregateListCard from './AggregateListCard.js'
 import List from '@mui/material/List';
 require('@gouch/to-title-case');
@@ -17,6 +16,8 @@ export default function CommunityScreen(){
     let namesTable = new Map();
     let aggregateLists = [];
 
+    /* Create the aggregate list by going through all items, and choosing the 5 highest ones 
+    in terms of votes */
     if (store.lists){
         /* For each list, map it to namesTable */
         store.lists.map(list => {

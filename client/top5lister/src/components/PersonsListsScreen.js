@@ -16,10 +16,10 @@ export default function PersonsListsScreen(){
         store.loadLists();
     }, []);
 
-    if (searchedLists.current.length > 0 && store.lists && location.pathname === '/persons-lists'){
+    if (store.lists && location.pathname === '/persons-lists'){
         searchedLists.current = store.lists.filter(list => {
         
-            if(list.owner.toLowerCase() === store.searchField.toLowerCase()){
+            if(store.searchField !== "" && list.owner.toLowerCase() === store.searchField.toLowerCase()){
                 if (auth.user){
                     //Make sure it is case insensitive
                     if (auth.user.username.toLowerCase() === store.searchField.toLowerCase()){

@@ -60,8 +60,7 @@ export default function AllListsScreen(){
     }
 
 
-    /* Filter the user's lists if a sorting option was chosen, and 
-    then set the sort field in store to null */
+    /* Filter the user's lists if a sorting option was chosen */
     if (searchedLists.current.length > 0 && store && store.sortField !== ""){
         const publishedLists = searchedLists.current.filter((list) => list.published.isPublished);
         const savedLists = searchedLists.current.filter((list) => !list.published.isPublished);
