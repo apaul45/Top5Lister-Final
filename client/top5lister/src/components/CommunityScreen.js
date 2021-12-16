@@ -86,52 +86,13 @@ export default function CommunityScreen(){
     //Filter the user's lists if there's something in the search bar
     //NOTE: Only for HomeScreen, the search field should return results that
     //START WITH the search query
-    if (store.searchField !== ""){
-        aggregateLists = aggregateLists.filter(list => list.name.toLowerCase() === store.searchField.toLowerCase());
+    if (store && store.searchField !== ""){
+        aggregateLists = store.filterBySearch(aggregateLists, "aggregate");
     }
 
     /* Filter the aggregate lists if a sorting option was chosen */
     if (aggregateLists.length > 0 && store && store.sortField !== ""){
-        if (store.sortField === "newest"){
-            aggregateLists.sort((a,b) => {
-                const dateA = new Date(a.created);
-                const dateB = new Date(b.created);
-                return dateB-dateA;
-            });
-        }
-        else if (store.sortField === "oldest"){
-            aggregateLists.sort((a,b) => {
-                const dateA = new Date(a.created);
-                const dateB = new Date(b.created);
-                return dateA-dateB;
-            });
-        }
-        else if (store.sortField === "views"){
-            aggregateLists.sort((a,b) => b.views.length-a.views.length);
-        }
-        else if (store.sortField === "likes"){
-            aggregateLists.sort((a,b) => b.likes.length-a.likes.length);
-        }
-        else if (store.sortField === "dislikes"){
-            aggregateLists.sort((a,b) => b.dislikes.length-a.dislikes.length);
-        }
-        else if (store.sortField.includes("name")){
-            if (store.sortField.includes("a-z")){
-                aggregateLists.sort((a,b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
-            }
-            else{
-                aggregateLists.sort((a,b) => b.name.toLowerCase().localeCompare(a.name.toLowerCase()));
-            }
-        }
-        else{
-            if (store.sortField.includes("a-z")){
-                aggregateLists.sort((a,b) => a.owner.toLowerCase().localeCompare(b.owner.toLowerCase()));
-            }
-            else{
-                aggregateLists.sort((a,b) => b.owner.toLowerCase().localeCompare(a.owner.toLowerCase()));
-            }
-        }
-
+       aggregateLists = store.sortList(aggregateLists);
     }
 
     return(

@@ -362,7 +362,116 @@ function GlobalStoreContextProvider(props) {
         });
     }
 
+    //Pass in the list shown in a screen to this function, which will handle sorting and returning the
+    //sorted list
+    store.sortList = function(screenList){
+        const publishedLists = screenList.filter((list) => list.published.isPublished);
+        const savedLists = screenList.filter((list) => !list.published.isPublished);
+        if (store.sortField === "newest"){
+            publishedLists.sort((a,b) => {
+                const dateA = new Date(a.published.publishedDate);
+                const dateB = new Date(b.published.publishedDate);
+                return dateB-dateA;
+            });
+            /* Make sure to only sort the published lists, and leave
+            unpublished lists at the bottom */
+            screenList = [...publishedLists, ...savedLists];
+        }
+        else if (store.sortField === "oldest"){
+            publishedLists.sort((a,b) => {
+                const dateA = new Date(a.published.publishedDate);
+                const dateB = new Date(b.published.publishedDate);
+                return dateA-dateB;
+            });
+            /* Make sure to only sort the published lists, and leave
+            unpublished lists at the bottom */
+            screenList = [...publishedLists, ...savedLists];
+        }
+        else if (store.sortField === "views"){
+            screenList.sort((a,b) => b.views.length-a.views.length);
+        }
+        else if (store.sortField === "likes"){
+            screenList.sort((a,b) => b.likes.length-a.likes.length);
+        }
+        else if (store.sortField === "dislikes"){
+            screenList.sort((a,b) => b.dislikes.length-a.dislikes.length);
+        }
+        else if (store.sortField.includes("name")){
+            if (store.sortField.includes("a-z")){
+                //ake sure to compare the first letter of each name for the A-Z & Z-A sorting options
+                screenList.sort((a,b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+            }
+            else{
+                screenList.sort((a,b) => b.name.toLowerCase().localeCompare(a.name.toLowerCase()));
+            }
+        }
+        else{
+            if (store.sortField.includes("a-z")){
+                screenList.sort((a,b) => a.owner.toLowerCase().localeCompare(b.owner.toLowerCase()));
+            }
+            else{
+                screenList.sort((a,b) => b.owner.toLowerCase().localeCompare(a.owner.toLowerCase()));
+            }
+        }
+        return screenList;
 
+    }
+
+    //Filter the given screen's lists by what's in the search bar:
+    //all have the same filter logi except for aggregate lists
+    store.filterBySearch = function(screenList, screenType){
+        //Filter logic for user lists & all lists screens
+        if (screenType === "user-lists" || screenType === "all-lists"){
+            screenList = store.lists.filter(list => {
+        
+                if(store.searchField !== "" && list.owner.toLowerCase() === store.searchField.toLowerCase()){
+                    if (auth.user){
+                        //Make sure it is case insensitive
+                        if (auth.user.username.toLowerCase() === store.searchField.toLowerCase()){
+                            return list;
+                        }
+                        else{
+                            if (list.published.isPublished){
+                                return list;
+                            }
+                        }
+                    }
+                    else{
+                        if (list.published.isPublished){
+                            return list;
+                        }
+                    }
+                }
+                /* Make sure all published lists are part of what gets shown on this screen
+                (this is so that guests can also view and search for specific things) */
+                else if (store.lists && auth.type){
+                    /* Only allow the user's saved lists to appear: everyone else's lists
+                    that appear on this screen should be published */
+                    screenList.current = store.lists.filter(list => {
+                        if (auth.user && auth.user.username === list.owner){
+                            return list;
+                        }
+                        else{
+                            if (list.owner !== "community-aggregate" && list.published.isPublished){
+                                return list;
+                            }
+                        }
+                    });
+                }
+            });
+        }
+        //Logic for community screen
+        else if (screenType === "aggregate"){
+            screenList = screenList.filter(list => list.name.toLowerCase() 
+                                       === store.searchField.toLowerCase());
+        }
+        //Logic for home screen
+        else{
+            screenList = screenList.filter(list => list.name.toLowerCase()
+                            .startsWith(store.searchField.toLowerCase()));
+        }
+        return screenList;
+    }
     return (
         <GlobalStoreContext.Provider value={{
             store
